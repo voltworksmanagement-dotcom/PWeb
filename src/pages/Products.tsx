@@ -63,6 +63,49 @@ export default function Products() {
     );
   };
 
+  function ProductCard({ product, idx }: { product: any; idx: number }) {
+    const [loaded, setLoaded] = useState(false);
+    const imageSrc = resolveProductImage(product.image) || 'https://placehold.co/400x400/eeeeee/999999?text=VoltWorks';
+
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: idx * 0.1 }}
+        className="bg-white border border-slate-100 p-6 group flex flex-col h-full hover:border-primary transition-all duration-300 relative"
+      >
+        <Link to={`/products/${product.id}`} className="absolute inset-0 z-10" />
+        <div className="relative mb-6 overflow-hidden aspect-square border border-slate-50 bg-slate-100">
+          {!loaded && (
+            <div className="absolute inset-0 bg-slate-200 animate-pulse" />
+          )}
+          <img
+            className={`w-full h-full object-cover transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+            alt={product.name}
+            src={imageSrc}
+            loading="lazy"
+            decoding="async"
+            onLoad={() => setLoaded(true)}
+          />
+          {product.tag && (
+            <div className={`absolute top-2 left-2 ${product.tagColor || 'bg-navy'} text-white px-2 py-1 text-[8px] font-headline font-bold tracking-widest uppercase`}>
+              {product.tag}
+            </div>
+          )}
+        </div>
+        <h4 className="font-headline text-lg text-charcoal mb-2 group-hover:text-primary transition-colors uppercase tracking-tight">
+          {product.name}
+        </h4>
+        <p className="text-slate-500 font-body text-sm mb-6 flex-grow line-clamp-2">
+          {product.description}
+        </p>
+        <button className="w-full bg-navy text-white font-headline text-[10px] font-bold py-3 uppercase tracking-[0.2em] group-hover:bg-primary transition-all relative z-20">
+          View Details
+        </button>
+      </motion.div>
+    );
+  }
+
   const clearFilters = () => {
     setSelectedCategory('All Products');
     setSelectedApplications([]);
@@ -167,36 +210,7 @@ export default function Products() {
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
               {paginatedProducts.map((product, idx) => (
-                <motion.div
-                  key={`${product.id}-${idx}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.1 }}
-                  className="bg-white border border-slate-100 p-6 group flex flex-col h-full hover:border-primary transition-all duration-300 relative"
-                >
-                  <Link to={`/products/${product.id}`} className="absolute inset-0 z-10" />
-                  <div className="relative mb-6 overflow-hidden aspect-square border border-slate-50">
-                    <img
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105"
-                      alt={product.name}
-                      src={resolveProductImage(product.image) || 'https://placehold.co/400x400/eeeeee/999999?text=VoltWorks'}
-                    />
-                    {product.tag && (
-                      <div className={`absolute top-2 left-2 ${product.tagColor || 'bg-navy'} text-white px-2 py-1 text-[8px] font-headline font-bold tracking-widest uppercase`}>
-                        {product.tag}
-                      </div>
-                    )}
-                  </div>
-                  <h4 className="font-headline text-lg text-charcoal mb-2 group-hover:text-primary transition-colors uppercase tracking-tight">
-                    {product.name}
-                  </h4>
-                  <p className="text-slate-500 font-body text-sm mb-6 flex-grow line-clamp-2">
-                    {product.description}
-                  </p>
-                  <button className="w-full bg-navy text-white font-headline text-[10px] font-bold py-3 uppercase tracking-[0.2em] group-hover:bg-primary transition-all relative z-20">
-                    View Details
-                  </button>
-                </motion.div>
+                <ProductCard key={`${product.id}-${idx}`} product={product} idx={idx} />
               ))}
             </div>
           )}
