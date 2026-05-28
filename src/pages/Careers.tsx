@@ -27,189 +27,180 @@ export default function Careers() {
   };
 
   return (
-    <div className="bg-industrial-bg min-h-screen pb-24">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden pt-20 pb-32">
-        <div className="absolute inset-0 grid-schematic opacity-30 pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <motion.div 
-              initial="hidden"
-              animate="visible"
-              variants={staggerContainer}
-              className="max-w-2xl"
-            >
-              <motion.h1 variants={fadeInUp} className="text-5xl md:text-6xl font-headline font-bold text-navy-deep leading-[1.1] mb-6">
-                Do what you <span className="text-primary">💙</span> and help change future of mobility at <span className="text-primary">VoltWorks.</span>
-              </motion.h1>
-              <motion.p variants={fadeInUp} className="text-lg text-slate-600 font-body mb-8 leading-relaxed">
-                Join one of the world's fastest growing automotive tech companies where you can help shape the future of connected mobility for people everywhere. We look forward to meeting you.
-              </motion.p>
-              <motion.div variants={fadeInUp}>
-                <p className="text-sm font-semibold text-slate-800 uppercase tracking-wider mb-4">Find your next role:</p>
-                <button 
-                  onClick={scrollToPositions}
-                  className="bg-navy-deep hover:bg-primary transition-colors duration-300 text-white font-medium px-8 py-4 rounded-xl shadow-lg hover:shadow-xl flex items-center gap-2 group"
-                >
-                  See Open Positions
-                  <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </button>
-              </motion.div>
-            </motion.div>
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4 }}
+      className="bg-white text-slate-900"
+    >
+      <section className="relative overflow-hidden min-h-[520px]">
+        <div className="absolute inset-0">
+          <img
+            className="w-full h-full object-cover"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPP6wc5eD2KEGGbZ4vd3LgMkoifDsPGRVGmSnyzzfeZ83rY-V4Fu8KUjKQJLizjAl_N3H2czmg8fE-PdUXpcoxHkLwp22BdgPNyMUeVGJbhBjY2zX7MoeumC_5tobwm-mBk3EPSdNldPEf_1eQnXp7saIJ5uBu1oMWOTUe9vGroj5-fynmr0meSMrUMIFG5blpsiBS9uSmzFb_fyKmiqvQjExmP03zcgifkWQOctQ_5RiVbnMh7fMqOsXzp_zLIqXMi8jdzYhjM9E"
+            alt="industrial team"
+          />
+          <div className="absolute inset-0 bg-navy-deep/70" />
+        </div>
 
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8 }}
-              className="relative hidden lg:block h-[600px] w-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white"
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-24">
+          <div className="max-w-3xl">
+            <span className="inline-block text-xs uppercase tracking-[0.4em] text-primary mb-4">Precision engineering since 1994</span>
+            <h1 className="font-headline-xl text-5xl md:text-6xl text-white leading-tight mb-6">
+              Build the systems that power tomorrow’s mobility.
+            </h1>
+            <p className="text-lg md:text-xl text-white/85 leading-relaxed mb-6">
+              At VoltWorks, we are revolutionizing the way motors and controllers work in the modern world. Our technology is at the forefront of industrial automation, powered by the expertise of German and Swiss engineers.
+            </p>
+            <p className="text-base md:text-lg text-white/75 leading-relaxed max-w-2xl mb-10">
+              We are a team founded by IIT BHU and IIT Delhi alumni focusing on providing high-performance solutions that drive the future of connected devices. Our advanced platforms offer OEMs a seamless way to transform device data into actionable insights while ensuring safety and security. At VoltWorks, we focus on delivering efficiency, reliability, and robust performance to help you stay ahead in the software-defined mobility era.
+            </p>
+            <button
+              onClick={scrollToPositions}
+              className="inline-flex items-center gap-3 bg-primary text-white px-8 py-4 rounded-2xl font-semibold shadow-2xl shadow-primary/20 hover:bg-primary-light transition duration-300"
             >
-              <img 
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80" 
-                alt="VoltWorks Team" 
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/60 to-transparent"></div>
-            </motion.div>
+              See Open Positions
+              <ChevronRight className="w-5 h-5" />
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Life at VoltWorks Section */}
-      <section className="py-24 bg-white relative">
+      <section className="py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-            className="bg-surface-low rounded-3xl p-8 lg:p-16 border border-outline-v/30 shadow-sm"
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-              <div className="flex flex-col justify-center">
-                <motion.h2 variants={fadeInUp} className="text-4xl font-headline font-bold text-navy-deep mb-6">
-                  Life at VoltWorks
-                </motion.h2>
-                <motion.p variants={fadeInUp} className="text-lg text-slate-600 mb-12 leading-relaxed">
-                  We believe in bringing the best out of people, all we see is to have a passion for it.
-                </motion.p>
-                
-                <motion.h3 variants={fadeInUp} className="text-2xl font-headline font-bold text-navy-deep mb-4">
-                  What drives us?
-                </motion.h3>
-                <motion.p variants={fadeInUp} className="text-lg text-slate-600 leading-relaxed">
-                  Bringing the paradigm shift in connected mobility enabling an AI enabled smart ecosystem.
-                </motion.p>
+          <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] items-start">
+            <div className="space-y-6">
+              <p className="text-sm uppercase tracking-[0.35em] text-primary mb-4">Why VoltWorks</p>
+              <h2 className="text-4xl font-headline font-bold text-navy-deep max-w-xl">
+                Join a team that turns industrial ambition into real-world impact.
+              </h2>
+              <p className="text-lg text-slate-700 leading-relaxed max-w-2xl">
+                Our values aren't just words on a wall; they are the technical specifications for how we conduct business and engineering.
+              </p>
+              <div className="grid gap-6 sm:grid-cols-2">
+                {[
+                  {
+                    title: 'Comprehensive 360° solutions',
+                    description: 'End-to-end delivery from concept and engineering to on-site commissioning — optimizing efficiency, safety, and lifecycle performance.'
+                  },
+                  {
+                    title: 'One team, one vision',
+                    description: 'Cross-disciplinary collaboration focused on practical outcomes — fast iteration, clear ownership, and aligned objectives.'
+                  },
+                  {
+                    title: 'Relentless innovation',
+                    description: 'We pursue practical breakthroughs — improving performance, lowering energy use, and making systems smarter and safer.'
+                  },
+                  {
+                    title: 'Cultivate & share knowledge',
+                    description: 'Open learning and rigorous documentation ensure our teams and partners grow together — faster, safer, and more reliably.'
+                  }
+                ].map((item) => (
+                  <div key={item.title} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-xl transition-shadow duration-300">
+                    <h3 className="font-headline-md text-xl text-navy-deep mb-3">{item.title}</h3>
+                    <p className="text-slate-600 leading-relaxed">{item.description}</p>
+                  </div>
+                ))}
               </div>
-
-              {/* Bento Box Image Grid */}
-              <motion.div variants={fadeInUp} className="grid grid-cols-2 grid-rows-2 gap-4 h-[500px]">
-                <div className="col-span-2 row-span-1 rounded-2xl overflow-hidden shadow-md">
-                  <img src={life1} alt="Life at VoltWorks 1" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
-                </div>
-                <div className="col-span-1 row-span-1 rounded-2xl overflow-hidden shadow-md">
-                  <img src={life2} alt="Life at VoltWorks 2" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
-                </div>
-                <div className="col-span-1 row-span-1 rounded-2xl overflow-hidden shadow-md">
-                  <img src={life3} alt="Life at VoltWorks 3" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Benefits Section */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-            className="text-center mb-16"
-          >
-            <motion.h2 variants={fadeInUp} className="text-4xl font-headline font-bold text-navy-deep">
-              Benefits
-            </motion.h2>
-          </motion.div>
-
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8"
-          >
-            {[
-              { icon: Activity, title: 'Work Life Balance', color: 'bg-emerald-100 text-emerald-600' },
-              { icon: Briefcase, title: 'Career Growth', color: 'bg-blue-100 text-blue-600' },
-              { icon: Heart, title: 'Healthcare', color: 'bg-rose-100 text-rose-600' },
-            ].map((benefit, i) => (
-              <motion.div 
-                key={i}
-                variants={fadeInUp}
-                whileHover={{ y: -8 }}
-                className="bg-white rounded-3xl p-10 text-center shadow-sm border border-outline-v/20 hover:shadow-xl transition-all duration-300"
-              >
-                <div className={`w-20 h-20 mx-auto rounded-2xl flex items-center justify-center ${benefit.color} mb-6 shadow-inner`}>
-                  <benefit.icon className="w-10 h-10" />
-                </div>
-                <h3 className="text-xl font-headline font-bold text-navy-deep">{benefit.title}</h3>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Open Positions Section */}
-      <section ref={openPositionsRef} className="py-24">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-            className="bg-surface-low rounded-3xl p-8 lg:p-12 border border-outline-v/30 shadow-sm"
-          >
-            <div className="mb-10">
-              <motion.h2 variants={fadeInUp} className="text-4xl font-headline font-bold text-navy-deep mb-4">
-                Open Positions
-              </motion.h2>
-              <motion.p variants={fadeInUp} className="text-lg text-slate-600">
-                Help build products that will drive the new era of future automotive
-              </motion.p>
             </div>
 
-            <motion.div variants={fadeInUp} className="space-y-4">
-              <a 
-                href="https://forms.gle/962KMM5jiy5k5nCEA" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="bg-white border border-outline-v/30 rounded-2xl p-6 flex items-center justify-between hover:shadow-md hover:border-primary/40 transition-all duration-300 cursor-pointer group w-full text-left"
-              >
-                <div>
-                  <h4 className="text-xl font-bold font-headline text-navy-deep mb-2 group-hover:text-primary transition-colors">
-                    Senior Power Electronics Engineer
-                  </h4>
-                  <div className="flex items-center text-slate-500 text-sm font-medium">
-                    <MapPin className="w-4 h-4 mr-1.5" />
-                    Greater Noida, India
+            <div className="grid grid-cols-2 gap-4">
+              <div className="col-span-2 flex gap-4">
+                <div className="flex-1 overflow-hidden rounded-[2rem] shadow-lg min-h-[220px]">
+                  <img src={life1} alt="VoltWorks team collaboration" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                </div>
+                <div className="flex-1 grid gap-4">
+                  <div className="overflow-hidden rounded-[2rem] shadow-lg min-h-[108px]">
+                    <img src={life2} alt="VoltWorks workspace" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                  </div>
+                  <div className="overflow-hidden rounded-[2rem] shadow-lg min-h-[108px]">
+                    <img src={life3} alt="VoltWorks technology" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
                   </div>
                 </div>
-                <div className="w-12 h-12 rounded-full border border-outline-v flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors shrink-0">
-                  <ChevronRight className="w-6 h-6" />
-                </div>
-              </a>
-            </motion.div>
-
-            <motion.div variants={fadeInUp} className="mt-12 pt-8 border-t border-outline-v/30 text-center">
-              <p className="text-slate-500 font-medium">
-                Did not find the right opportunity or have any queries, write us at <a href="mailto:hr@voltworks.in" className="text-primary hover:underline font-semibold">hr@voltworks.in</a>
-              </p>
-            </motion.div>
-          </motion.div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
-    </div>
+
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <p className="text-sm uppercase tracking-[0.35em] text-primary mb-4">Benefits</p>
+            <h2 className="text-4xl font-headline font-bold text-navy-deep">
+              Built for the people who build the future.
+            </h2>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-3">
+            {[
+              { icon: Activity, title: 'Work life balance', description: 'Flexible routines, focused collaboration, and support for your wellbeing.' },
+              { icon: Briefcase, title: 'Career growth', description: 'Real ownership, fast learning, and mentorship across engineering and product.' },
+              { icon: Heart, title: 'Healthcare', description: 'Coverage and care that keeps you and your family moving with confidence.' }
+            ].map((benefit) => (
+              <motion.div
+                key={benefit.title}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: '-100px' }}
+                variants={fadeInUp}
+                whileHover={{ y: -8 }}
+                className="rounded-3xl border border-slate-200 bg-slate-50 p-10 text-center shadow-sm hover:shadow-xl transition-all duration-300"
+              >
+                <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-slate-100 text-3xl text-primary">
+                  <benefit.icon className="w-10 h-10" />
+                </div>
+                <h3 className="text-xl font-headline font-semibold text-navy-deep mb-3">{benefit.title}</h3>
+                <p className="text-slate-600 leading-relaxed">{benefit.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section ref={openPositionsRef} className="py-24 bg-slate-50">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8">
+          <div className="rounded-[2rem] border border-slate-200 bg-white p-10 shadow-xl">
+            <div className="mb-10">
+              <h2 className="text-4xl font-headline font-bold text-navy-deep mb-4">Open positions</h2>
+              <p className="text-lg text-slate-700 leading-relaxed">
+                Help build products that will drive the new era of future automotive.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <a
+                href="https://forms.gle/962KMM5jiy5k5nCEA"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col gap-4 rounded-3xl border border-slate-200 bg-slate-50 p-6 transition duration-300 hover:border-primary hover:bg-white hover:shadow-xl"
+              >
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <h3 className="text-2xl font-headline font-semibold text-navy-deep transition-colors group-hover:text-primary">
+                      Senior Power Electronics Engineer
+                    </h3>
+                    <div className="mt-2 flex items-center gap-2 text-sm text-slate-500">
+                      <MapPin className="h-4 w-4" />
+                      Greater Noida, India
+                    </div>
+                  </div>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-300 text-primary transition-colors group-hover:border-primary group-hover:bg-primary group-hover:text-white">
+                    <ChevronRight className="h-5 w-5" />
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <div className="mt-12 pt-8 border-t border-slate-200 text-center">
+              <p className="text-slate-600">
+                Did not find the right opportunity or have questions? Email us at <a href="mailto:hr@voltworks.in" className="text-primary hover:underline font-semibold">hr@voltworks.in</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </motion.main>
   );
 }
