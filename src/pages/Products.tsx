@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Filter, ChevronRight, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import productsData from '../../data/voltworks_products.json';
+import { resolveProductImage } from '../lib/imageUtils';
 
 const products = productsData as any[];
 
@@ -178,7 +179,7 @@ export default function Products() {
                     <img
                       className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105"
                       alt={product.name}
-                      src={product.image || 'https://placehold.co/400x400/eeeeee/999999?text=VoltWorks'}
+                      src={resolveProductImage(product.image) || 'https://placehold.co/400x400/eeeeee/999999?text=VoltWorks'}
                     />
                     {product.tag && (
                       <div className={`absolute top-2 left-2 ${product.tagColor || 'bg-navy'} text-white px-2 py-1 text-[8px] font-headline font-bold tracking-widest uppercase`}>

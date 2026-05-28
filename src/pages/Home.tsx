@@ -200,7 +200,7 @@ export default function Home() {
               Schedule Consultation
             </Link>
             <a href={techBrochure} download="Voltworks_Technical_Brochure.pdf" className="border border-slate-700 text-white font-headline text-xs font-bold px-10 py-5 hover:bg-slate-800 transition-all uppercase tracking-widest inline-block text-center">
-              Download Technical Catalog
+              Download Technical Brochure
             </a>
           </div>
         </motion.div>
