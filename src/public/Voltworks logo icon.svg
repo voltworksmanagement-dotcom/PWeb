@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="159.808 804.976 460 285.994" stroke-miterlimit="10" clip-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" data-type="ugc">
+  <defs>
+    <linearGradient id="icon-grad-1" x1="568.224" x2="1341.16" y1="945.184" y2="945.184" gradientUnits="userSpaceOnUse" gradientTransform="translate(69.43 676.109) scale(.28842)">
+      <stop stop-color="#01bbf7" offset=".262"/>
+      <stop stop-color="#006fed" offset="1"/>
+    </linearGradient>
+    <linearGradient id="icon-grad-2" x1="1121.32" x2="1895.78" y1="945.867" y2="945.867" gradientUnits="userSpaceOnUse" gradientTransform="translate(69.43 676.109) scale(.28842)">
+      <stop stop-color="#02344e" offset="0"/>
+      <stop stop-color="#006fed" offset=".85"/>
+    </linearGradient>
+    <linearGradient id="icon-grad-3" x1="325.36" x2="662.014" y1="615.138" y2="615.138" gradientUnits="userSpaceOnUse" gradientTransform="translate(65.969 676.109) scale(.28842)">
+      <stop stop-color="#01bbf7" offset="0"/>
+      <stop stop-color="#006fed" offset="1"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#icon-grad-1)" d="m339.072 807.352 117.17-.484-163.24 283.692-59.687-102.748 105.757-180.46Z"/>
+  <path fill="url(#icon-grad-2)" d="m498.055 806.852 118.148.752-164.094 283.366-59.271-102.556 105.217-181.562Z"/>
+  <path fill="url(#icon-grad-3)" d="M159.808 853.524c0-26.812 21.736-48.548 48.548-48.548s48.548 21.736 48.548 48.548c0 26.813-21.736 48.548-48.548 48.548s-48.548-21.735-48.548-48.548Z"/>
+</svg>

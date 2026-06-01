@@ -27,7 +27,7 @@ export default function About() {
 
         <div className="relative z-10 max-w-screen-2xl mx-auto px-4 sm:px-6 md:px-16 w-full">
           <div className="max-w-3xl text-white py-10 md:py-12">
-            <span className="font-label-caps text-label-caps text-primary mb-4 block">PRECISION ENGINEERING SINCE 1994</span>
+            <span className="font-label-caps text-label-caps text-primary mb-4 block">PRECISION ENGINEERING SINCE 2023</span>
             <h1 className="font-headline-xl text-white mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[3.5rem] leading-tight font-bold">ELECTRIFYING INNOVATION</h1>
             <p className="font-body-lg text-body-lg text-white/90 leading-relaxed">
               At VoltWorks, we are revolutionizing the way motors and controllers work in the modern world. Our technology is at the forefront of industrial automation, powered by the expertise of German and Swiss engineers.

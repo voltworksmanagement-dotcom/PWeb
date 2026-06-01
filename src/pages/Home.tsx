@@ -158,9 +158,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
             <div className="bg-white p-12 border border-outline-v/30 flex flex-col justify-between aspect-square md:aspect-auto">
-              <span className="text-5xl md:text-6xl font-headline text-primary">30+</span>
+              <span className="text-5xl md:text-6xl font-headline text-primary">5</span>
               <p className="font-headline text-[10px] font-bold mt-8 tracking-widest uppercase text-slate-500">
-                YEARS OF INNOVATION
+                YEARS OF EXPERIENCE
               </p>
             </div>
             <div className="bg-navy text-white p-12 col-span-1 md:col-span-2 flex flex-col justify-between">
@@ -172,9 +172,9 @@ export default function Home() {
               </p>
             </div>
             <div className="bg-white p-12 border border-outline-v/30 flex flex-col justify-between aspect-square md:aspect-auto">
-              <span className="text-5xl md:text-6xl font-headline text-primary">500+</span>
+              <span className="text-5xl md:text-6xl font-headline text-primary">10,000+</span>
               <p className="font-headline text-[10px] font-bold mt-8 tracking-widest uppercase text-slate-500">
-                GLOBAL INSTALLATIONS
+                VEHICLES ELECTRIFIED
               </p>
             </div>
           </div>
