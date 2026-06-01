@@ -13,11 +13,12 @@ import p1 from '../public/image.png';
 import p2 from '../public/image (1).png';
 import p3 from '../public/image (2).png';
 import p4 from '../public/image (3).png';
-import p5 from '../public/image (4).png';
-import p6 from '../public/image (5).png';
-import p7 from '../public/image (6).png';
+import supertech from '../public/Supertech.webp';
+import p6 from '../public/image (6).png';
+import urbacab from '../public/urbancab.png';
+import panther from '../public/panther.png';
 
-// I'll create a simple icon mapper or just use the icons directly
+// Partner logos: Supertech, Urbacab, Panther replace older customer logos
 
 export default function Home() {
   return (
@@ -114,9 +115,9 @@ export default function Home() {
           <img src={p2} alt="Partner 3" className="h-8 md:h-10 lg:h-12 object-contain mix-blend-multiply" />
           <img src={p3} alt="Partner 4" className="h-10 md:h-12 lg:h-14 object-contain mix-blend-multiply md:scale-110 lg:scale-165" />
           <img src={p4} alt="Partner 5" className="h-8 md:h-10 lg:h-12 object-contain mix-blend-multiply" />
-          <img src={p5} alt="Partner 6" className="h-8 md:h-10 lg:h-12 object-contain mix-blend-multiply" />
-          <img src={p6} alt="Partner 7" className="h-10 md:h-12 lg:h-14 object-contain mix-blend-multiply md:scale-110 lg:scale-215" />
-          <img src={p7} alt="Partner 8" className="h-8 md:h-10 lg:h-12 object-contain mix-blend-multiply" />
+          <img src={supertech} alt="Supertech" className="h-8 md:h-10 lg:h-14 object-contain mix-blend-multiply" />
+          <img src={p6} alt="Urbacab" className="h-10 md:h-12 lg:h-8 object-contain mix-blend-multiply md:scale-110 lg:scale-215" />
+          <img src={panther} alt="Panther" className="h-8 md:h-10 lg:h-18 object-contain mix-blend-multiply" />
         </div>
       </section>
 

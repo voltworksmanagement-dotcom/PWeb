@@ -1,18 +1,19 @@
 ﻿import { Link } from 'react-router-dom';
 import { Linkedin, Twitter } from 'lucide-react';
-import logo from '../public/Voltworks logo horizontal.svg';
+import logoIcon from '../public/Voltworks logo icon.svg';
 
 export default function Footer() {
   return (
     <footer className="bg-white border-t border-slate-200 pt-16 pb-8">
       <div className="max-w-6xl mx-auto px-6 md:px-16 w-full">
         <div className="mb-12">
-          <Link to="/">
+          <Link to="/" className="flex items-center gap-3">
             <img
-              src={logo}
-              alt="Voltworks Logo"
-              className="h-8 md:h-10 w-auto object-contain"
+              src={logoIcon}
+              alt="Voltworks logo"
+              className="h-8 w-auto object-contain"
             />
+            <span className="logo-text text-2xl font-bold">VOLTWORKS</span>
           </Link>
         </div>
 
