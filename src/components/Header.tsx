@@ -2,7 +2,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
-import logo from '../public/Voltworks logo horizontal.svg';
+import logoIcon from '../public/Voltworks logo icon.svg';
 
 export default function Header() {
   const location = useLocation();
@@ -20,13 +20,14 @@ export default function Header() {
   return (
     <header className="bg-white sticky top-0 z-50 border-b border-slate-200 w-full overflow-hidden">
       <div className="flex justify-between items-center w-full px-4 sm:px-6 md:px-16 py-4 max-w-7xl mx-auto">
-        <div className="text-2xl font-black tracking-tighter shrink-0">
-          <Link to="/" className="block">
+        <div className="flex items-center gap-3 shrink-0">
+          <Link to="/" className="flex items-center gap-3">
             <img
-              alt="Voltworks Logo"
-              className="h-5 md:h-6 lg:h-8 w-auto object-contain"
-              src={logo}
+              alt="Voltworks logo"
+              className="h-8 w-auto object-contain"
+              src={logoIcon}
             />
+            <span className="logo-text text-2xl font-bold">VOLTWORKS</span>
           </Link>
         </div>
 

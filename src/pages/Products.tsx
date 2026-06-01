@@ -115,9 +115,9 @@ export default function Products() {
     <main className="max-w-7xl mx-auto px-6 md:px-16 py-12 min-h-screen">
       {/* Page Header */}
       <div className="mb-12">
-        <h1 className="font-headline text-3xl md:text-5xl text-charcoal mb-2 uppercase">Industrial Solutions</h1>
+        <h1 className="font-headline text-3xl md:text-5xl text-charcoal mb-2 uppercase">EV Solutions</h1>
         <p className="font-body text-base md:text-lg text-slate-500 max-w-2xl">
-          Precision-engineered electrical components designed for maximum durability in high-demand industrial environments.
+          Precision-engineered electric vehicle mobility components designed for maximum durability under worst climate and circumstances.
         </p>
       </div>
 
