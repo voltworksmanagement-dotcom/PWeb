@@ -49,7 +49,7 @@ export default function Contact() {
                     <Mail size={18} />
                   </div>
                   <a href="mailto:toufiq.hussain@voltworks.in" className="text-[15px] font-sans text-[#333333] hover:text-[#0066cc] transition-colors">
-                    toufiq.hussain@voltworks.in
+                    info@voltworks.in
                   </a>
                 </div>
               </div>
