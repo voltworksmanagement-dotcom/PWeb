@@ -1,4 +1,4 @@
-﻿import { Phone, Mail, Loader2 } from 'lucide-react';
+﻿import { Phone, Mail } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Contact() {
@@ -11,27 +11,6 @@ export default function Contact() {
     subject: '',
     message: ''
   });
-  
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setFormData({
-        firstName: '',
-        lastName: '',
-        company: '',
-        phone: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
-      alert('Demo request submitted successfully!');
-    }, 1500);
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -69,8 +48,8 @@ export default function Contact() {
                   <div className="w-10 h-10 rounded-full bg-[#0066cc] flex items-center justify-center text-white shrink-0">
                     <Mail size={18} />
                   </div>
-                  <a href="mailto:info@voltworks.in" className="text-[15px] font-sans text-[#333333] hover:text-[#0066cc] transition-colors">
-                    info@voltworks.in
+                  <a href="mailto:toufiq.hussain@voltworks.in" className="text-[15px] font-sans text-[#333333] hover:text-[#0066cc] transition-colors">
+                    toufiq.hussain@voltworks.in
                   </a>
                 </div>
               </div>
@@ -109,7 +88,10 @@ export default function Contact() {
               <div className="h-1.5 w-16 bg-[#0066cc]"></div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6 pt-2 font-sans text-[15px]">
+            <form action="https://formsubmit.co/toufiq.hussain@voltworks.in" method="POST" className="space-y-6 pt-2 font-sans text-[15px]">
+              <input type="hidden" name="_subject" value="VoltWorks contact form submission" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_template" value="table" />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-x-12 sm:gap-y-8">
                 {/* First Name */}
                 <div className="space-y-2">
@@ -223,15 +205,9 @@ export default function Contact() {
 
               {/* Loader and Submit Box */}
               <div className="flex flex-col items-center sm:items-start gap-4 pt-6 pb-2">
-                <div className="flex justify-center w-full sm:w-[130px] mb-2 sm:mb-0 h-6">
-                  {isSubmitting && (
-                    <Loader2 className="animate-spin text-[#0066cc]" size={24} />
-                  )}
-                </div>
-                <button
+                  <button
                   type="submit"
-                  disabled={isSubmitting}
-                  className="bg-gradient-to-b from-[#4a5568] to-[#2d3748] text-white px-10 py-3 rounded-md hover:from-[#3a4454] hover:to-[#1a202c] transition-all font-medium min-w-[130px] w-full sm:w-auto disabled:opacity-70 flex items-center justify-center gap-2"
+                  className="bg-gradient-to-b from-[#4a5568] to-[#2d3748] text-white px-10 py-3 rounded-md hover:from-[#3a4454] hover:to-[#1a202c] transition-all font-medium min-w-[130px] w-full sm:w-auto flex items-center justify-center gap-2"
                 >
                   Submit
                 </button>
