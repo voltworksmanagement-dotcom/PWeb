@@ -15,6 +15,7 @@ import Blogs from './pages/Blogs';
 import BlogDetail from './pages/BlogDetail';
 import Careers from './pages/Careers';
 import Contact from './pages/Contact';
+import GrievanceRedressal from './pages/GrievanceRedressal';
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -124,6 +125,19 @@ function AnimatedRoutes() {
                 transition={{ duration: 0.4 }}
               >
                 <Contact />
+              </motion.div>
+            }
+          />
+          <Route
+            path="/grievance-redressal"
+            element={
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4 }}
+              >
+                <GrievanceRedressal />
               </motion.div>
             }
           />

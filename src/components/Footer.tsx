@@ -60,6 +60,11 @@ export default function Footer() {
                   Careers
                 </Link>
               </li>
+              <li>
+                <Link to="/grievance-redressal" className="hover:text-primary transition-colors">
+                  Grievance Redressal
+                </Link>
+              </li>
             </ul>
           </div>
 
