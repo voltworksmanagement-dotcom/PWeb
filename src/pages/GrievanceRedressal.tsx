@@ -41,7 +41,7 @@ export default function GrievanceRedressal() {
               {/* Name */}
               <div className="space-y-4">
                 <h3 className="text-[18px] font-bold text-[#333333]">Name</h3>
-                <p className="text-[15px] text-[#555555] font-sans">Himanshu Sahu</p>
+                <p className="text-[15px] text-[#555555] font-sans">Himanshu Sahu, <i>CEO</i></p>
               </div>
 
               {/* Contact Details */}
