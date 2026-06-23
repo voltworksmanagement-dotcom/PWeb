@@ -195,7 +195,7 @@ export default function Products() {
                   <p className="text-slate-500 font-body text-xs md:text-sm mb-4 md:mb-6 flex-grow line-clamp-2">
                     {product.description}
                   </p>
-                  <button className="w-full bg-navy text-white font-headline text-[10px] font-bold py-3 uppercase tracking-[0.2em] group-hover:bg-primary transition-all relative z-20">
+                  <button className="w-full bg-navy text-white font-headline text-[10px] font-bold py-3 uppercase tracking-[0.2em] group-hover:bg-primary transition-all relative z-20 pointer-events-none">
                     View Details
                   </button>
                 </motion.div>

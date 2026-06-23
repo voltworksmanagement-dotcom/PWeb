@@ -159,7 +159,7 @@ export default function Home() {
             Enabling Smart &amp;{' '}
             <span className="relative inline-block">
               <span className="text-transparent bg-clip-text"
-                style={{ backgroundImage: 'linear-gradient(90deg, #60a5fa, #818cf8, #a78bfa)' }}>
+                style={{ backgroundImage: 'linear-gradient(90deg, #60a5fa, #1d67cd)' }}>
                 Connected
               </span>
             </span>{' '}
@@ -188,14 +188,14 @@ export default function Home() {
               to="/contact"
               className="group relative flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 text-[10px] md:text-xs font-bold uppercase tracking-widest text-white rounded-full overflow-hidden transition-all duration-300"
               style={{
-                background: 'linear-gradient(135deg, #1d4ed8, #4f46e5)',
-                boxShadow: '0 0 24px rgba(79,70,229,0.4), 0 4px 16px rgba(0,0,0,0.3)',
+                background: 'linear-gradient(135deg, #004fa8, #1d67cd)',
+                boxShadow: '0 0 24px rgba(0,79,168,0.4), 0 4px 16px rgba(0,0,0,0.3)',
               }}
             >
               <span className="relative z-10">Get a Demo</span>
               <span className="relative z-10 transition-transform duration-200 group-hover:translate-x-1">→</span>
               <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ background: 'linear-gradient(135deg, #2563eb, #6366f1)' }} />
+                style={{ background: 'linear-gradient(135deg, #1d67cd, #3b82f6)' }} />
             </Link>
             <Link
               to="/products"
@@ -276,7 +276,7 @@ export default function Home() {
           >
             <span className="inline-block text-xs font-bold tracking-[0.3em] uppercase text-blue-400 mb-4">Our Journey</span>
             <h2 className="font-headline text-3xl sm:text-4xl md:text-5xl text-white font-bold leading-tight">
-              Milestones That <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Define Us</span>
+              Milestones That <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(90deg, #60a5fa, #1d67cd)' }}>Define Us</span>
             </h2>
             <p className="mt-4 text-slate-400 max-w-xl mx-auto text-sm md:text-base leading-relaxed">
               From a bold idea to a global powertrain leader — every step has been engineered with purpose.
