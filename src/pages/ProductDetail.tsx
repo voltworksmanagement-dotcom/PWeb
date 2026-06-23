@@ -2,7 +2,6 @@ import { motion } from 'motion/react';
 import { ChevronRight, ZoomIn, Box } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import productsData from '../../data/voltworks_products.json';
-import { resolveProductImage } from '../lib/imageUtils';
 
 const products = productsData as any[];
 
@@ -21,26 +20,18 @@ export default function ProductDetail() {
     );
   }
 
-  // Build gallery only from provided image URLs (no filler placeholders)
-  const providedGallery = (productData.gallery as string[] | undefined) ?? [];
-  const resolvedGallery = providedGallery
-    .map((g) => resolveProductImage(g))
-    .filter(Boolean);
-
-  // If no explicit gallery provided, use the main image (if any)
-  if (resolvedGallery.length === 0 && productData.image) {
-    const single = resolveProductImage(productData.image);
-    if (single) resolvedGallery.push(single);
-  }
-
   const product = {
     name: productData.name,
     series: productData.tag || productData.category || 'VoltWorks Product',
     description: productData.description,
     tags: [productData.category, ...(productData.applications || [])].filter(Boolean),
-    // mainImage: first provided image or placeholder
-    mainImage: resolvedGallery[0] || 'https://placehold.co/800x800/eeeeee/999999?text=VoltWorks',
-    gallery: resolvedGallery,
+    mainImage: productData.image || 'https://placehold.co/800x800/eeeeee/999999?text=VoltWorks',
+    gallery: [
+      productData.image || 'https://placehold.co/400x400/eeeeee/999999?text=VoltWorks',
+      'https://placehold.co/400x400/dddddd/999999?text=Detail+1',
+      'https://placehold.co/400x400/cccccc/999999?text=Detail+2',
+      'https://placehold.co/400x400/bbbbbb/999999?text=Detail+3',
+    ],
     specs: productData.specs || [],
     features: [
       'Advanced thermal management with integrated sensors.',

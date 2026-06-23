@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
@@ -27,7 +27,7 @@ export default function Header() {
               className="h-8 w-auto object-contain"
               src={logoIcon}
             />
-            <span className="logo-text text-2xl font-bold">VOLTWORKS</span>
+            <span className="logo-text text-2xl font-bold">VoltWorks</span>
           </Link>
         </div>
 
@@ -54,7 +54,6 @@ export default function Header() {
           <button 
             className="md:hidden text-slate-900 focus:outline-none" 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
