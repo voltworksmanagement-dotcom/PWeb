@@ -477,26 +477,26 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-industrial-bg py-16 px-4 sm:px-6 md:px-16 overflow-hidden">
+      <section className="bg-industrial-bg py-8 md:py-16 px-4 sm:px-6 md:px-16 overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
-            <div className="bg-white p-12 border border-outline-v/30 flex flex-col justify-between aspect-square md:aspect-auto">
-              <span className="text-5xl md:text-6xl font-headline text-primary">5</span>
-              <p className="font-headline text-[10px] font-bold mt-8 tracking-widest uppercase text-slate-500">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-8">
+            <div className="bg-white p-6 md:p-8 border border-outline-v/30 flex flex-col justify-between aspect-auto">
+              <span className="text-4xl md:text-5xl font-headline text-primary">5</span>
+              <p className="font-headline text-[10px] font-bold mt-6 tracking-widest uppercase text-slate-500">
                 YEARS OF EXPERIENCE
               </p>
             </div>
-            <div className="bg-navy text-white p-12 col-span-1 md:col-span-2 flex flex-col justify-between">
-              <p className="font-body text-lg md:text-xl opacity-80 italic leading-relaxed">
+            <div className="bg-navy text-white p-6 md:p-8 col-span-1 md:col-span-2 flex flex-col justify-between">
+              <p className="font-body text-base md:text-lg opacity-80 italic leading-relaxed">
                 "Precision is not just a standard; it's our foundational philosophy. At Voltworks, every component is a testament to our commitment to industrial excellence."
               </p>
-              <p className="font-headline text-[10px] font-bold mt-8 text-primary tracking-widest uppercase">
+              <p className="font-headline text-[10px] font-bold mt-6 text-primary tracking-widest uppercase">
                 CHIEF TECHNICAL OFFICER
               </p>
             </div>
-            <div className="bg-white p-12 border border-outline-v/30 flex flex-col justify-between aspect-square md:aspect-auto">
-              <span className="text-5xl md:text-6xl font-headline text-primary">10,000+</span>
-              <p className="font-headline text-[10px] font-bold mt-8 tracking-widest uppercase text-slate-500">
+            <div className="bg-white p-6 md:p-8 border border-outline-v/30 flex flex-col justify-between aspect-auto">
+              <span className="text-4xl md:text-5xl font-headline text-primary">10,000+</span>
+              <p className="font-headline text-[10px] font-bold mt-6 tracking-widest uppercase text-slate-500">
                 VEHICLES ELECTRIFIED
               </p>
             </div>

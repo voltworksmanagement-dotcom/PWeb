@@ -34,7 +34,7 @@ export default function Careers() {
       transition={{ duration: 0.4 }}
       className="bg-white text-slate-900"
     >
-      <section className="relative overflow-hidden min-h-[380px]">
+      <section className="relative overflow-hidden">
         <div className="absolute inset-0">
           <img
             className="w-full h-full object-cover"
@@ -44,16 +44,16 @@ export default function Careers() {
           <div className="absolute inset-0 bg-navy-deep/70" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-14">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-10">
           <div className="max-w-3xl">
-            <span className="inline-block text-xs uppercase tracking-[0.4em] text-primary mb-4">Precision engineering since 2023</span>
-            <h1 className="font-headline-xl text-5xl md:text-6xl text-white leading-tight mb-6">
+            <span className="inline-block text-[10px] md:text-xs uppercase tracking-[0.4em] text-primary mb-4">Precision engineering since 2023</span>
+            <h1 className="font-headline-xl text-4xl md:text-5xl text-white leading-tight mb-4">
               Build the systems that power tomorrow's mobility.
             </h1>
-            <p className="text-lg md:text-xl text-white/85 leading-relaxed mb-6">
+            <p className="text-base md:text-lg text-white/85 leading-relaxed mb-4">
               At VoltWorks, we are revolutionizing the way motors and controllers work in the modern world. Our technology is at the forefront of industrial automation, powered by the expertise of German and Swiss engineers.
             </p>
-            <p className="text-base md:text-lg text-white/75 leading-relaxed max-w-2xl mb-10">
+            <p className="text-sm md:text-base text-white/75 leading-relaxed max-w-2xl mb-8">
               We are a team founded by IIT BHU and IIT Delhi alumni focusing on providing high-performance solutions that drive the future of connected devices. Our advanced platforms offer OEMs a seamless way to transform device data into actionable insights while ensuring safety and security. At VoltWorks, we focus on delivering efficiency, reliability, and robust performance to help you stay ahead in the software-defined mobility era.
             </p>
             <button
@@ -105,16 +105,16 @@ export default function Careers() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="col-span-2 flex gap-4">
-                <div className="flex-1 overflow-hidden rounded-[2rem] shadow-lg min-h-[220px]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="col-span-1 sm:col-span-2 flex flex-col sm:flex-row gap-4">
+                <div className="flex-1 overflow-hidden rounded-[1.5rem] md:rounded-[2rem] shadow-lg min-h-[160px] md:min-h-[220px]">
                   <img src={life1} alt="VoltWorks team collaboration" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
                 </div>
-                <div className="flex-1 grid gap-4">
-                  <div className="overflow-hidden rounded-[2rem] shadow-lg min-h-[108px]">
+                <div className="flex-1 grid grid-cols-2 sm:grid-cols-1 gap-4">
+                  <div className="overflow-hidden rounded-[1.5rem] md:rounded-[2rem] shadow-lg min-h-[100px] md:min-h-[108px]">
                     <img src={life2} alt="VoltWorks workspace" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
                   </div>
-                  <div className="overflow-hidden rounded-[2rem] shadow-lg min-h-[108px]">
+                  <div className="overflow-hidden rounded-[1.5rem] md:rounded-[2rem] shadow-lg min-h-[100px] md:min-h-[108px]">
                     <img src={life3} alt="VoltWorks technology" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
                   </div>
                 </div>
@@ -146,7 +146,7 @@ export default function Careers() {
                 viewport={{ once: true, margin: '-100px' }}
                 variants={fadeInUp}
                 whileHover={{ y: -8 }}
-                className="rounded-3xl border border-slate-200 bg-slate-50 p-10 text-center shadow-sm hover:shadow-xl transition-all duration-300"
+                className="rounded-3xl border border-slate-200 bg-slate-50 p-8 md:p-10 text-center shadow-sm hover:shadow-xl transition-all duration-300"
               >
                 <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-slate-100 text-3xl text-primary">
                   <benefit.icon className="w-10 h-10" />
@@ -161,10 +161,10 @@ export default function Careers() {
 
       <section ref={openPositionsRef} className="py-24 bg-slate-50">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-10 shadow-xl">
-            <div className="mb-10">
-              <h2 className="text-4xl font-headline font-bold text-navy-deep mb-4">Open positions</h2>
-              <p className="text-lg text-slate-700 leading-relaxed">
+          <div className="rounded-[1.5rem] md:rounded-[2rem] border border-slate-200 bg-white p-6 md:p-10 shadow-xl">
+            <div className="mb-8 md:mb-10">
+              <h2 className="text-3xl md:text-4xl font-headline font-bold text-navy-deep mb-4">Open positions</h2>
+              <p className="text-base md:text-lg text-slate-700 leading-relaxed">
                 Help build products that will drive the new era of future automotive.
               </p>
             </div>
