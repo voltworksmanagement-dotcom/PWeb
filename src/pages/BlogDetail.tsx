@@ -21,11 +21,12 @@ export default function BlogDetail() {
           url: shareUrl,
         });
       } catch (err) {
-        console.error("Error sharing", err);
+        // Fallback or ignore if share fails
       }
     } else {
       navigator.clipboard.writeText(shareUrl);
-      alert("Link copied to clipboard!");
+      // Removed intrusive alert, copying silently is standard practice 
+      // or we can add a toast notification system later.
     }
   };
 
