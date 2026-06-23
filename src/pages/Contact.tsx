@@ -1,4 +1,4 @@
-﻿import { Phone, Mail } from 'lucide-react';
+import { Phone, Mail } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Contact() {
@@ -48,7 +48,7 @@ export default function Contact() {
                   <div className="w-10 h-10 rounded-full bg-[#0066cc] flex items-center justify-center text-white shrink-0">
                     <Mail size={18} />
                   </div>
-                  <a href="mailto:toufiq.hussain@voltworks.in" className="text-[15px] font-sans text-[#333333] hover:text-[#0066cc] transition-colors">
+                  <a href="mailto:info@voltworks.in" className="text-[15px] font-sans text-[#333333] hover:text-[#0066cc] transition-colors">
                     info@voltworks.in
                   </a>
                 </div>

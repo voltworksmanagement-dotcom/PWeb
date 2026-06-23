@@ -13,9 +13,12 @@ import p1 from '../public/image.png';
 import p2 from '../public/image (1).png';
 import p3 from '../public/image (2).png';
 import p4 from '../public/image (3).png';
-import p5 from '../public/image (4).png';
-import p6 from '../public/image (5).png';
-import p7 from '../public/image (6).png';
+import supertech from '../public/Supertech.webp';
+import p6 from '../public/image (6).png';
+import urbacab from '../public/urbancab.png';
+import panther from '../public/panther.png';
+
+// Partner logos: Supertech, Urbacab, Panther replace older customer logos
 
 const milestones = [
   {
@@ -216,9 +219,9 @@ export default function Home() {
             className="flex flex-wrap gap-4"
           >
             {[
-              { value: '30+', label: 'Years of Innovation' },
+              { value: '5+', label: 'Years of Experience' },
               { value: '500+', label: 'Global Deployments' },
-              { value: '12+', label: 'Countries' },
+              { value: '10K+', label: 'Vehicles Electrified' },
               { value: 'OTA', label: 'Real-Time Updates' },
             ].map((stat, i) => (
               <div
@@ -434,9 +437,9 @@ export default function Home() {
           <img src={p2} alt="Partner 3" className="h-8 md:h-10 lg:h-12 object-contain mix-blend-multiply" />
           <img src={p3} alt="Partner 4" className="h-10 md:h-12 lg:h-14 object-contain mix-blend-multiply md:scale-110 lg:scale-165" />
           <img src={p4} alt="Partner 5" className="h-8 md:h-10 lg:h-12 object-contain mix-blend-multiply" />
-          <img src={p5} alt="Partner 6" className="h-8 md:h-10 lg:h-12 object-contain mix-blend-multiply" />
-          <img src={p6} alt="Partner 7" className="h-10 md:h-12 lg:h-14 object-contain mix-blend-multiply md:scale-110 lg:scale-215" />
-          <img src={p7} alt="Partner 8" className="h-8 md:h-10 lg:h-12 object-contain mix-blend-multiply" />
+          <img src={supertech} alt="Supertech" className="h-8 md:h-10 lg:h-14 object-contain mix-blend-multiply" />
+          <img src={p6} alt="Urbacab" className="h-10 md:h-12 lg:h-8 object-contain mix-blend-multiply md:scale-110 lg:scale-215" />
+          <img src={panther} alt="Panther" className="h-8 md:h-10 lg:h-18 object-contain mix-blend-multiply" />
         </div>
       </section>
 
@@ -474,27 +477,27 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-industrial-bg py-8 md:py-16 px-4 sm:px-6 md:px-16 overflow-hidden">
+      <section className="bg-industrial-bg py-16 px-4 sm:px-6 md:px-16 overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
-            <div className="bg-white p-6 md:p-12 border border-outline-v/30 flex flex-col justify-between">
-              <span className="text-4xl md:text-6xl font-headline text-primary">30+</span>
+            <div className="bg-white p-12 border border-outline-v/30 flex flex-col justify-between aspect-square md:aspect-auto">
+              <span className="text-5xl md:text-6xl font-headline text-primary">5</span>
               <p className="font-headline text-[10px] font-bold mt-8 tracking-widest uppercase text-slate-500">
-                YEARS OF INNOVATION
+                YEARS OF EXPERIENCE
               </p>
             </div>
-            <div className="bg-navy text-white p-6 md:p-12 col-span-1 md:col-span-2 flex flex-col justify-between">
-              <p className="font-body text-base md:text-xl opacity-80 italic leading-relaxed">
+            <div className="bg-navy text-white p-12 col-span-1 md:col-span-2 flex flex-col justify-between">
+              <p className="font-body text-lg md:text-xl opacity-80 italic leading-relaxed">
                 "Precision is not just a standard; it's our foundational philosophy. At Voltworks, every component is a testament to our commitment to industrial excellence."
               </p>
               <p className="font-headline text-[10px] font-bold mt-8 text-primary tracking-widest uppercase">
                 CHIEF TECHNICAL OFFICER
               </p>
             </div>
-            <div className="bg-white p-6 md:p-12 border border-outline-v/30 flex flex-col justify-between">
-              <span className="text-4xl md:text-6xl font-headline text-primary">500+</span>
+            <div className="bg-white p-12 border border-outline-v/30 flex flex-col justify-between aspect-square md:aspect-auto">
+              <span className="text-5xl md:text-6xl font-headline text-primary">10,000+</span>
               <p className="font-headline text-[10px] font-bold mt-8 tracking-widest uppercase text-slate-500">
-                GLOBAL INSTALLATIONS
+                VEHICLES ELECTRIFIED
               </p>
             </div>
           </div>

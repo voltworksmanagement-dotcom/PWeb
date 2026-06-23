@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Filter, ChevronRight, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import productsData from '../../data/voltworks_products.json';
+import { resolveProductImage } from '../lib/imageUtils';
 
 const products = productsData as any[];
 
@@ -71,7 +72,7 @@ export default function Products() {
     <main className="max-w-7xl mx-auto px-6 md:px-16 py-6 md:py-12 min-h-screen">
       {/* Page Header */}
       <div className="mb-6 md:mb-12">
-        <h1 className="font-headline text-3xl md:text-5xl text-charcoal mb-2 uppercase">Industrial Solutions</h1>
+        <h1 className="font-headline text-3xl md:text-5xl text-charcoal mb-2 uppercase">EV Solutions</h1>
         <p className="font-body text-base md:text-lg text-slate-500 max-w-2xl">
           Precision-engineered electrical components designed for maximum durability in high-demand industrial environments.
         </p>
@@ -165,7 +166,9 @@ export default function Products() {
             </div>
           ) : (
             <div className="grid grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8">
-              {paginatedProducts.map((product, idx) => (
+              {paginatedProducts.map((product, idx) => {
+                const imageSrc = resolveProductImage(product.image) || 'https://placehold.co/400x400/eeeeee/999999?text=VoltWorks';
+                return (
                 <motion.div
                   key={`${product.id}-${idx}`}
                   initial={{ opacity: 0, y: 20 }}
@@ -176,9 +179,9 @@ export default function Products() {
                   <Link to={`/products/${product.id}`} className="absolute inset-0 z-10" />
                   <div className="relative mb-6 overflow-hidden aspect-square border border-slate-50">
                     <img
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105"
+                      className="w-full h-full object-cover transition-all duration-500 scale-100 group-hover:scale-105"
                       alt={product.name}
-                      src={product.image || 'https://placehold.co/400x400/eeeeee/999999?text=VoltWorks'}
+                      src={imageSrc}
                     />
                     {product.tag && (
                       <div className={`absolute top-2 left-2 ${product.tagColor || 'bg-navy'} text-white px-2 py-1 text-[8px] font-headline font-bold tracking-widest uppercase`}>
@@ -196,7 +199,8 @@ export default function Products() {
                     View Details
                   </button>
                 </motion.div>
-              ))}
+                );
+              })}
             </div>
           )}
 

@@ -7,13 +7,13 @@ export default function Footer() {
     <footer className="bg-white border-t border-slate-200 pt-16 pb-8">
       <div className="max-w-6xl mx-auto px-6 md:px-16 w-full">
         <div className="mb-12">
-          <Link to="/" className="inline-flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3">
             <img
               src={logoIcon}
               alt="Voltworks logo"
-              className="h-8 md:h-10 w-auto object-contain"
+              className="h-8 w-auto object-contain"
             />
-            <span className="logo-text text-2xl md:text-3xl font-bold text-slate-900">VoltWorks</span>
+            <span className="logo-text text-2xl font-bold">VOLTWORKS</span>
           </Link>
         </div>
 

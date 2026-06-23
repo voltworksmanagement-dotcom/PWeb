@@ -27,7 +27,7 @@ export default function Header() {
               className="h-8 w-auto object-contain"
               src={logoIcon}
             />
-            <span className="logo-text text-2xl font-bold">VoltWorks</span>
+            <span className="logo-text text-2xl font-bold">VOLTWORKS</span>
           </Link>
         </div>
 

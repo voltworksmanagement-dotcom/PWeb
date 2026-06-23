@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { ChevronRight, ZoomIn, Box } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import productsData from '../../data/voltworks_products.json';
+import { resolveProductImage } from '../lib/imageUtils';
 
 const products = productsData as any[];
 
@@ -25,9 +26,9 @@ export default function ProductDetail() {
     series: productData.tag || productData.category || 'VoltWorks Product',
     description: productData.description,
     tags: [productData.category, ...(productData.applications || [])].filter(Boolean),
-    mainImage: productData.image || 'https://placehold.co/800x800/eeeeee/999999?text=VoltWorks',
+    mainImage: resolveProductImage(productData.image) || 'https://placehold.co/800x800/eeeeee/999999?text=VoltWorks',
     gallery: [
-      productData.image || 'https://placehold.co/400x400/eeeeee/999999?text=VoltWorks',
+      resolveProductImage(productData.image) || 'https://placehold.co/400x400/eeeeee/999999?text=VoltWorks',
       'https://placehold.co/400x400/dddddd/999999?text=Detail+1',
       'https://placehold.co/400x400/cccccc/999999?text=Detail+2',
       'https://placehold.co/400x400/bbbbbb/999999?text=Detail+3',
