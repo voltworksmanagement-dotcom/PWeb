@@ -7,6 +7,7 @@ import top2 from '../public/top2.png';
 import top3 from '../public/top3.png';
 import top4 from '../public/top4.png';
 import techBrochure from '../public/Technical Brochure - Q4 FY 24-25.pdf';
+import patent1 from '../public/patent-1.png';
 
 // Partner images
 import p1 from '../public/image.png';
@@ -22,17 +23,8 @@ import panther from '../public/panther.png';
 
 const milestones = [
   {
-    year: '2025',
-    title: 'Company Founded',
-    description: 'VoltWorks was established by a team of powertrain engineers with a shared vision — to redefine EV performance through intelligent, software-defined drivetrains.',
-    metric: 'Day 1',
-    metricLabel: 'The Beginning',
-    color: '#3b82f6',
-    icon: '🚀',
-  },
-  {
-    year: '2019',
-    title: 'First Powertrain Prototype',
+    year: 'Jan, 2025',
+    title: 'Powertrain Prototype',
     description: 'Our first integrated motor-controller unit successfully completed 10,000 km of rigorous road testing, validating our core engineering philosophy.',
     metric: '10K km',
     metricLabel: 'Test Distance',
@@ -40,10 +32,20 @@ const milestones = [
     icon: '⚡',
   },
   {
-    year: '2021',
-    title: 'OTA Update Platform Launch',
-    description: 'Launched our proprietary over-the-air (SOTA) firmware platform, enabling real-time performance improvements for deployed fleets across India and Southeast Asia.',
-    metric: '200+',
+    year: 'Feb, 2025',
+    title: 'First Patent Granted',
+    description: 'Secured our first patent for the innovative powertrain architecture, marking a significant milestone in our intellectual property portfolio.',
+    metric: '1 Patent',
+    metricLabel: ' STATOR FOR ELECTRIC MACHINE',
+    color: '#3b82f6',
+    // icon: '🚀',
+    image: patent1,
+  },
+  {
+    year: 'May, 2026',
+    title: '10,000 Vehicles Electrified',
+    description: 'Achieved a major milestone by electrifying over 10,000 vehicles across multiple platforms, demonstrating the scalability and reliability of our powertrain solutions.',
+    metric: '10K+',
     metricLabel: 'Vehicles Updated',
     color: '#8b5cf6',
     icon: '📡',
@@ -337,12 +339,7 @@ export default function Home() {
                       />
                       <div className="p-6 md:p-12 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-start">
                         <div className="flex flex-col gap-4">
-                          <div
-                            className="w-12 h-12 md:w-16 md:h-16 rounded-xl flex items-center justify-center text-2xl md:text-3xl"
-                            style={{ background: `${m.color}15`, border: `1.5px solid ${m.color}30` }}
-                          >
-                            {m.icon}
-                          </div>
+                          {/* icon removed */}
                           <div>
                             <p className="text-3xl md:text-5xl lg:text-6xl font-headline font-bold" style={{ color: m.color }}>
                               {m.metric}
@@ -352,16 +349,25 @@ export default function Home() {
                             </p>
                           </div>
                         </div>
-                        <div className="md:col-span-2">
-                          <p className="text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase mb-2" style={{ color: m.color }}>
-                            {m.year}
-                          </p>
-                          <h3 className="font-headline text-lg md:text-xl lg:text-3xl text-white font-bold mb-4 leading-snug">
-                            {m.title}
-                          </h3>
-                          <p className="text-slate-400 leading-relaxed text-xs md:text-sm lg:text-base">
-                            {m.description}
-                          </p>
+                        <div className="md:col-span-2 flex flex-col sm:flex-row gap-6 items-start">
+                          <div className="flex-1">
+                            <p className="text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase mb-2" style={{ color: m.color }}>
+                              {m.year}
+                            </p>
+                            <h3 className="font-headline text-lg md:text-xl lg:text-3xl text-white font-bold mb-4 leading-snug">
+                              {m.title}
+                            </h3>
+                            <p className="text-slate-400 leading-relaxed text-xs md:text-sm lg:text-base">
+                              {m.description}
+                            </p>
+                          </div>
+                          {m.image && (
+                            <img
+                              src={m.image}
+                              alt={m.title}
+                              className="w-full sm:w-32 md:w-40 lg:w-48 rounded-lg border border-white/10 bg-white/5 object-contain p-2 flex-shrink-0"
+                            />
+                          )}
                         </div>
                       </div>
                     </motion.div>
@@ -489,8 +495,8 @@ export default function Home() {
 
       {/* Trusted & Supported By Section (moved above CTA) */}
       <section className="w-full bg-[#040a1e]">
-        <div className="max-w-7xl mx-auto px-4 md:px-4 lg:px-5 mt-4 md:mt-5 pb-5 md:pb-4">
-          <h3 className="text-center text-white font-headline text-base md:text-lg lg:text-xl mb-7 md:mb-4 uppercase tracking-wide font-normal">
+        <div className="max-w-7xl mx-auto px-8 md:px-8 lg:px-8 mt-8 md:mt-5 pb-0 md:pb-4">
+          <h3 className="text-center text-white font-headline text-base md:text-lg lg:text-xl mb-10 md:mb-8 uppercase tracking-wide font-normal">
             Trusted & Supported By
           </h3>
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 md:gap-x-10 lg:gap-x-14 opacity-90 w-full">
