@@ -1,5 +1,5 @@
-import { motion, AnimatePresence } from 'motion/react';
-import { useState } from 'react';
+﻿import { motion, AnimatePresence } from 'motion/react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import homeVid from '../public/home-vid.mp4';
 import top1 from '../public/top1.png';
@@ -7,6 +7,7 @@ import top2 from '../public/top2.png';
 import top3 from '../public/top3.png';
 import top4 from '../public/top4.png';
 import techBrochure from '../public/Technical Brochure - Q4 FY 24-25.pdf';
+import patent1 from '../public/patent-1.png';
 
 // Partner images
 import p1 from '../public/image.png';
@@ -22,17 +23,8 @@ import panther from '../public/panther.png';
 
 const milestones = [
   {
-    year: '2018',
-    title: 'Company Founded',
-    description: 'VoltWorks was established by a team of powertrain engineers with a shared vision — to redefine EV performance through intelligent, software-defined drivetrains.',
-    metric: 'Day 1',
-    metricLabel: 'The Beginning',
-    color: '#3b82f6',
-    icon: '🚀',
-  },
-  {
-    year: '2019',
-    title: 'First Powertrain Prototype',
+    year: 'Jan, 2025',
+    title: 'Powertrain Prototype',
     description: 'Our first integrated motor-controller unit successfully completed 10,000 km of rigorous road testing, validating our core engineering philosophy.',
     metric: '10K km',
     metricLabel: 'Test Distance',
@@ -40,45 +32,91 @@ const milestones = [
     icon: '⚡',
   },
   {
-    year: '2021',
-    title: 'OTA Update Platform Launch',
-    description: 'Launched our proprietary over-the-air (SOTA) firmware platform, enabling real-time performance improvements for deployed fleets across India and Southeast Asia.',
-    metric: '200+',
+    year: 'Feb, 2025',
+    title: 'First Patent Granted',
+    description: 'Secured our first patent for the innovative powertrain architecture, marking a significant milestone in our intellectual property portfolio.',
+    metric: '1 Patent',
+    metricLabel: ' STATOR FOR ELECTRIC MACHINE',
+    color: '#3b82f6',
+    // icon: '🚀',
+    image: patent1,
+  },
+  {
+    year: 'May, 2026',
+    title: '10,000 Vehicles Electrified',
+    description: 'Achieved a major milestone by electrifying over 10,000 vehicles across multiple platforms, demonstrating the scalability and reliability of our powertrain solutions.',
+    metric: '10K+',
     metricLabel: 'Vehicles Updated',
     color: '#8b5cf6',
     icon: '📡',
   },
-  {
-    year: '2022',
-    title: 'Cloud Telemetry Integration',
-    description: 'Deployed cloud-based telemetry streaming for in-depth vehicle health monitoring, predictive maintenance, and live performance analytics.',
-    metric: '1M+',
-    metricLabel: 'Data Points/Day',
-    color: '#06b6d4',
-    icon: '☁️',
-  },
-  {
-    year: '2023',
-    title: 'Global Market Expansion',
-    description: 'Forged strategic partnerships with leading EV manufacturers across Europe and Asia, bringing VoltWorks technology to international markets.',
-    metric: '12+',
-    metricLabel: 'Countries Reached',
-    color: '#10b981',
-    icon: '🌍',
-  },
-  {
-    year: '2024',
-    title: 'Next-Gen Kit V3 Released',
-    description: 'Launched the V3 powertrain kit — 40% lighter, 25% more efficient, and equipped with AI-driven torque vectoring for unmatched driving dynamics.',
-    metric: '40%',
-    metricLabel: 'Weight Reduction',
-    color: '#f59e0b',
-    icon: '🏎️',
-  },
+  // {
+  //   year: '2022',
+  //   title: 'Cloud Telemetry Integration',
+  //   description: 'Deployed cloud-based telemetry streaming for in-depth vehicle health monitoring, predictive maintenance, and live performance analytics.',
+  //   metric: '1M+',
+  //   metricLabel: 'Data Points/Day',
+  //   color: '#06b6d4',
+  //   icon: '☁️',
+  // },
+  // {
+  //   year: '2023',
+  //   title: 'Global Market Expansion',
+  //   description: 'Forged strategic partnerships with leading EV manufacturers across Europe and Asia, bringing VoltWorks technology to international markets.',
+  //   metric: '12+',
+  //   metricLabel: 'Countries Reached',
+  //   color: '#10b981',
+  //   icon: '🌍',
+  // },
+  // {
+  //   year: '2024',
+  //   title: 'Next-Gen Kit V3 Released',
+  //   description: 'Launched the V3 powertrain kit — 40% lighter, 25% more efficient, and equipped with AI-driven torque vectoring for unmatched driving dynamics.',
+  //   metric: '40%',
+  //   metricLabel: 'Weight Reduction',
+  //   color: '#f59e0b',
+  //   icon: '🏎️',
+  // },
 ];
 
 export default function Home() {
-  const [activeMilestone, setActiveMilestone] = useState(0);
+  const [activeMilestone, setActiveMilestone] = useState(Math.floor(milestones.length / 2));
+  const milestoneItemRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const milestoneContainerRef = useRef<HTMLDivElement | null>(null);
+  const prevActiveMilestone = useRef<number | null>(null);
+
+  useEffect(() => {
+    const container = milestoneContainerRef.current;
+    const item = milestoneItemRefs.current[activeMilestone];
+    if (!container || !item) return;
+
+    const isFirstRun = prevActiveMilestone.current === null;
+    const isRedundant = prevActiveMilestone.current === activeMilestone;
+    prevActiveMilestone.current = activeMilestone;
+
+    // StrictMode re-runs this effect once on mount with no state change —
+    // skip that duplicate call rather than re-centering a second time.
+    if (isRedundant && !isFirstRun) return;
+
+    // Scroll only the carousel's own scroll container, not scrollIntoView —
+    // scrollIntoView bubbles up to the window and drags the whole page down
+    // to a milestone card the user hasn't scrolled to yet. Center instantly
+    // on first mount so the carousel opens on the middle card; animate for
+    // every rotation after that.
+    container.scrollTo({
+      left: item.offsetLeft - (container.clientWidth - item.clientWidth) / 2,
+      behavior: isFirstRun ? 'auto' : 'smooth',
+    });
+  }, [activeMilestone]);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveMilestone(prev => (prev + 1) % milestones.length);
+    }, 2500);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
   return (
     <div className="flex flex-col bg-[#040a1e] overflow-x-hidden w-full">
       {/* Hero Section — Premium Redesign */}
@@ -127,7 +165,7 @@ export default function Home() {
         }} />
 
         {/* === CONTENT === */}
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-8 md:px-16 w-full flex flex-col justify-start md:justify-center min-h-[auto] md:min-h-screen pt-24 pb-8 md:py-32">
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-8 md:px-16 w-full flex flex-col justify-start md:justify-center min-h-[auto] md:min-h-screen pt-12 pb-2 md:py-20">
 
           {/* Animated badge */}
           <motion.div
@@ -136,7 +174,7 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="mb-4 md:mb-6 flex items-center gap-3"
           >
-            <span className="flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-[0.2em]"
+            <span className="flex items-center gap-2 px-[clamp(0.75rem,3vw,1rem)] py-[clamp(0.25rem,1.2vw,0.375rem)] rounded-full text-[clamp(0.625rem,2.6vw,0.75rem)] font-bold uppercase tracking-[0.2em]"
               style={{
                 background: 'rgba(37,99,235,0.15)',
                 border: '1px solid rgba(59,130,246,0.35)',
@@ -144,7 +182,7 @@ export default function Home() {
               }}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse inline-block" />
-              Software-Defined EV Powertrain
+                India's Indigenous EV drivetrain
             </span>
           </motion.div>
 
@@ -153,8 +191,8 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-headline font-bold leading-[1.08] tracking-tight text-white mb-4 md:mb-6"
-            style={{ fontSize: 'clamp(2.2rem, 5.5vw, 4.5rem)', maxWidth: '820px' }}
+            className="font-headline font-bold leading-[1.08] tracking-tight text-white mt-2 md:mt-0 mb-4 md:mb-3 hero-headline"
+            style={{ maxWidth: '820px' }}
           >
             Enabling Smart &amp;{' '}
             <span className="relative inline-block">
@@ -171,10 +209,10 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35 }}
-            className="font-body text-base md:text-lg text-slate-300 mb-8 md:mb-10 leading-relaxed"
+            className="hidden md:block font-body text-base md:text-lg text-slate-300 mb-8 md:mb-10 leading-relaxed"
             style={{ maxWidth: '520px' }}
           >
-            Our software-defined powertrain kits bring intelligence, OTA updates, and real-time cloud analytics to every EV — from prototype to mass production.
+            Designing and manufacturing PMSM motors, FOC controllers, and proprietary firmware as a single integrated stack for L2, L3 and L5 electric vehicles.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -186,7 +224,7 @@ export default function Home() {
           >
             <Link
               to="/contact"
-              className="group relative flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 text-[10px] md:text-xs font-bold uppercase tracking-widest text-white rounded-full overflow-hidden transition-all duration-300"
+              className="group relative flex items-center gap-2 px-[clamp(1.25rem,5vw,2rem)] py-[clamp(0.65rem,2.8vw,1rem)] text-[clamp(0.625rem,2.6vw,0.75rem)] font-bold uppercase tracking-widest text-white rounded-full overflow-hidden transition-all duration-300"
               style={{
                 background: 'linear-gradient(135deg, #004fa8, #1d67cd)',
                 boxShadow: '0 0 24px rgba(0,79,168,0.4), 0 4px 16px rgba(0,0,0,0.3)',
@@ -199,7 +237,7 @@ export default function Home() {
             </Link>
             <Link
               to="/products"
-              className="group flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 text-[10px] md:text-xs font-bold uppercase tracking-widest text-slate-300 rounded-full transition-all duration-300 hover:text-white"
+              className="group flex items-center gap-2 px-[clamp(1.25rem,5vw,2rem)] py-[clamp(0.65rem,2.8vw,1rem)] text-[clamp(0.625rem,2.6vw,0.75rem)] font-bold uppercase tracking-widest text-slate-300 rounded-full transition-all duration-300 hover:text-white"
               style={{
                 background: 'rgba(255,255,255,0.05)',
                 border: '1px solid rgba(255,255,255,0.15)',
@@ -216,13 +254,13 @@ export default function Home() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.65 }}
-            className="flex flex-wrap gap-4"
+            className="hidden md:flex flex-wrap gap-4"
           >
             {[
               { value: '5+', label: 'Years of Experience' },
-              { value: '500+', label: 'Global Deployments' },
+              { value: 'L2 · L3 · L5', label: 'Vehicle Platforms Served' },
               { value: '10K+', label: 'Vehicles Electrified' },
-              { value: 'OTA', label: 'Real-Time Updates' },
+              { value: 'IP67', label: 'Rated Waterproofing' },
             ].map((stat, i) => (
               <div
                 key={i}
@@ -243,21 +281,6 @@ export default function Home() {
         {/* Scroll indicator removed */}
       </section>
 
-
-      {/* Trusted & Supported By Section (moved below hero) */}
-      <section className="w-full bg-[#040a1e]">
-        <div className="max-w-7xl mx-auto px-4 md:px-12 lg:px-20 mt-4 md:mt-5 pb-2 md:pb-2 border-b border-slate-800/50">
-          <h3 className="text-center text-white font-headline text-base md:text-lg lg:text-xl mb-4 md:mb-6 uppercase tracking-wide font-normal">
-            Trusted & Supported By
-          </h3>
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 md:gap-x-10 lg:gap-x-14 opacity-90 w-full">
-            <img src={top1} alt="Top 1 Logo" className="w-24 md:w-32 lg:w-40 object-contain" />
-            <img src={top2} alt="Top 2 Logo" className="w-40 md:w-56 lg:w-72 object-contain" />
-            <img src={top3} alt="Top 3 Logo" className="w-28 md:w-40 lg:w-48 object-contain" />
-            <img src={top4} alt="Top 4 Logo" className="w-24 md:w-32 lg:w-40 object-contain" />
-          </div>
-        </div>
-      </section>
 
       {/* Milestones Section */}
       <section className="relative w-full bg-gradient-to-b from-[#040a1e] via-[#070d28] to-[#040a1e] pt-8 pb-20 md:pt-16 md:pb-32 overflow-hidden">
@@ -288,104 +311,70 @@ export default function Home() {
             {/* Horizontal connector line (desktop) */}
             <div className="hidden md:block absolute top-[2.25rem] left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent" />
 
-            {/* Year dots row */}
-            <div className="grid grid-cols-3 md:grid-cols-6 gap-4 md:gap-0 mb-8 md:mb-10">
-              {milestones.map((m, i) => (
-                <motion.button
-                  key={m.year}
-                  onClick={() => setActiveMilestone(i)}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08, duration: 0.5 }}
-                  className="flex flex-col items-center gap-2 group focus:outline-none"
-                >
-                  {/* Dot */}
-                  <div
-                    className="relative w-7 h-7 md:w-9 md:h-9 rounded-full flex items-center justify-center transition-all duration-300"
-                    style={{
-                      background: activeMilestone === i
-                        ? `radial-gradient(circle, ${m.color}40, ${m.color}15)`
-                        : 'rgba(255,255,255,0.04)',
-                      border: `2px solid ${activeMilestone === i ? m.color : 'rgba(255,255,255,0.12)'}`,
-                      boxShadow: activeMilestone === i ? `0 0 18px ${m.color}60, 0 0 6px ${m.color}40` : 'none',
-                    }}
-                  >
-                    <span className="text-[10px] md:text-sm">{m.icon}</span>
-                    {activeMilestone === i && (
-                      <motion.span
-                        layoutId="activePulse"
-                        className="absolute inset-0 rounded-full"
-                        style={{ border: `1.5px solid ${m.color}`, opacity: 0.5 }}
-                        animate={{ scale: [1, 1.6, 1], opacity: [0.5, 0, 0.5] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                      />
-                    )}
-                  </div>
-                  {/* Year label */}
-                  <span
-                    className="font-headline text-[10px] md:text-sm font-bold tracking-widest transition-all duration-300"
-                    style={{ color: activeMilestone === i ? m.color : 'rgba(148,163,184,0.7)' }}
-                  >
-                    {m.year}
-                  </span>
-                </motion.button>
-              ))}
-            </div>
+            {/* Year dots row removed as requested */}
 
-            {/* Detail Card */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeMilestone}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.4 }}
-                className="relative rounded-2xl overflow-hidden"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%)',
-                  border: `1px solid ${milestones[activeMilestone].color}30`,
-                  boxShadow: `0 0 60px ${milestones[activeMilestone].color}10`,
-                }}
-              >
-                {/* Top accent bar */}
-                <div
-                  className="h-[3px] w-full"
-                  style={{ background: `linear-gradient(90deg, ${milestones[activeMilestone].color}, transparent)` }}
-                />
-                <div className="p-6 md:p-12 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-start">
-                  {/* Year + icon */}
-                  <div className="flex flex-col gap-4">
-                    <div
-                      className="w-12 h-12 md:w-16 md:h-16 rounded-xl flex items-center justify-center text-2xl md:text-3xl"
-                      style={{ background: `${milestones[activeMilestone].color}15`, border: `1.5px solid ${milestones[activeMilestone].color}30` }}
+            {/* Carousel peek cards */}
+            <div className="overflow-hidden">
+              <div ref={milestoneContainerRef} className="flex gap-4 px-[10%] pb-3 snap-x snap-mandatory overflow-x-auto scroll-smooth hide-scrollbar" style={{ WebkitOverflowScrolling: 'touch' }}>
+                {milestones.map((m, i) => (
+                  <div
+                    key={m.year}
+                    ref={el => { milestoneItemRefs.current[i] = el }}
+                    className="snap-center flex-shrink-0 w-[80%] md:w-[80%]"
+                  >
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4 }}
+                      className="relative rounded-2xl overflow-hidden"
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%)',
+                        border: `1px solid ${m.color}30`,
+                        boxShadow: `0 0 60px ${m.color}10`,
+                      }}
                     >
-                      {milestones[activeMilestone].icon}
-                    </div>
-                    <div>
-                      <p className="text-3xl md:text-5xl lg:text-6xl font-headline font-bold" style={{ color: milestones[activeMilestone].color }}>
-                        {milestones[activeMilestone].metric}
-                      </p>
-                      <p className="text-xs uppercase tracking-widest text-slate-500 mt-1 font-bold">
-                        {milestones[activeMilestone].metricLabel}
-                      </p>
-                    </div>
+                      <div
+                        className="h-[3px] w-full"
+                        style={{ background: `linear-gradient(90deg, ${m.color}, transparent)` }}
+                      />
+                      <div className="p-6 md:p-12 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-start">
+                        <div className="flex flex-col gap-4">
+                          {/* icon removed */}
+                          <div>
+                            <p className="text-3xl md:text-5xl lg:text-6xl font-headline font-bold" style={{ color: m.color }}>
+                              {m.metric}
+                            </p>
+                            <p className="text-xs uppercase tracking-widest text-slate-500 mt-1 font-bold">
+                              {m.metricLabel}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="md:col-span-2 flex flex-col sm:flex-row gap-6 items-start">
+                          <div className="flex-1">
+                            <p className="text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase mb-2" style={{ color: m.color }}>
+                              {m.year}
+                            </p>
+                            <h3 className="font-headline text-lg md:text-xl lg:text-3xl text-white font-bold mb-4 leading-snug">
+                              {m.title}
+                            </h3>
+                            <p className="text-slate-400 leading-relaxed text-xs md:text-sm lg:text-base">
+                              {m.description}
+                            </p>
+                          </div>
+                          {m.image && (
+                            <img
+                              src={m.image}
+                              alt={m.title}
+                              className="w-full sm:w-32 md:w-40 lg:w-48 rounded-lg border border-white/10 bg-white/5 object-contain p-2 flex-shrink-0"
+                            />
+                          )}
+                        </div>
+                      </div>
+                    </motion.div>
                   </div>
-                  {/* Title + desc */}
-                  <div className="md:col-span-2">
-                    <p className="text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase mb-2" style={{ color: milestones[activeMilestone].color }}>
-                      {milestones[activeMilestone].year}
-                    </p>
-                    <h3 className="font-headline text-lg md:text-xl lg:text-3xl text-white font-bold mb-4 leading-snug">
-                      {milestones[activeMilestone].title}
-                    </h3>
-                    <p className="text-slate-400 leading-relaxed text-xs md:text-sm lg:text-base">
-                      {milestones[activeMilestone].description}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+                ))}
+              </div>
+            </div>
 
             {/* Navigation arrows */}
             <div className="flex justify-center gap-4 mt-8">
@@ -422,10 +411,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Unify & Partner Section */}
+      {/* Unify & Partner Section (moved below hero) */}
       <section className="bg-white py-10 md:py-24 px-6 md:px-16 w-full text-center border-t border-slate-100">
         <h2 className="text-3xl md:text-5xl font-semibold text-slate-900 mb-6 leading-tight">
-          Unify, Track & Empower: Electrify your vehicles
+          Our Customers
         </h2>
         <p className="text-slate-600 mb-16 max-w-4xl mx-auto leading-relaxed text-sm md:text-base lg:text-lg">
           Craft the perfect powertrain for your vision. Our cutting-edge technology unlocks unique performance and unmatched safety, tailored to your vehicle's DNA.
@@ -504,8 +493,23 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Trusted & Supported By Section (moved above CTA) */}
+      <section className="w-full bg-[#040a1e]">
+        <div className="max-w-7xl mx-auto px-8 md:px-8 lg:px-8 mt-8 md:mt-5 pb-0 md:pb-4">
+          <h3 className="text-center text-white font-headline text-base md:text-lg lg:text-xl mb-10 md:mb-8 uppercase tracking-wide font-normal">
+            Trusted & Supported By
+          </h3>
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 md:gap-x-10 lg:gap-x-14 opacity-90 w-full">
+            <img src={top1} alt="Top 1 Logo" className="w-24 md:w-32 lg:w-40 object-contain" />
+            <img src={top2} alt="Top 2 Logo" className="w-40 md:w-56 lg:w-72 object-contain" />
+            <img src={top3} alt="Top 3 Logo" className="w-28 md:w-40 lg:w-48 object-contain" />
+            <img src={top4} alt="Top 4 Logo" className="w-24 md:w-32 lg:w-40 object-contain" />
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
-      <section className="bg-navy py-12 md:py-24 px-6 md:px-16 text-center">
+      <section className="bg-[#040a1e] py-12 md:py-24 px-6 md:px-16 text-center">
         <motion.div
            initial={{ opacity: 0, y: 30 }}
            whileInView={{ opacity: 1, y: 0 }}

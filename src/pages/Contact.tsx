@@ -1,4 +1,4 @@
-import { Phone, Mail } from 'lucide-react';
+﻿import { Phone, Mail } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Contact() {
@@ -41,7 +41,7 @@ export default function Contact() {
                     <Phone size={18} fill="currentColor" className="text-[#0066cc]" />
                   </div>
                   <a href="tel:+919651184831" className="text-[15px] font-sans text-[#333333] hover:text-[#0066cc] transition-colors">
-                    (+91) 965-118-4831
+                    (+91) 78400 14902
                   </a>
                 </div>
                 <div className="flex items-center gap-3">
