@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, useInView, useReducedMotion, useScroll, useSpring } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import homeVid from '../public/home-vid.mp4';
@@ -8,6 +8,9 @@ import top3 from '../public/top3.png';
 import top4 from '../public/top4.png';
 import techBrochure from '../public/Technical Brochure - Q4 FY 24-25.pdf';
 import patent1 from '../public/patent-1.png';
+// TODO: swap these two for the real milestone photos when supplied.
+import milestonePrototype from '../public/PMSM Motor - L3.png';
+import milestoneFleet from '../public/PMSM Controller - L2.webp';
 
 // Partner images
 import p1 from '../public/image.png';
@@ -21,34 +24,38 @@ import panther from '../public/panther.png';
 
 // Partner logos: Supertech, Urbacab, Panther replace older customer logos
 
+// `fit: 'contain'` frames a document/scan on a tinted panel; 'cover' lets a
+// photo bleed to the edges of its frame.
 const milestones = [
   {
     year: 'Jan, 2025',
     title: 'Powertrain Prototype',
     description: 'Our first integrated motor-controller unit successfully completed 10,000 km of rigorous road testing, validating our core engineering philosophy.',
-    metric: '10K km',
+    metric: '10K',
+    metricSuffix: ' km',
     metricLabel: 'Test Distance',
-    color: '#6366f1',
-    icon: '⚡',
+    image: milestonePrototype,
+    fit: 'contain' as const,
   },
   {
     year: 'Feb, 2025',
     title: 'First Patent Granted',
     description: 'Secured our first patent for the innovative powertrain architecture, marking a significant milestone in our intellectual property portfolio.',
-    metric: '1 Patent',
-    metricLabel: ' STATOR FOR ELECTRIC MACHINE',
-    color: '#3b82f6',
-    // icon: '🚀',
+    metric: '1',
+    metricSuffix: ' Patent',
+    metricLabel: 'Stator for Electric Machine',
     image: patent1,
+    fit: 'contain' as const,
   },
   {
     year: 'May, 2026',
     title: '10,000 Vehicles Electrified',
     description: 'Achieved a major milestone by electrifying over 10,000 vehicles across multiple platforms, demonstrating the scalability and reliability of our powertrain solutions.',
-    metric: '10K+',
-    metricLabel: 'Vehicles Updated',
-    color: '#8b5cf6',
-    icon: '📡',
+    metric: '10K',
+    metricSuffix: '+',
+    metricLabel: 'Vehicles Electrified',
+    image: milestoneFleet,
+    fit: 'contain' as const,
   },
   // {
   //   year: '2022',
@@ -79,43 +86,171 @@ const milestones = [
   // },
 ];
 
+const ACCENT = '#3b82f6';
+
+// Shared motion vocabulary — every scroll reveal on this page draws from these
+// so timing and distance stay consistent section to section.
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
+};
+
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
+};
+
+const slideFrom = (dir: 'left' | 'right') => ({
+  hidden: { opacity: 0, x: dir === 'left' ? -48 : 48 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.8, ease: EASE } },
+});
+
+/**
+ * Counts from 0 to the numeric part of `value` when scrolled into view, keeping
+ * any non-numeric formatting ("10K" -> counts 10, keeps the K).
+ */
+function CountUp({ value, className, style }: { value: string; className?: string; style?: React.CSSProperties }) {
+  const ref = useRef<HTMLSpanElement | null>(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const reduceMotion = useReducedMotion();
+  const [display, setDisplay] = useState(value);
+
+  const target = parseFloat(value);
+  const suffix = value.replace(/^[\d.]+/, '');
+
+  useEffect(() => {
+    if (!inView || Number.isNaN(target)) return;
+    if (reduceMotion) {
+      setDisplay(value);
+      return;
+    }
+
+    const duration = 1200;
+    const start = performance.now();
+    let frame = 0;
+
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      // easeOutExpo — fast off the line, settles gently on the final number.
+      const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      setDisplay(Math.round(target * eased) + suffix);
+      if (progress < 1) frame = requestAnimationFrame(tick);
+    };
+
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [inView, target, suffix, value, reduceMotion]);
+
+  return <span ref={ref} className={className} style={style}>{Number.isNaN(target) ? value : display}</span>;
+}
+
+function MilestoneRow({ milestone, index }: { milestone: typeof milestones[number]; index: number }) {
+  const reduceMotion = useReducedMotion();
+  const imageFirst = index % 2 === 0;
+
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: '-100px' }}
+      variants={stagger}
+      className="relative grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 lg:gap-16 items-center"
+    >
+      {/* Spine node — sits on the center rail at this row's vertical midpoint. */}
+      <div className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+        <motion.div
+          variants={{
+            hidden: { scale: 0, opacity: 0 },
+            show: { scale: 1, opacity: 1, transition: { duration: 0.5, ease: EASE, delay: 0.2 } },
+          }}
+          className="w-4 h-4 rounded-full border-2 bg-[#040a1e]"
+          style={{ borderColor: ACCENT, boxShadow: `0 0 0 6px rgba(4,10,30,1), 0 0 24px ${ACCENT}80` }}
+        />
+      </div>
+
+      {/* Image */}
+      <motion.div
+        variants={reduceMotion ? fadeUp : slideFrom(imageFirst ? 'left' : 'right')}
+        className={`group relative ${imageFirst ? 'md:order-1' : 'md:order-2'}`}
+      >
+        <div
+          className="relative overflow-hidden rounded-2xl border aspect-[16/10]"
+          style={{
+            borderColor: 'rgba(148,163,184,0.15)',
+            background: 'linear-gradient(135deg, rgba(59,130,246,0.06) 0%, rgba(255,255,255,0.02) 100%)',
+          }}
+        >
+          <img
+            src={milestone.image}
+            alt={milestone.title}
+            loading="lazy"
+            className={`w-full h-full transition-transform duration-700 ease-out group-hover:scale-[1.04] ${
+              milestone.fit === 'contain' ? 'object-contain p-6 md:p-10' : 'object-cover'
+            }`}
+          />
+          {/* Sheen that sweeps across on hover */}
+          <div
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+            style={{ background: `linear-gradient(115deg, transparent 40%, ${ACCENT}14 50%, transparent 60%)` }}
+          />
+        </div>
+      </motion.div>
+
+      {/* Content */}
+      <motion.div
+        variants={reduceMotion ? fadeUp : slideFrom(imageFirst ? 'right' : 'left')}
+        className={`flex flex-col ${imageFirst ? 'md:order-2 md:pl-4 lg:pl-8' : 'md:order-1 md:pr-4 lg:pr-8 md:text-right md:items-end'}`}
+      >
+        <span
+          className="text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase mb-3"
+          style={{ color: ACCENT }}
+        >
+          {milestone.year}
+        </span>
+
+        <h3 className="font-headline text-xl md:text-2xl lg:text-3xl text-white font-bold leading-tight mb-3">
+          {milestone.title}
+        </h3>
+
+        <div className={`flex items-baseline gap-2 mb-2 ${imageFirst ? '' : 'md:justify-end'}`}>
+          <CountUp
+            value={milestone.metric}
+            className="text-3xl md:text-4xl font-headline font-bold text-transparent bg-clip-text"
+            style={{ backgroundImage: `linear-gradient(90deg, #60a5fa, ${ACCENT})` }}
+          />
+          <span className="text-xl md:text-2xl font-headline font-bold" style={{ color: ACCENT }}>
+            {milestone.metricSuffix}
+          </span>
+        </div>
+
+        <p className="text-[10px] md:text-xs uppercase tracking-[0.2em] text-slate-500 font-bold mb-3">
+          {milestone.metricLabel}
+        </p>
+
+        <div
+          className={`h-px w-12 mb-3 ${imageFirst ? '' : 'md:self-end'}`}
+          style={{ background: `linear-gradient(90deg, ${ACCENT}, transparent)` }}
+        />
+
+        <p className="text-slate-400 leading-relaxed text-sm max-w-md">
+          {milestone.description}
+        </p>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 export default function Home() {
-  const [activeMilestone, setActiveMilestone] = useState(Math.floor(milestones.length / 2));
-  const milestoneItemRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const milestoneContainerRef = useRef<HTMLDivElement | null>(null);
-  const prevActiveMilestone = useRef<number | null>(null);
+  const timelineRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const container = milestoneContainerRef.current;
-    const item = milestoneItemRefs.current[activeMilestone];
-    if (!container || !item) return;
-
-    const isFirstRun = prevActiveMilestone.current === null;
-    const isRedundant = prevActiveMilestone.current === activeMilestone;
-    prevActiveMilestone.current = activeMilestone;
-
-    // StrictMode re-runs this effect once on mount with no state change —
-    // skip that duplicate call rather than re-centering a second time.
-    if (isRedundant && !isFirstRun) return;
-
-    // Scroll only the carousel's own scroll container, not scrollIntoView —
-    // scrollIntoView bubbles up to the window and drags the whole page down
-    // to a milestone card the user hasn't scrolled to yet. Center instantly
-    // on first mount so the carousel opens on the middle card; animate for
-    // every rotation after that.
-    container.scrollTo({
-      left: item.offsetLeft - (container.clientWidth - item.clientWidth) / 2,
-      behavior: isFirstRun ? 'auto' : 'smooth',
-    });
-  }, [activeMilestone]);
-
-  useEffect(() => {
-    const interval = window.setInterval(() => {
-      setActiveMilestone(prev => (prev + 1) % milestones.length);
-    }, 2500);
-
-    return () => window.clearInterval(interval);
-  }, []);
+  // Spine draws itself as the timeline scrolls through the viewport.
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ['start 75%', 'end 60%'],
+  });
+  const spineScale = useSpring(scrollYProgress, { stiffness: 90, damping: 30, restDelta: 0.001 });
 
   return (
     <div className="flex flex-col bg-[#040a1e] overflow-x-hidden w-full">
@@ -306,106 +441,23 @@ export default function Home() {
             </p>
           </motion.div>
 
-          {/* Timeline rail */}
-          <div className="relative">
-            {/* Horizontal connector line (desktop) */}
-            <div className="hidden md:block absolute top-[2.25rem] left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent" />
+          {/* Alternating timeline */}
+          <div ref={timelineRef} className="relative">
+            {/* Center spine (desktop) — track plus the scroll-drawn fill. */}
+            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-px bg-slate-800/60" />
+            <motion.div
+              className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-px origin-top"
+              style={{
+                scaleY: spineScale,
+                background: `linear-gradient(to bottom, ${ACCENT}, #60a5fa)`,
+                boxShadow: `0 0 12px ${ACCENT}60`,
+              }}
+            />
 
-            {/* Year dots row removed as requested */}
-
-            {/* Carousel peek cards */}
-            <div className="overflow-hidden">
-              <div ref={milestoneContainerRef} className="flex gap-4 px-[10%] pb-3 snap-x snap-mandatory overflow-x-auto scroll-smooth hide-scrollbar" style={{ WebkitOverflowScrolling: 'touch' }}>
-                {milestones.map((m, i) => (
-                  <div
-                    key={m.year}
-                    ref={el => { milestoneItemRefs.current[i] = el }}
-                    className="snap-center flex-shrink-0 w-[80%] md:w-[80%]"
-                  >
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4 }}
-                      className="relative rounded-2xl overflow-hidden"
-                      style={{
-                        background: 'linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%)',
-                        border: `1px solid ${m.color}30`,
-                        boxShadow: `0 0 60px ${m.color}10`,
-                      }}
-                    >
-                      <div
-                        className="h-[3px] w-full"
-                        style={{ background: `linear-gradient(90deg, ${m.color}, transparent)` }}
-                      />
-                      <div className="p-6 md:p-12 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-start">
-                        <div className="flex flex-col gap-4">
-                          {/* icon removed */}
-                          <div>
-                            <p className="text-3xl md:text-5xl lg:text-6xl font-headline font-bold" style={{ color: m.color }}>
-                              {m.metric}
-                            </p>
-                            <p className="text-xs uppercase tracking-widest text-slate-500 mt-1 font-bold">
-                              {m.metricLabel}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="md:col-span-2 flex flex-col sm:flex-row gap-6 items-start">
-                          <div className="flex-1">
-                            <p className="text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase mb-2" style={{ color: m.color }}>
-                              {m.year}
-                            </p>
-                            <h3 className="font-headline text-lg md:text-xl lg:text-3xl text-white font-bold mb-4 leading-snug">
-                              {m.title}
-                            </h3>
-                            <p className="text-slate-400 leading-relaxed text-xs md:text-sm lg:text-base">
-                              {m.description}
-                            </p>
-                          </div>
-                          {m.image && (
-                            <img
-                              src={m.image}
-                              alt={m.title}
-                              className="w-full sm:w-32 md:w-40 lg:w-48 rounded-lg border border-white/10 bg-white/5 object-contain p-2 flex-shrink-0"
-                            />
-                          )}
-                        </div>
-                      </div>
-                    </motion.div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Navigation arrows */}
-            <div className="flex justify-center gap-4 mt-8">
-              <button
-                onClick={() => setActiveMilestone(i => Math.max(0, i - 1))}
-                disabled={activeMilestone === 0}
-                className="w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center text-slate-400 hover:border-blue-500 hover:text-blue-400 disabled:opacity-30 transition-all duration-200"
-              >
-                ←
-              </button>
-              <div className="flex gap-2 items-center">
-                {milestones.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setActiveMilestone(i)}
-                    className="rounded-full transition-all duration-300"
-                    style={{
-                      width: activeMilestone === i ? '24px' : '6px',
-                      height: '6px',
-                      background: activeMilestone === i ? milestones[i].color : 'rgba(100,116,139,0.5)',
-                    }}
-                  />
-                ))}
-              </div>
-              <button
-                onClick={() => setActiveMilestone(i => Math.min(milestones.length - 1, i + 1))}
-                disabled={activeMilestone === milestones.length - 1}
-                className="w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center text-slate-400 hover:border-blue-500 hover:text-blue-400 disabled:opacity-30 transition-all duration-200"
-              >
-                →
-              </button>
+            <div className="flex flex-col gap-14 md:gap-20">
+              {milestones.map((m, i) => (
+                <MilestoneRow key={m.year} milestone={m} index={i} />
+              ))}
             </div>
           </div>
         </div>
