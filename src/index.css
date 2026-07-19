@@ -16,8 +16,12 @@
   --color-surface-high: #eae8e7;
   --color-outline-v: #c2c6d5;
   --color-on-surface-v: #424753;
-  
+
   --radius-none: 0px;
+  /* Two radii only: `card` for tiles and list rows, `panel` for the large
+     containers that wrap them. Avoid one-off rounded-[…] values. */
+  --radius-card: 1rem;
+  --radius-panel: 1.75rem;
 }
 
 @layer base {

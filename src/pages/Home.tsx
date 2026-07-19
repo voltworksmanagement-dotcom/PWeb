@@ -1,6 +1,7 @@
-import { motion, useInView, useReducedMotion, useScroll, useSpring } from 'motion/react';
+import { AnimatePresence, motion, useInView, useReducedMotion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { EASE, VIEWPORT, fadeUp, slideFrom, stagger, staggerSlow } from '../lib/motion';
 import homeVid from '../public/home-vid.mp4';
 import top1 from '../public/top1.png';
 import top2 from '../public/top2.png';
@@ -88,25 +89,6 @@ const milestones = [
 
 const ACCENT = '#3b82f6';
 
-// Shared motion vocabulary — every scroll reveal on this page draws from these
-// so timing and distance stay consistent section to section.
-const EASE = [0.22, 1, 0.36, 1] as const;
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
-};
-
-const stagger = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
-};
-
-const slideFrom = (dir: 'left' | 'right') => ({
-  hidden: { opacity: 0, x: dir === 'left' ? -48 : 48 },
-  show: { opacity: 1, x: 0, transition: { duration: 0.8, ease: EASE } },
-});
-
 /**
  * Counts from 0 to the numeric part of `value` when scrolled into view, keeping
  * any non-numeric formatting ("10K" -> counts 10, keeps the K).
@@ -146,111 +128,8 @@ function CountUp({ value, className, style }: { value: string; className?: strin
   return <span ref={ref} className={className} style={style}>{Number.isNaN(target) ? value : display}</span>;
 }
 
-function MilestoneRow({ milestone, index }: { milestone: typeof milestones[number]; index: number }) {
-  const reduceMotion = useReducedMotion();
-  const imageFirst = index % 2 === 0;
-
-  return (
-    <motion.div
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: '-100px' }}
-      variants={stagger}
-      className="relative grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 lg:gap-16 items-center"
-    >
-      {/* Spine node — sits on the center rail at this row's vertical midpoint. */}
-      <div className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-        <motion.div
-          variants={{
-            hidden: { scale: 0, opacity: 0 },
-            show: { scale: 1, opacity: 1, transition: { duration: 0.5, ease: EASE, delay: 0.2 } },
-          }}
-          className="w-4 h-4 rounded-full border-2 bg-[#040a1e]"
-          style={{ borderColor: ACCENT, boxShadow: `0 0 0 6px rgba(4,10,30,1), 0 0 24px ${ACCENT}80` }}
-        />
-      </div>
-
-      {/* Image */}
-      <motion.div
-        variants={reduceMotion ? fadeUp : slideFrom(imageFirst ? 'left' : 'right')}
-        className={`group relative ${imageFirst ? 'md:order-1' : 'md:order-2'}`}
-      >
-        <div
-          className="relative overflow-hidden rounded-2xl border aspect-[16/10]"
-          style={{
-            borderColor: 'rgba(148,163,184,0.15)',
-            background: 'linear-gradient(135deg, rgba(59,130,246,0.06) 0%, rgba(255,255,255,0.02) 100%)',
-          }}
-        >
-          <img
-            src={milestone.image}
-            alt={milestone.title}
-            loading="lazy"
-            className={`w-full h-full transition-transform duration-700 ease-out group-hover:scale-[1.04] ${
-              milestone.fit === 'contain' ? 'object-contain p-6 md:p-10' : 'object-cover'
-            }`}
-          />
-          {/* Sheen that sweeps across on hover */}
-          <div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-            style={{ background: `linear-gradient(115deg, transparent 40%, ${ACCENT}14 50%, transparent 60%)` }}
-          />
-        </div>
-      </motion.div>
-
-      {/* Content */}
-      <motion.div
-        variants={reduceMotion ? fadeUp : slideFrom(imageFirst ? 'right' : 'left')}
-        className={`flex flex-col ${imageFirst ? 'md:order-2 md:pl-4 lg:pl-8' : 'md:order-1 md:pr-4 lg:pr-8 md:text-right md:items-end'}`}
-      >
-        <span
-          className="text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase mb-3"
-          style={{ color: ACCENT }}
-        >
-          {milestone.year}
-        </span>
-
-        <h3 className="font-headline text-xl md:text-2xl lg:text-3xl text-white font-bold leading-tight mb-3">
-          {milestone.title}
-        </h3>
-
-        <div className={`flex items-baseline gap-2 mb-2 ${imageFirst ? '' : 'md:justify-end'}`}>
-          <CountUp
-            value={milestone.metric}
-            className="text-3xl md:text-4xl font-headline font-bold text-transparent bg-clip-text"
-            style={{ backgroundImage: `linear-gradient(90deg, #60a5fa, ${ACCENT})` }}
-          />
-          <span className="text-xl md:text-2xl font-headline font-bold" style={{ color: ACCENT }}>
-            {milestone.metricSuffix}
-          </span>
-        </div>
-
-        <p className="text-[10px] md:text-xs uppercase tracking-[0.2em] text-slate-500 font-bold mb-3">
-          {milestone.metricLabel}
-        </p>
-
-        <div
-          className={`h-px w-12 mb-3 ${imageFirst ? '' : 'md:self-end'}`}
-          style={{ background: `linear-gradient(90deg, ${ACCENT}, transparent)` }}
-        />
-
-        <p className="text-slate-400 leading-relaxed text-sm max-w-md">
-          {milestone.description}
-        </p>
-      </motion.div>
-    </motion.div>
-  );
-}
-
 export default function Home() {
-  const timelineRef = useRef<HTMLDivElement | null>(null);
-
-  // Spine draws itself as the timeline scrolls through the viewport.
-  const { scrollYProgress } = useScroll({
-    target: timelineRef,
-    offset: ['start 75%', 'end 60%'],
-  });
-  const spineScale = useSpring(scrollYProgress, { stiffness: 90, damping: 30, restDelta: 0.001 });
+  const [activeMilestone, setActiveMilestone] = useState(0);
 
   return (
     <div className="flex flex-col bg-[#040a1e] overflow-x-hidden w-full">
@@ -344,10 +223,18 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35 }}
-            className="hidden md:block font-body text-base md:text-lg text-slate-300 mb-8 md:mb-10 leading-relaxed"
+            className="font-body text-sm md:text-lg text-slate-300 mb-8 md:mb-10 leading-relaxed"
             style={{ maxWidth: '520px' }}
           >
-            Designing and manufacturing PMSM motors, FOC controllers, and proprietary firmware as a single integrated stack for L2, L3 and L5 electric vehicles.
+            {/* Mobile gets a condensed line — the full spec reads as a wall of
+                text at phone width, but shipping no sub-headline at all left
+                mobile visitors with no statement of what we build. */}
+            <span className="md:hidden">
+              PMSM motors, FOC controllers and firmware — one integrated EV drivetrain stack.
+            </span>
+            <span className="hidden md:inline">
+              Designing and manufacturing PMSM motors, FOC controllers, and proprietary firmware as a single integrated stack for L2, L3 and L5 electric vehicles.
+            </span>
           </motion.p>
 
           {/* CTA Buttons */}
@@ -389,7 +276,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.65 }}
-            className="hidden md:flex flex-wrap gap-4"
+            className="grid grid-cols-2 md:flex md:flex-wrap gap-2 md:gap-4"
           >
             {[
               { value: '5+', label: 'Years of Experience' },
@@ -399,7 +286,7 @@ export default function Home() {
             ].map((stat, i) => (
               <div
                 key={i}
-                className="flex items-center gap-2 md:gap-3 px-3 py-2 md:px-5 md:py-3 rounded-xl"
+                className="flex flex-col md:flex-row md:items-center gap-0.5 md:gap-3 px-3 py-2 md:px-5 md:py-3 rounded-xl"
                 style={{
                   background: 'rgba(255,255,255,0.04)',
                   border: '1px solid rgba(255,255,255,0.1)',
@@ -417,48 +304,124 @@ export default function Home() {
       </section>
 
 
-      {/* Milestones Section */}
-      <section className="relative w-full bg-gradient-to-b from-[#040a1e] via-[#070d28] to-[#040a1e] pt-8 pb-20 md:pt-16 md:pb-32 overflow-hidden">
-        {/* Ambient glow orbs */}
-        <div className="absolute top-1/3 left-1/4 w-96 h-96 rounded-full bg-blue-600/5 blur-3xl pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-indigo-600/5 blur-3xl pointer-events-none" />
+      {/* Milestones Section — Tabbed Feature */}
+      <section className="relative w-full bg-gradient-to-b from-[#040a1e] via-[#070d28] to-[#040a1e] py-20 md:py-28 overflow-hidden">
+        {/* Ambient glow orb */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-blue-600/5 blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-16">
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="text-center mb-16 md:mb-20"
+            initial="hidden"
+            whileInView="show"
+            viewport={VIEWPORT}
+            variants={stagger}
+            className="mb-8 md:mb-10"
           >
-            <span className="inline-block text-xs font-bold tracking-[0.3em] uppercase text-blue-400 mb-4">Our Journey</span>
-            <h2 className="font-headline text-3xl sm:text-4xl md:text-5xl text-white font-bold leading-tight">
+            <motion.span variants={fadeUp} className="inline-block text-xs font-bold tracking-[0.3em] uppercase text-blue-400 mb-4">Our Journey</motion.span>
+            <motion.h2 variants={fadeUp} className="font-headline text-3xl sm:text-4xl md:text-5xl text-white font-bold leading-tight">
               Milestones That <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(90deg, #60a5fa, #1d67cd)' }}>Define Us</span>
-            </h2>
-            <p className="mt-4 text-slate-400 max-w-xl mx-auto text-sm md:text-base leading-relaxed">
-              From a bold idea to a global powertrain leader — every step has been engineered with purpose.
-            </p>
+            </motion.h2>
           </motion.div>
 
-          {/* Alternating timeline */}
-          <div ref={timelineRef} className="relative">
-            {/* Center spine (desktop) — track plus the scroll-drawn fill. */}
-            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-px bg-slate-800/60" />
-            <motion.div
-              className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-px origin-top"
-              style={{
-                scaleY: spineScale,
-                background: `linear-gradient(to bottom, ${ACCENT}, #60a5fa)`,
-                boxShadow: `0 0 12px ${ACCENT}60`,
-              }}
-            />
+          {/* Tabs */}
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={VIEWPORT}
+            variants={fadeUp}
+            role="tablist"
+            aria-label="Milestones"
+            className="flex gap-2.5 mb-8 md:mb-10 overflow-x-auto md:flex-wrap hide-scrollbar"
+          >
+            {milestones.map((m, i) => {
+              const active = i === activeMilestone;
+              return (
+                <button
+                  key={m.year}
+                  role="tab"
+                  aria-selected={active}
+                  aria-controls={`milestone-panel-${i}`}
+                  onClick={() => setActiveMilestone(i)}
+                  className="shrink-0 font-headline text-xs font-bold tracking-[0.14em] uppercase px-5 py-2.5 rounded-full border transition-colors duration-300"
+                  style={active
+                    ? { backgroundImage: 'linear-gradient(90deg, #1d67cd, #3b82f6)', color: '#fff', borderColor: 'transparent' }
+                    : { background: 'rgba(148,163,184,0.08)', color: '#8b97b3', borderColor: 'rgba(148,163,184,0.18)' }}
+                >
+                  {m.year}
+                </button>
+              );
+            })}
+          </motion.div>
 
-            <div className="flex flex-col gap-14 md:gap-20">
-              {milestones.map((m, i) => (
-                <MilestoneRow key={m.year} milestone={m} index={i} />
+          {/* Feature panel */}
+          <div className="relative min-h-[400px] md:min-h-[420px]">
+            {/* Oversized ghost numeral tracking the active tab. */}
+            <span
+              className="hidden md:block absolute -top-16 right-0 font-headline font-bold pointer-events-none select-none z-0"
+              style={{ fontSize: '260px', lineHeight: 1, color: 'rgba(96,165,250,0.055)' }}
+              aria-hidden="true"
+            >
+              {String(activeMilestone + 1).padStart(2, '0')}
+            </span>
+
+            {/* Keyed by year so the panel remounts on switch — that remount is
+                what re-triggers CountUp for the new metric. */}
+            <AnimatePresence mode="wait">
+              {milestones.map((m, i) => i === activeMilestone && (
+                <motion.div
+                  key={m.year}
+                  id={`milestone-panel-${i}`}
+                  role="tabpanel"
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -16 }}
+                  transition={{ duration: 0.5, ease: EASE }}
+                  className="grid grid-cols-1 md:grid-cols-[440px_1fr] gap-8 md:gap-12 items-center"
+                >
+                  <div
+                    className="relative rounded-2xl overflow-hidden border h-[300px] md:h-[360px]"
+                    style={{
+                      borderColor: 'rgba(148,163,184,0.2)',
+                      background: 'linear-gradient(160deg,#f7fafc,#e4eaf3)',
+                      boxShadow: '0 30px 60px -24px rgba(0,0,0,0.6)',
+                    }}
+                  >
+                    <img
+                      src={m.image}
+                      alt={m.title}
+                      loading="lazy"
+                      className={`w-full h-full ${m.fit === 'contain' ? 'object-contain p-7' : 'object-cover'}`}
+                    />
+                  </div>
+
+                  <div className="relative z-10">
+                    <div className="text-xs font-bold tracking-[0.24em] uppercase mb-3.5" style={{ color: ACCENT }}>
+                      {m.year}
+                    </div>
+                    <h3 className="font-headline text-2xl md:text-4xl text-white font-bold leading-tight mb-4">
+                      {m.title}
+                    </h3>
+                    <div className="flex items-baseline gap-2.5 mb-1.5">
+                      <CountUp
+                        value={m.metric}
+                        className="text-4xl md:text-5xl font-headline font-bold text-transparent bg-clip-text"
+                        style={{ backgroundImage: 'linear-gradient(90deg, #7cb2ff, #1d67cd)' }}
+                      />
+                      <span className="text-xl md:text-2xl font-headline font-bold" style={{ color: ACCENT }}>
+                        {m.metricSuffix}
+                      </span>
+                    </div>
+                    <p className="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-bold mb-4">
+                      {m.metricLabel}
+                    </p>
+                    <p className="text-slate-400 leading-relaxed text-sm md:text-base max-w-md">
+                      {m.description}
+                    </p>
+                  </div>
+                </motion.div>
               ))}
-            </div>
+            </AnimatePresence>
           </div>
         </div>
       </section>
@@ -484,104 +447,160 @@ export default function Home() {
         </div>
       </section> */}
 
-      {/* Mission & Purpose Section */}
-      <section className="bg-white py-10 md:py-32 px-4 sm:px-6 md:px-16 max-w-7xl mx-auto overflow-hidden" id="about">
-        <div className="grid grid-cols-12 gap-8 md:gap-16">
-          <div className="col-span-12 lg:col-span-5">
-            <span className="font-headline text-primary text-xs font-bold mb-4 block tracking-widest uppercase">
-              OUR PURPOSE
-            </span>
-            <h2 className="font-headline text-2xl md:text-4xl mb-8 uppercase leading-tight">
-              ENGINEERING RELIABILITY FOR A HIGH-VOLTAGE FUTURE.
-            </h2>
-          </div>
-          <div className="col-span-12 lg:col-span-7 space-y-8">
-            <p className="font-body text-lg text-on-surface-v">
-              Voltworks Industrial stands at the intersection of traditional craftsmanship and digital innovation. We design power distribution systems that form the backbone of modern infrastructure, ensuring efficiency, safety, and unwavering performance in the most demanding environments.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-outline-v">
-              <div>
-                <h3 className="font-headline text-xl mb-4 uppercase">OUR MISSION</h3>
-                <p className="font-body text-slate-600">
-                  To empower global industries with precision-engineered electrical solutions that prioritize durability and technical excellence above all else.
-                </p>
+      {/* ─── LIGHT BAND ───────────────────────────────────────────────────
+          Mission + Purpose read as one continuous white band rather than a
+          lone white section between two dark ones. The wedge above and the
+          fade below make the palette change look intentional. */}
+
+      {/* Transition into the light band */}
+      <div className="relative h-16 md:h-24 bg-white overflow-hidden" aria-hidden="true">
+        <div className="absolute inset-0 bg-[#040a1e]" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 45%, 0 100%)' }} />
+      </div>
+
+      <section className="bg-white overflow-hidden" id="about">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-16 pt-6 pb-16 md:pt-12 md:pb-28">
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={VIEWPORT}
+            variants={stagger}
+            className="grid grid-cols-12 gap-8 md:gap-16"
+          >
+            <motion.div variants={slideFrom('left')} className="col-span-12 lg:col-span-5">
+              <span className="font-headline text-primary text-xs font-bold mb-4 block tracking-widest uppercase">
+                OUR PURPOSE
+              </span>
+              <h2 className="font-headline text-2xl md:text-4xl mb-6 uppercase leading-tight text-navy-deep">
+                ENGINEERING RELIABILITY FOR A HIGH-VOLTAGE FUTURE.
+              </h2>
+              <div className="h-px w-16 bg-primary" />
+            </motion.div>
+
+            <motion.div variants={slideFrom('right')} className="col-span-12 lg:col-span-7 space-y-8">
+              <p className="font-body text-lg text-on-surface-v leading-relaxed">
+                Voltworks Industrial stands at the intersection of traditional craftsmanship and digital innovation. We design power distribution systems that form the backbone of modern infrastructure, ensuring efficiency, safety, and unwavering performance in the most demanding environments.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-outline-v">
+                <div>
+                  <h3 className="font-headline text-xl mb-4 uppercase text-navy-deep">OUR MISSION</h3>
+                  <p className="font-body text-slate-600 leading-relaxed">
+                    To empower global industries with precision-engineered electrical solutions that prioritize durability and technical excellence above all else.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="font-headline text-xl mb-4 uppercase text-navy-deep">OUR HISTORY</h3>
+                  <p className="font-body text-slate-600 leading-relaxed">
+                    Founded in a small technical workshop, we have grown into a global leader in high-voltage engineering, maintaining our core values of integrity and meticulous design.
+                  </p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-headline text-xl mb-4 uppercase">OUR HISTORY</h3>
-                <p className="font-body text-slate-600">
-                  Founded in a small technical workshop, we have grown into a global leader in high-voltage engineering, maintaining our core values of integrity and meticulous design.
-                </p>
-              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* Quote — the numbers that used to flank this repeated the hero stat
+            chips verbatim, so the quote now carries the block on its own. */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-16 pb-16 md:pb-28">
+          <motion.figure
+            initial="hidden"
+            whileInView="show"
+            viewport={VIEWPORT}
+            variants={fadeUp}
+            className="relative bg-navy text-white px-6 py-10 md:px-16 md:py-16 rounded-panel overflow-hidden"
+          >
+            {/* Faint grid, echoing the hero's tech overlay */}
+            <div
+              className="absolute inset-0 pointer-events-none opacity-60"
+              style={{
+                backgroundImage: `
+                  linear-gradient(rgba(59,130,246,0.05) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(59,130,246,0.05) 1px, transparent 1px)
+                `,
+                backgroundSize: '48px 48px',
+              }}
+            />
+            <div className="relative max-w-3xl">
+              <span className="font-headline text-5xl md:text-6xl leading-none text-primary-light/50 block mb-2" aria-hidden="true">"</span>
+              <blockquote className="font-body text-lg md:text-2xl leading-relaxed text-white/90">
+                Precision is not just a standard; it's our foundational philosophy. At Voltworks, every component is a testament to our commitment to industrial excellence.
+              </blockquote>
+              <figcaption className="mt-8 flex items-center gap-4">
+                <span className="h-px w-10 bg-primary-light" />
+                <span className="font-headline text-[10px] md:text-xs font-bold text-primary-light tracking-widest uppercase">
+                  Chief Technical Officer
+                </span>
+              </figcaption>
             </div>
-          </div>
+          </motion.figure>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="bg-industrial-bg py-8 md:py-16 px-4 sm:px-6 md:px-16 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-8">
-            <div className="bg-white p-6 md:p-8 border border-outline-v/30 flex flex-col justify-between aspect-auto">
-              <span className="text-4xl md:text-5xl font-headline text-primary">5</span>
-              <p className="font-headline text-[10px] font-bold mt-6 tracking-widest uppercase text-slate-500">
-                YEARS OF EXPERIENCE
-              </p>
-            </div>
-            <div className="bg-navy text-white p-6 md:p-8 col-span-1 md:col-span-2 flex flex-col justify-between">
-              <p className="font-body text-base md:text-lg opacity-80 italic leading-relaxed">
-                "Precision is not just a standard; it's our foundational philosophy. At Voltworks, every component is a testament to our commitment to industrial excellence."
-              </p>
-              <p className="font-headline text-[10px] font-bold mt-6 text-primary tracking-widest uppercase">
-                CHIEF TECHNICAL OFFICER
-              </p>
-            </div>
-            <div className="bg-white p-6 md:p-8 border border-outline-v/30 flex flex-col justify-between aspect-auto">
-              <span className="text-4xl md:text-5xl font-headline text-primary">10,000+</span>
-              <p className="font-headline text-[10px] font-bold mt-6 tracking-widest uppercase text-slate-500">
-                VEHICLES ELECTRIFIED
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Transition out of the light band */}
+      <div className="relative h-16 md:h-24 bg-white overflow-hidden" aria-hidden="true">
+        <div className="absolute inset-0 bg-[#040a1e]" style={{ clipPath: 'polygon(0 100%, 100% 0, 100% 100%, 0 100%)' }} />
+      </div>
 
       {/* Trusted & Supported By Section (moved above CTA) */}
       <section className="w-full bg-[#040a1e]">
         <div className="max-w-7xl mx-auto px-8 md:px-8 lg:px-8 mt-8 md:mt-5 pb-0 md:pb-4">
-          <h3 className="text-center text-white font-headline text-base md:text-lg lg:text-xl mb-10 md:mb-8 uppercase tracking-wide font-normal">
+          <motion.h3
+            initial="hidden"
+            whileInView="show"
+            viewport={VIEWPORT}
+            variants={fadeUp}
+            className="text-center text-white font-headline text-base md:text-lg lg:text-xl mb-10 md:mb-8 uppercase tracking-wide font-normal"
+          >
             Trusted & Supported By
-          </h3>
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 md:gap-x-10 lg:gap-x-14 opacity-90 w-full">
-            <img src={top1} alt="Top 1 Logo" className="w-24 md:w-32 lg:w-40 object-contain" />
-            <img src={top2} alt="Top 2 Logo" className="w-40 md:w-56 lg:w-72 object-contain" />
-            <img src={top3} alt="Top 3 Logo" className="w-28 md:w-40 lg:w-48 object-contain" />
-            <img src={top4} alt="Top 4 Logo" className="w-24 md:w-32 lg:w-40 object-contain" />
-          </div>
+          </motion.h3>
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={VIEWPORT}
+            variants={staggerSlow}
+            className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 md:gap-x-10 lg:gap-x-14 w-full"
+          >
+            {[
+              { src: top1, alt: 'Top 1 Logo', className: 'w-24 md:w-32 lg:w-40' },
+              { src: top2, alt: 'Top 2 Logo', className: 'w-40 md:w-56 lg:w-72' },
+              { src: top3, alt: 'Top 3 Logo', className: 'w-28 md:w-40 lg:w-48' },
+              { src: top4, alt: 'Top 4 Logo', className: 'w-24 md:w-32 lg:w-40' },
+            ].map(logo => (
+              <motion.img
+                key={logo.alt}
+                variants={fadeUp}
+                src={logo.src}
+                alt={logo.alt}
+                loading="lazy"
+                className={`${logo.className} object-contain opacity-70 hover:opacity-100 transition-opacity duration-300`}
+              />
+            ))}
+          </motion.div>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="bg-[#040a1e] py-12 md:py-24 px-6 md:px-16 text-center">
         <motion.div
-           initial={{ opacity: 0, y: 30 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true }}
+           initial="hidden"
+           whileInView="show"
+           viewport={VIEWPORT}
+           variants={stagger}
            className="max-w-2xl mx-auto"
         >
-          <h2 className="font-headline text-2xl md:text-3xl text-white uppercase mb-6 leading-tight">
+          <motion.h2 variants={fadeUp} className="font-headline text-2xl md:text-3xl text-white uppercase mb-6 leading-tight">
             Ready to Optimize Your Infrastructure?
-          </h2>
-          <p className="font-body text-base md:text-lg text-slate-400 mb-10">
+          </motion.h2>
+          <motion.p variants={fadeUp} className="font-body text-base md:text-lg text-slate-400 mb-10">
             Consult with our engineering team to design a custom solution for your facility's power and control needs.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          </motion.p>
+          <motion.div variants={fadeUp} className="flex flex-col sm:flex-row justify-center gap-4">
             <Link to="/contact" className="bg-primary text-white font-headline text-xs font-bold px-10 py-5 hover:bg-primary-light transition-all uppercase tracking-widest inline-block text-center">
               Schedule Consultation
             </Link>
             <a href={techBrochure} download="Voltworks_Technical_Brochure.pdf" className="border border-slate-700 text-white font-headline text-xs font-bold px-10 py-5 hover:bg-slate-800 transition-all uppercase tracking-widest inline-block text-center">
               Download Technical Catalog
             </a>
-          </div>
+          </motion.div>
         </motion.div>
       </section>
     </div>
