@@ -1,4 +1,4 @@
-﻿import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import homeVid from '../public/home-vid.mp4';
@@ -412,7 +412,7 @@ export default function Home() {
       </section>
 
       {/* Unify & Partner Section (moved below hero) */}
-      <section className="bg-white py-10 md:py-24 px-6 md:px-16 w-full text-center border-t border-slate-100">
+      {/* <section className="bg-white py-10 md:py-24 px-6 md:px-16 w-full text-center border-t border-slate-100">
         <h2 className="text-3xl md:text-5xl font-semibold text-slate-900 mb-6 leading-tight">
           Our Customers
         </h2>
@@ -430,7 +430,7 @@ export default function Home() {
           <img src={p6} alt="Urbacab" className="h-10 md:h-12 lg:h-8 object-contain mix-blend-multiply md:scale-110 lg:scale-215" />
           <img src={panther} alt="Panther" className="h-8 md:h-10 lg:h-18 object-contain mix-blend-multiply" />
         </div>
-      </section>
+      </section> */}
 
       {/* Mission & Purpose Section */}
       <section className="bg-white py-10 md:py-32 px-4 sm:px-6 md:px-16 max-w-7xl mx-auto overflow-hidden" id="about">
