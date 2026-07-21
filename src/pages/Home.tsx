@@ -1,17 +1,16 @@
-import { AnimatePresence, motion, useInView, useReducedMotion } from 'motion/react';
+﻿import { motion, useInView, useReducedMotion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { EASE, VIEWPORT, fadeUp, slideFrom, stagger, staggerSlow } from '../lib/motion';
-import homeVid from '../public/home-vid.mp4';
+import { VIEWPORT, fadeUp, slideFrom, stagger, staggerSlow } from '../lib/motion';
 import top1 from '../public/top1.png';
 import top2 from '../public/top2.png';
 import top3 from '../public/top3.png';
 import top4 from '../public/top4.png';
 import techBrochure from '../public/Technical Brochure - Q4 FY 24-25.pdf';
+import homeVid from '../public/home-vid.mp4';
 import patent1 from '../public/patent-1.png';
-// TODO: swap these two for the real milestone photos when supplied.
-import milestonePrototype from '../public/PMSM Motor - L3.png';
-import milestoneFleet from '../public/PMSM Controller - L2.webp';
+// TODO: swap for the real "production line" photo when supplied.
+import milestoneCapacity from '../public/PMSM Motor - L3.png';
 
 // Partner images
 import p1 from '../public/image.png';
@@ -27,65 +26,36 @@ import panther from '../public/panther.png';
 
 // `fit: 'contain'` frames a document/scan on a tinted panel; 'cover' lets a
 // photo bleed to the edges of its frame.
+// These two render as alternating image/text rows. The third milestone
+// (powertrain sets sold) is a distinct full-width "live" stat spotlight,
+// defined separately below as POWERTRAIN_SOLD.
 const milestones = [
   {
-    year: 'Jan, 2025',
-    title: 'Powertrain Prototype',
-    description: 'Our first integrated motor-controller unit successfully completed 10,000 km of rigorous road testing, validating our core engineering philosophy.',
-    metric: '10K',
-    metricSuffix: ' km',
-    metricLabel: 'Test Distance',
-    image: milestonePrototype,
-    fit: 'contain' as const,
-  },
-  {
-    year: 'Feb, 2025',
-    title: 'First Patent Granted',
-    description: 'Secured our first patent for the innovative powertrain architecture, marking a significant milestone in our intellectual property portfolio.',
-    metric: '1',
-    metricSuffix: ' Patent',
-    metricLabel: 'Stator for Electric Machine',
+    year: 'Filed',
+    title: 'Patents Filed',
+    description: 'We’ve filed our first patent for a novel stator architecture used in our electric machines — the intellectual-property foundation of our indigenous powertrain platform.',
+    metric: '1' as string | undefined,
+    metricSuffix: '' as string | undefined,
+    metricRange: undefined as [string, string] | undefined,
+    metricLabel: 'Patent Filed',
     image: patent1,
     fit: 'contain' as const,
   },
   {
-    year: 'May, 2026',
-    title: '10,000 Vehicles Electrified',
-    description: 'Achieved a major milestone by electrifying over 10,000 vehicles across multiple platforms, demonstrating the scalability and reliability of our powertrain solutions.',
-    metric: '10K',
-    metricSuffix: '+',
-    metricLabel: 'Vehicles Electrified',
-    image: milestoneFleet,
+    year: 'Current',
+    title: 'Production Capacity',
+    description: 'Our manufacturing line is built to scale with demand, producing between 4,000 and 8,000 powertrain sets every month.',
+    metric: undefined as string | undefined,
+    metricSuffix: undefined as string | undefined,
+    metricRange: ['4,000', '8,000'] as [string, string] | undefined,
+    metricLabel: 'Powertrain Sets / Month',
+    image: milestoneCapacity,
     fit: 'contain' as const,
   },
-  // {
-  //   year: '2022',
-  //   title: 'Cloud Telemetry Integration',
-  //   description: 'Deployed cloud-based telemetry streaming for in-depth vehicle health monitoring, predictive maintenance, and live performance analytics.',
-  //   metric: '1M+',
-  //   metricLabel: 'Data Points/Day',
-  //   color: '#06b6d4',
-  //   icon: '☁️',
-  // },
-  // {
-  //   year: '2023',
-  //   title: 'Global Market Expansion',
-  //   description: 'Forged strategic partnerships with leading EV manufacturers across Europe and Asia, bringing VoltWorks technology to international markets.',
-  //   metric: '12+',
-  //   metricLabel: 'Countries Reached',
-  //   color: '#10b981',
-  //   icon: '🌍',
-  // },
-  // {
-  //   year: '2024',
-  //   title: 'Next-Gen Kit V3 Released',
-  //   description: 'Launched the V3 powertrain kit — 40% lighter, 25% more efficient, and equipped with AI-driven torque vectoring for unmatched driving dynamics.',
-  //   metric: '40%',
-  //   metricLabel: 'Weight Reduction',
-  //   color: '#f59e0b',
-  //   icon: '🏎️',
-  // },
 ];
+
+// Base count for the live spotlight counter — bump this as real sales land.
+const POWERTRAIN_SOLD = 10127;
 
 const ACCENT = '#3b82f6';
 
@@ -99,8 +69,8 @@ function CountUp({ value, className, style }: { value: string; className?: strin
   const reduceMotion = useReducedMotion();
   const [display, setDisplay] = useState(value);
 
-  const target = parseFloat(value);
-  const suffix = value.replace(/^[\d.]+/, '');
+  const target = parseFloat(value.replace(/,/g, ''));
+  const suffix = value.replace(/^[\d,.]+/, '');
 
   useEffect(() => {
     if (!inView || Number.isNaN(target)) return;
@@ -117,7 +87,7 @@ function CountUp({ value, className, style }: { value: string; className?: strin
       const progress = Math.min((now - start) / duration, 1);
       // easeOutExpo — fast off the line, settles gently on the final number.
       const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-      setDisplay(Math.round(target * eased) + suffix);
+      setDisplay(Math.round(target * eased).toLocaleString() + suffix);
       if (progress < 1) frame = requestAnimationFrame(tick);
     };
 
@@ -128,26 +98,103 @@ function CountUp({ value, className, style }: { value: string; className?: strin
   return <span ref={ref} className={className} style={style}>{Number.isNaN(target) ? value : display}</span>;
 }
 
-export default function Home() {
-  const [activeMilestone, setActiveMilestone] = useState(0);
+/**
+ * Digital-odometer style counter for the "powertrain sets sold" spotlight.
+ * Rolls 0 -> target with a slot-machine flicker (each frame overshoots the
+ * true progress by a small random jitter, so it reads as spinning digits
+ * rather than a clean linear count). Once settled, it drifts upward by 1 on
+ * a slow random interval — a decorative "live" feel with no backend behind
+ * it; the base number resets to POWERTRAIN_SOLD on every page load.
+ */
+function LiveOdometer({ target, digits = 5 }: { target: number; digits?: number }) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const inView = useInView(ref, { once: true, margin: '-100px' });
+  const reduceMotion = useReducedMotion();
+  const [value, setValue] = useState(0);
+  const settledRef = useRef(false);
 
+  useEffect(() => {
+    if (!inView) return;
+    if (reduceMotion) {
+      setValue(target);
+      settledRef.current = true;
+      return;
+    }
+
+    const duration = 2200;
+    const start = performance.now();
+    let frame = 0;
+
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      if (progress < 1) {
+        const eased = 1 - Math.pow(2, -10 * progress);
+        const ceiling = Math.round(target * eased);
+        const jitter = Math.floor(Math.random() * Math.max(1, target - ceiling) * 0.15);
+        setValue(Math.min(target, ceiling + jitter));
+        frame = requestAnimationFrame(tick);
+      } else {
+        setValue(target);
+        settledRef.current = true;
+      }
+    };
+
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [inView, target, reduceMotion]);
+
+  useEffect(() => {
+    if (!inView || reduceMotion) return;
+    let timer: ReturnType<typeof setTimeout>;
+    const scheduleBump = () => {
+      timer = setTimeout(() => {
+        if (settledRef.current) setValue((v) => v + 1);
+        scheduleBump();
+      }, 4000 + Math.random() * 6000);
+    };
+    scheduleBump();
+    return () => clearTimeout(timer);
+  }, [inView, reduceMotion]);
+
+  const digitChars = String(value).padStart(digits, '0').split('');
+
+  return (
+    <div ref={ref} className="flex items-center gap-1.5 sm:gap-2 md:gap-2.5" aria-label={`${value.toLocaleString()} powertrain sets sold`}>
+      {digitChars.map((digit, i) => (
+        <span
+          key={i}
+          className="font-headline font-black tabular-nums inline-flex items-center justify-center rounded-lg md:rounded-xl text-3xl sm:text-4xl md:text-6xl w-[1em] h-[1.4em] text-white"
+          style={{
+            background: 'linear-gradient(160deg,#0d1938,#050b1d)',
+            border: '1px solid rgba(59,130,246,0.28)',
+            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06), 0 20px 40px -20px rgba(0,0,0,0.7)',
+          }}
+        >
+          {digit}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+export default function Home() {
   return (
     <div className="flex flex-col bg-[#040a1e] overflow-x-hidden w-full">
       {/* Hero Section — Premium Redesign */}
       <section className="relative w-full min-h-[auto] md:min-h-screen bg-[#040a1e] overflow-hidden flex flex-col justify-start md:justify-center">
 
         {/* === BACKGROUND LAYERS === */}
-        {/* 1. Background video */}
+        {/* 1. Video background */}
         <video
-          src={homeVid}
           autoPlay
-          muted
           loop
+          muted
           playsInline
-          preload="auto"
-          className="absolute inset-0 w-full h-full object-cover z-0 scale-105"
-          style={{ filter: 'brightness(0.45) saturate(0.8)' }}
-        />
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ filter: 'brightness(0.7)' }}
+        >
+          <source src={homeVid} type="video/mp4" />
+        </video>
 
         {/* 2. Multi-layer gradient overlay for depth */}
         <div className="absolute inset-0 z-10" style={{
@@ -304,7 +351,7 @@ export default function Home() {
       </section>
 
 
-      {/* Milestones Section — Tabbed Feature */}
+      {/* Milestones Section — alternating scroll story + live stat spotlight */}
       <section className="relative w-full bg-gradient-to-b from-[#040a1e] via-[#070d28] to-[#040a1e] py-20 md:py-28 overflow-hidden">
         {/* Ambient glow orb */}
         <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-blue-600/5 blur-3xl pointer-events-none" />
@@ -316,7 +363,7 @@ export default function Home() {
             whileInView="show"
             viewport={VIEWPORT}
             variants={stagger}
-            className="mb-8 md:mb-10"
+            className="mb-16 md:mb-24"
           >
             <motion.span variants={fadeUp} className="inline-block text-xs font-bold tracking-[0.3em] uppercase text-blue-400 mb-4">Our Journey</motion.span>
             <motion.h2 variants={fadeUp} className="font-headline text-3xl sm:text-4xl md:text-5xl text-white font-bold leading-tight">
@@ -324,105 +371,141 @@ export default function Home() {
             </motion.h2>
           </motion.div>
 
-          {/* Tabs */}
+          {/* Alternating milestone rows, tied together by a center spine on desktop */}
+          <div className="relative">
+            <div
+              className="hidden md:block absolute left-1/2 top-2 bottom-2 w-px -translate-x-1/2 pointer-events-none"
+              style={{ background: 'linear-gradient(to bottom, transparent, rgba(59,130,246,0.35), transparent)' }}
+              aria-hidden="true"
+            />
+
+            <div className="flex flex-col gap-20 md:gap-28">
+              {milestones.map((m, i) => {
+                const reversed = i % 2 === 1;
+                return (
+                  <motion.div
+                    key={m.year + m.title}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={VIEWPORT}
+                    className="relative grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center"
+                  >
+                    {/* Node on the spine */}
+                    <span
+                      className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full z-10"
+                      style={{ background: '#3b82f6', boxShadow: '0 0 0 5px rgba(59,130,246,0.15), 0 0 20px rgba(59,130,246,0.6)' }}
+                      aria-hidden="true"
+                    />
+
+                    <motion.div
+                      variants={slideFrom(reversed ? 'right' : 'left')}
+                      className={`relative rounded-2xl overflow-hidden h-[280px] md:h-[380px] ${reversed ? 'md:order-2' : ''}`}
+                      style={{
+                        background: 'transparent',
+                        border: 'none',
+                        boxShadow: 'none',
+                      }}
+                    >
+                      <img
+                        src={m.image}
+                        alt={m.title}
+                        loading="lazy"
+                        className={`w-full h-full ${m.fit === 'contain' ? 'object-contain p-7' : 'object-cover'}`}
+                      />
+                    </motion.div>
+
+                    <motion.div
+                      variants={slideFrom(reversed ? 'left' : 'right')}
+                      className={`relative z-10 ${reversed ? 'md:order-1 md:text-right' : ''}`}
+                    >
+                      <div className="text-xs font-bold tracking-[0.24em] uppercase mb-3.5" style={{ color: ACCENT }}>
+                        {m.year}
+                      </div>
+                      <h3 className="font-headline text-2xl md:text-4xl text-white font-bold leading-tight mb-4">
+                        {m.title}
+                      </h3>
+
+                      {m.metricRange ? (
+                        <div className={`flex items-baseline gap-2 mb-1.5 ${reversed ? 'md:justify-end' : ''}`}>
+                          <CountUp
+                            value={m.metricRange[0]}
+                            className="text-3xl md:text-4xl font-headline font-bold text-transparent bg-clip-text"
+                            style={{ backgroundImage: 'linear-gradient(90deg, #7cb2ff, #1d67cd)' }}
+                          />
+                          <span className="text-xl md:text-2xl font-headline font-bold" style={{ color: ACCENT }}>–</span>
+                          <CountUp
+                            value={m.metricRange[1]}
+                            className="text-3xl md:text-4xl font-headline font-bold text-transparent bg-clip-text"
+                            style={{ backgroundImage: 'linear-gradient(90deg, #7cb2ff, #1d67cd)' }}
+                          />
+                        </div>
+                      ) : (
+                        <div className={`flex items-baseline gap-2.5 mb-1.5 ${reversed ? 'md:justify-end' : ''}`}>
+                          <CountUp
+                            value={m.metric ?? ''}
+                            className="text-4xl md:text-5xl font-headline font-bold text-transparent bg-clip-text"
+                            style={{ backgroundImage: 'linear-gradient(90deg, #7cb2ff, #1d67cd)' }}
+                          />
+                          <span className="text-xl md:text-2xl font-headline font-bold" style={{ color: ACCENT }}>
+                            {m.metricSuffix}
+                          </span>
+                        </div>
+                      )}
+
+                      <p className="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-bold mb-4">
+                        {m.metricLabel}
+                      </p>
+                      <p className={`text-slate-400 leading-relaxed text-sm md:text-base max-w-md ${reversed ? 'md:ml-auto' : ''}`}>
+                        {m.description}
+                      </p>
+                    </motion.div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Milestone 3 — live stat spotlight, deliberately breaks the rhythm above */}
           <motion.div
             initial="hidden"
             whileInView="show"
             viewport={VIEWPORT}
             variants={fadeUp}
-            role="tablist"
-            aria-label="Milestones"
-            className="flex gap-2.5 mb-8 md:mb-10 overflow-x-auto md:flex-wrap hide-scrollbar"
+            className="relative mt-20 md:mt-28 rounded-3xl overflow-hidden text-center px-6 py-14 md:py-20"
+            style={{
+              border: '1px solid rgba(59,130,246,0.25)',
+              background: 'radial-gradient(ellipse 80% 100% at 50% 0%, rgba(37,99,235,0.16) 0%, rgba(7,13,40,0.4) 60%, rgba(4,10,30,0.4) 100%)',
+              boxShadow: '0 40px 80px -30px rgba(0,0,0,0.7)',
+            }}
           >
-            {milestones.map((m, i) => {
-              const active = i === activeMilestone;
-              return (
-                <button
-                  key={m.year}
-                  role="tab"
-                  aria-selected={active}
-                  aria-controls={`milestone-panel-${i}`}
-                  onClick={() => setActiveMilestone(i)}
-                  className="shrink-0 font-headline text-xs font-bold tracking-[0.14em] uppercase px-5 py-2.5 rounded-full border transition-colors duration-300"
-                  style={active
-                    ? { backgroundImage: 'linear-gradient(90deg, #1d67cd, #3b82f6)', color: '#fff', borderColor: 'transparent' }
-                    : { background: 'rgba(148,163,184,0.08)', color: '#8b97b3', borderColor: 'rgba(148,163,184,0.18)' }}
-                >
-                  {m.year}
-                </button>
-              );
-            })}
-          </motion.div>
-
-          {/* Feature panel */}
-          <div className="relative min-h-[400px] md:min-h-[420px]">
-            {/* Oversized ghost numeral tracking the active tab. */}
-            <span
-              className="hidden md:block absolute -top-16 right-0 font-headline font-bold pointer-events-none select-none z-0"
-              style={{ fontSize: '260px', lineHeight: 1, color: 'rgba(96,165,250,0.055)' }}
+            <div
+              className="absolute inset-0 pointer-events-none opacity-40"
+              style={{
+                backgroundImage: 'linear-gradient(rgba(59,130,246,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.05) 1px, transparent 1px)',
+                backgroundSize: '48px 48px',
+              }}
               aria-hidden="true"
-            >
-              {String(activeMilestone + 1).padStart(2, '0')}
-            </span>
+            />
 
-            {/* Keyed by year so the panel remounts on switch — that remount is
-                what re-triggers CountUp for the new metric. */}
-            <AnimatePresence mode="wait">
-              {milestones.map((m, i) => i === activeMilestone && (
-                <motion.div
-                  key={m.year}
-                  id={`milestone-panel-${i}`}
-                  role="tabpanel"
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -16 }}
-                  transition={{ duration: 0.5, ease: EASE }}
-                  className="grid grid-cols-1 md:grid-cols-[440px_1fr] gap-8 md:gap-12 items-center"
-                >
-                  <div
-                    className="relative rounded-2xl overflow-hidden border h-[300px] md:h-[360px]"
-                    style={{
-                      borderColor: 'rgba(148,163,184,0.2)',
-                      background: 'linear-gradient(160deg,#f7fafc,#e4eaf3)',
-                      boxShadow: '0 30px 60px -24px rgba(0,0,0,0.6)',
-                    }}
-                  >
-                    <img
-                      src={m.image}
-                      alt={m.title}
-                      loading="lazy"
-                      className={`w-full h-full ${m.fit === 'contain' ? 'object-contain p-7' : 'object-cover'}`}
-                    />
-                  </div>
+            <div className="relative z-10 flex flex-col items-center">
+              <span
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] mb-6"
+                style={{ background: 'rgba(37,99,235,0.15)', border: '1px solid rgba(59,130,246,0.35)', color: '#93c5fd' }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse inline-block" />
+                Live
+              </span>
 
-                  <div className="relative z-10">
-                    <div className="text-xs font-bold tracking-[0.24em] uppercase mb-3.5" style={{ color: ACCENT }}>
-                      {m.year}
-                    </div>
-                    <h3 className="font-headline text-2xl md:text-4xl text-white font-bold leading-tight mb-4">
-                      {m.title}
-                    </h3>
-                    <div className="flex items-baseline gap-2.5 mb-1.5">
-                      <CountUp
-                        value={m.metric}
-                        className="text-4xl md:text-5xl font-headline font-bold text-transparent bg-clip-text"
-                        style={{ backgroundImage: 'linear-gradient(90deg, #7cb2ff, #1d67cd)' }}
-                      />
-                      <span className="text-xl md:text-2xl font-headline font-bold" style={{ color: ACCENT }}>
-                        {m.metricSuffix}
-                      </span>
-                    </div>
-                    <p className="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-bold mb-4">
-                      {m.metricLabel}
-                    </p>
-                    <p className="text-slate-400 leading-relaxed text-sm md:text-base max-w-md">
-                      {m.description}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
+              <LiveOdometer target={POWERTRAIN_SOLD} />
+
+              <h3 className="font-headline text-xl md:text-2xl text-white font-bold mt-7 mb-2">
+                Powertrain Sets Sold
+              </h3>
+              <p className="text-slate-400 leading-relaxed text-sm md:text-base max-w-md">
+                Every unit shipped is a vehicle electrified. This count grows as our powertrain sets reach the road.
+              </p>
+            </div>
+          </motion.div>
         </div>
       </section>
 
