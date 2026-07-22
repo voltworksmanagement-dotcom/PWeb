@@ -618,20 +618,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Transition out of the light band */}
-      <div className="relative h-16 md:h-24 bg-white overflow-hidden" aria-hidden="true">
-        <div className="absolute inset-0 bg-[#040a1e]" style={{ clipPath: 'polygon(0 100%, 100% 0, 100% 100%, 0 100%)' }} />
-      </div>
-
       {/* Trusted & Supported By Section (moved above CTA) */}
-      <section className="w-full bg-[#040a1e]">
+      <section className="w-full bg-white">
         <div className="max-w-7xl mx-auto px-8 md:px-8 lg:px-8 mt-8 md:mt-5 pb-0 md:pb-4">
           <motion.h3
             initial="hidden"
             whileInView="show"
             viewport={VIEWPORT}
             variants={fadeUp}
-            className="text-center text-white font-headline text-base md:text-lg lg:text-xl mb-10 md:mb-8 uppercase tracking-wide font-normal"
+            className="text-center text-navy-deep font-headline text-base md:text-lg lg:text-xl mb-10 md:mb-8 uppercase tracking-wide font-normal"
           >
             Trusted & Supported By
           </motion.h3>
@@ -646,7 +641,7 @@ export default function Home() {
               { src: top1, alt: 'Top 1 Logo', className: 'w-24 md:w-32 lg:w-40' },
               { src: top2, alt: 'Top 2 Logo', className: 'w-40 md:w-56 lg:w-72' },
               { src: top3, alt: 'Top 3 Logo', className: 'w-28 md:w-40 lg:w-48' },
-              { src: top4, alt: 'Top 4 Logo', className: 'w-24 md:w-32 lg:w-40' },
+              { src: top4, alt: 'Top 4 Logo', className: 'w-36 md:w-48 lg:w-56 scale-120' },
             ].map(logo => (
               <motion.img
                 key={logo.alt}
@@ -660,6 +655,11 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* Transition into the dark CTA band */}
+      <div className="relative h-16 md:h-24 bg-white overflow-hidden" aria-hidden="true">
+        <div className="absolute inset-0 bg-[#040a1e]" style={{ clipPath: 'polygon(0 100%, 100% 0, 100% 100%, 0 100%)' }} />
+      </div>
 
       {/* CTA Section */}
       <section className="bg-[#040a1e] py-12 md:py-24 px-6 md:px-16 text-center">
