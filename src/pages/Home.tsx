@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { VIEWPORT, fadeUp, slideFrom, stagger, staggerSlow } from '../lib/motion';
+import WaterRipple from '../components/WaterRipple';
 import top1 from '../public/top1.png';
 import top2 from '../public/top2.png';
 import top3 from '../public/top3.png';
@@ -355,11 +356,17 @@ export default function Home() {
 
 
       {/* Milestones Section — alternating scroll story + live stat spotlight */}
-      <section className="relative w-full bg-gradient-to-b from-[#040a1e] via-[#070d28] to-[#040a1e] py-20 md:py-28 overflow-hidden">
+      <section className="relative w-full bg-gradient-to-b from-[#040a1e] via-[#122447] to-[#040a1e] py-20 md:py-28 overflow-hidden">
+        {/* Interactive water surface. Sits above the gradient but below all
+            content, and keeps pointer events so it can be rippled directly. */}
+        <WaterRipple />
+
         {/* Ambient glow orb */}
         <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-blue-600/5 blur-3xl pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-16">
+        {/* pointer-events-none lets the cursor reach the canvas; interactive
+            children below re-enable it individually. */}
+        <div className="relative z-10 pointer-events-none max-w-7xl mx-auto px-4 sm:px-6 md:px-16">
           {/* Header */}
           <motion.div
             initial="hidden"
