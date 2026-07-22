@@ -1,4 +1,4 @@
-﻿import { motion, useInView, useReducedMotion } from 'motion/react';
+﻿import { motion, useInView, useReducedMotion, useScroll, useSpring } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { VIEWPORT, fadeUp, slideFrom, stagger, staggerSlow } from '../lib/motion';
@@ -22,13 +22,7 @@ import p6 from '../public/image (6).png';
 import urbacab from '../public/urbancab.png';
 import panther from '../public/panther.png';
 
-// Partner logos: Supertech, Urbacab, Panther replace older customer logos
 
-// `fit: 'contain'` frames a document/scan on a tinted panel; 'cover' lets a
-// photo bleed to the edges of its frame.
-// These two render as alternating image/text rows. The third milestone
-// (powertrain sets sold) is a distinct full-width "live" stat spotlight,
-// defined separately below as POWERTRAIN_SOLD.
 const milestones = [
   {
     year: 'Filed',
@@ -178,6 +172,15 @@ function LiveOdometer({ target, digits = 5 }: { target: number; digits?: number 
 }
 
 export default function Home() {
+  // Milestones spine: fill grows/shrinks as the row of dots scrolls through
+  // the viewport, tracking scroll position both up and down.
+  const spineRef = useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress: spineScroll } = useScroll({
+    target: spineRef,
+    offset: ['start 0.75', 'end 0.25'],
+  });
+  const spineProgress = useSpring(spineScroll, { stiffness: 300, damping: 40, mass: 0.5 });
+
   return (
     <div className="flex flex-col bg-[#040a1e] overflow-x-hidden w-full">
       {/* Hero Section — Premium Redesign */}
@@ -372,10 +375,23 @@ export default function Home() {
           </motion.div>
 
           {/* Alternating milestone rows, tied together by a center spine on desktop */}
-          <div className="relative">
+          <div ref={spineRef} className="relative">
             <div
               className="hidden md:block absolute left-1/2 top-2 bottom-2 w-px -translate-x-1/2 pointer-events-none"
               style={{ background: 'linear-gradient(to bottom, transparent, rgba(59,130,246,0.35), transparent)' }}
+              aria-hidden="true"
+            />
+            {/* Scroll-driven fill — grows/shrinks with scroll position, so the
+                line's progress tracks scroll in both directions rather than
+                just playing once. */}
+            <motion.div
+              className="hidden md:block absolute left-1/2 top-2 w-px -translate-x-1/2 pointer-events-none origin-top"
+              style={{
+                background: 'linear-gradient(to bottom, #60a5fa, #3b82f6)',
+                boxShadow: '0 0 12px rgba(59,130,246,0.8)',
+                height: 'calc(100% - 16px)',
+                scaleY: spineProgress,
+              }}
               aria-hidden="true"
             />
 
