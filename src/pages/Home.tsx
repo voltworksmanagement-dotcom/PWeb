@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { VIEWPORT, fadeUp, slideFrom, stagger, staggerSlow } from '../lib/motion';
+import { liveVehicleCount } from '../lib/liveCounter';
 import top1 from '../public/top1.png';
 import top2 from '../public/top2.png';
 import top3 from '../public/top3.png';
@@ -13,9 +14,6 @@ import heroMotor from '../public/hero-motor.png';
 import heroProduction from '../public/hero-production.png';
 import heroWater from '../public/hero-water.webp';
 import heroRickshaw from '../public/hero-rickshaw_line.webp';
-
-// Base count for the live "vehicles electrified" counter — bump as real sales land.
-const POWERTRAIN_SOLD = 10127;
 
 const ACCENT = '#1d67cd';
 
@@ -62,16 +60,18 @@ function CountUp({ value, className, style }: { value: string; className?: strin
  * Digital-odometer style counter for the "vehicles electrified" spotlight.
  * Rolls 0 -> target with a slot-machine flicker (each frame overshoots the
  * true progress by a small random jitter, so it reads as spinning digits
- * rather than a clean linear count). Once settled, it drifts upward by 1 on
- * a slow random interval — a decorative "live" feel with no backend behind
- * it; the base number resets to POWERTRAIN_SOLD on every page load.
+ * rather than a clean linear count). The target comes from liveVehicleCount()
+ * — a deterministic clock-based figure (see src/lib/liveCounter.ts), so a
+ * refresh never resets it and it only ticks during working hours. Once
+ * settled, the display re-syncs against the live figure each minute.
  */
-function LiveOdometer({ target, digits = 5 }: { target: number; digits?: number }) {
+function LiveOdometer({ digits = 5 }: { digits?: number }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const inView = useInView(ref, { once: true, margin: '-100px' });
   const reduceMotion = useReducedMotion();
   const [value, setValue] = useState(0);
   const settledRef = useRef(false);
+  const target = useRef(liveVehicleCount()).current;
 
   useEffect(() => {
     if (!inView) return;
@@ -103,18 +103,18 @@ function LiveOdometer({ target, digits = 5 }: { target: number; digits?: number 
     return () => cancelAnimationFrame(frame);
   }, [inView, target, reduceMotion]);
 
+  // After the roll-up settles, keep the display in sync with the live figure.
+  // During working hours that surfaces as an occasional +1; at night and on
+  // weekends the number simply holds still.
   useEffect(() => {
-    if (!inView || reduceMotion) return;
-    let timer: ReturnType<typeof setTimeout>;
-    const scheduleBump = () => {
-      timer = setTimeout(() => {
-        if (settledRef.current) setValue((v) => v + 1);
-        scheduleBump();
-      }, 4000 + Math.random() * 6000);
-    };
-    scheduleBump();
-    return () => clearTimeout(timer);
-  }, [inView, reduceMotion]);
+    if (!inView) return;
+    const timer = setInterval(() => {
+      if (!settledRef.current) return;
+      const next = liveVehicleCount();
+      setValue((v) => (next > v ? next : v));
+    }, 60_000);
+    return () => clearInterval(timer);
+  }, [inView]);
 
   const digitChars = String(value).padStart(digits, '0').split('');
 
@@ -406,7 +406,7 @@ export default function Home() {
                 Live
               </span>
 
-              <LiveOdometer target={POWERTRAIN_SOLD} />
+              <LiveOdometer />
 
               <h3 className="font-headline text-xl md:text-3xl text-white font-bold uppercase tracking-wide mt-8 mb-3">
                 Vehicles Electrified
