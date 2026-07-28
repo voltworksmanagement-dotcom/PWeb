@@ -310,10 +310,10 @@ export default function Home() {
                     Filed
                   </div>
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="font-headline font-black leading-none text-5xl md:text-7xl" style={{ color: ACCENT }} aria-hidden="true">1</span>
+                    {/* <span className="font-headline font-black leading-none text-5xl md:text-7xl" style={{ color: ACCENT }} aria-hidden="true">Our</span> */}
                     <div>
                       <h3 className="font-headline text-2xl md:text-4xl font-bold leading-tight" style={{ color: ACCENT }}>
-                        Patents Granted
+                        Proprietary Technology
                       </h3>
                       <p className="text-[11px] md:text-sm uppercase tracking-[0.14em] font-bold mt-1" style={{ color: ACCENT }}>
                         Stator for Electric Machine
