@@ -1,9 +1,15 @@
 [
   {
-    "id": "v-120s-60h-1200w",
-    "name": "PMSM Motor – 120S – 60H – 1200W",
-    "description": "The VoltWorks 120S-60H-1200W PMSM motor delivers high-torque, energy-efficient performance for L3 e-passenger vehicles. Rated at 48V/60V with 1250W continuous power and a peak torque of 30 Nm, it features IP66 waterproofing and forced fan air cooling, making it ideal for Indian road and weather conditions. Designed for e-rickshaw passenger applications with a supported GVW of 700 kg and top speeds of ~35 km/h.",
-    "image": "PMSM Motor - L3.jpeg",
+    "id": "v-120s-60h-1250w",
+    "name": "PMSM Motor – 120S – 60H – 1250W",
+    "description": "The VoltWorks 120S-60H-1250W PMSM motor delivers high-torque, energy-efficient performance for L3 e-passenger vehicles. Rated at 48V/60V with 1250W continuous power and a peak torque of 30 Nm, it features IP66 waterproofing and forced fan air cooling, making it ideal for Indian road and weather conditions. Designed for e-rickshaw passenger applications with a supported GVW of 700 kg and top speeds of ~35 km/h.",
+    "image": "PMSM Motor 120S 60H 1250W - 1.jpg",
+    "gallery": [
+      "PMSM Motor 120S 60H 1250W - 1.jpg",
+      "PMSM Motor 120S 60H 1250W - 2.jpg",
+      "PMSM Motor 120S 60H 1250W - 3.jpg",
+      "PMSM Motor 120S 60H 1250W - 4.jpg"
+    ],
     "tag": "L3 SERIES",
     "category": "Motor",
     "applications": [
@@ -60,7 +66,13 @@
     "id": "v-120s-70h-1500w",
     "name": "PMSM Motor – 120S – 70H – 1500W",
     "description": "The VoltWorks 120S-70H-1500W PMSM motor is purpose-built for L3 e-loader applications requiring high torque and heavy-load capability. Operating at 48V/60V with 1500W continuous power and a peak torque of 37 Nm, it supports a GVW of up to 1000 kg with IP65/IP66 protection. Equipped with forced fan air cooling and overload protection, it is engineered for reliable performance in demanding cargo and loader vehicle segments.",
-    "image": "PMSM Motor - L3- 1500W.jpeg",
+    "image": "PMSM Motor 120S 60H 1500W - 1.jpg",
+    "gallery": [
+      "PMSM Motor 120S 60H 1500W - 1.jpg",
+      "PMSM Motor 120S 60H 1500W - 2.jpg",
+      "PMSM Motor 120S 60H 1500W - 3.jpg",
+      "PMSM Motor 120S 60H 1500W - 4.jpg"
+    ],
     "tag": "L3 SERIES",
     "category": "Motor",
     "applications": [
@@ -114,10 +126,15 @@
     ]
   },
   {
-    "id": "v-140s-65h-2000w",
-    "name": "PMSM Motor – 140S – 65H – 2000W",
-    "description": "The VoltWorks 140S-65H-2000W PMSM motor leverages advanced Hairpin Winding Technology to deliver peak torques exceeding 68 Nm across L5 passenger, loader, and cargo three-wheelers. Compatible with 48V, 60V, and 72V systems, it provides 2000W of continuous power with 20% gradability and IP66 protection. Its multi-voltage architecture and wide RPM range (up to 6000 RPM at 72V) make it ideal for versatile three-wheeler applications.",
-    "image": "PMSM Motor - L5.jpeg",
+    "id": "v-133s-70h-2050w",
+    "name": "PMSM Motor – 133S – 70H – 2050W",
+    "description": "The VoltWorks 133S-70H-2050W PMSM motor leverages advanced Hairpin Winding Technology to deliver peak torques exceeding 68 Nm across L5 passenger, loader, and cargo three-wheelers. Compatible with 48V, 60V, and 72V systems, it provides 2050W of continuous power with 20% gradability and IP66 protection. Its multi-voltage architecture and wide RPM range (up to 6000 RPM at 72V) make it ideal for versatile three-wheeler applications.",
+    "image": "PMSM Motor 133S 60H 2050W - 1.jpg",
+    "gallery": [
+      "PMSM Motor 133S 60H 2050W - 1.jpg",
+      "PMSM Motor 133S 60H 2050W - 2.jpg",
+      "PMSM Motor 133S 60H 2050W - 3.jpg"
+    ],
     "tag": "L5 SERIES",
     "category": "Motor",
     "applications": [
@@ -132,7 +149,7 @@
       },
       {
         "label": "Continuous Power",
-        "value": "2000 W"
+        "value": "2050 W"
       },
       {
         "label": "Nominal Torque",
@@ -173,10 +190,71 @@
     ]
   },
   {
-    "id": "v-140s-75h-3000w",
-    "name": "PMSM Motor – 140S – 75H – 3000W",
-    "description": "The VoltWorks 140S-75H-3000W PMSM motor is designed for high-performance L5 passenger, loader, and cargo three-wheelers demanding sustained power and exceptional torque. With Hairpin Winding Technology and peak torques above 75 Nm, it delivers 3000W continuous output across 48V, 60V, and 72V systems. It supports a GVW of 1200 kg, achieves up to 6200 RPM, and maintains IP66 waterproofing for all-weather durability.",
-    "image": "PMSM Motor - L5.jpeg",
+    "id": "v-140s-60h-2500w",
+    "name": "PMSM Motor – 140S – 60H – 2500W",
+    "description": "The VoltWorks 140S-60H-2500W PMSM motor extends the L5 lineup with a versatile mid-power option for passenger and cargo three-wheelers. Compatible with 48V, 60V, and 72V systems, it delivers 2500W continuous power with a peak torque of 58 Nm and speeds up to 6000 RPM at 72V. With IP67 waterproofing, forced fan air cooling, and support for a GVW of 1000 kg with 20% gradability, it is built for dependable all-weather urban transport duty.",
+    "image": "PMSM Motor 140S 60H 2500W.jpg",
+    "gallery": [
+      "PMSM Motor 140S 60H 2500W.jpg"
+    ],
+    "tag": "L5 SERIES",
+    "category": "Motor",
+    "applications": [
+      "E-Passenger",
+      "E-Loader"
+    ],
+    "specs": [
+      {
+        "label": "Rated Voltage",
+        "value": "48 V | 60 V | 72 V"
+      },
+      {
+        "label": "Continuous Power",
+        "value": "2500 W"
+      },
+      {
+        "label": "Nominal Torque",
+        "value": "13 Nm"
+      },
+      {
+        "label": "Peak Torque",
+        "value": "58 Nm"
+      },
+      {
+        "label": "Peak RPM",
+        "value": "5000 | 5400 | 6000"
+      },
+      {
+        "label": "Peak Efficiency",
+        "value": "> 92%"
+      },
+      {
+        "label": "IP Protection",
+        "value": "IP67"
+      },
+      {
+        "label": "Cooling",
+        "value": "Forced Fan Air Cooling"
+      },
+      {
+        "label": "Gradability",
+        "value": "20%"
+      },
+      {
+        "label": "GVW",
+        "value": "1000 kg"
+      }
+    ]
+  },
+  {
+    "id": "v-140s-75h-3250w",
+    "name": "PMSM Motor – 140S – 75H – 3250W",
+    "description": "The VoltWorks 140S-75H-3250W PMSM motor is designed for high-performance L5 passenger, loader, and cargo three-wheelers demanding sustained power and exceptional torque. With Hairpin Winding Technology and peak torques above 75 Nm, it delivers 3250W continuous output across 48V, 60V, and 72V systems. It supports a GVW of 1200 kg, achieves up to 6200 RPM, and maintains IP66 waterproofing for all-weather durability.",
+    "image": "PMSM Motor 140S 85H 3250W.jpg",
+    "gallery": [
+      "PMSM Motor 140S 85H 3250W.jpg",
+      "PMSM Motor 140S 85H 3250W - 2.jpg"
+    ],
     "tag": "L5 SERIES",
     "category": "Motor",
     "applications": [
@@ -191,7 +269,7 @@
       },
       {
         "label": "Continuous Power",
-        "value": "3000 W"
+        "value": "3250 W"
       },
       {
         "label": "Nominal Torque",
@@ -232,10 +310,13 @@
     ]
   },
   {
-    "id": "v-140s-85h-4000w",
-    "name": "PMSM Motor – 140S – 85H – 4000W",
-    "description": "The VoltWorks 140S-85H-4000W PMSM motor is the flagship high-power unit in the L5 lineup, engineered specifically for demanding loader applications. Featuring Hairpin Winding Technology, it delivers peak torque over 80 Nm with 4000W continuous power across 48V, 60V, and 72V platforms. Rated IP66 and supporting a GVW of up to 1500 kg with 20% gradability, it is built to handle the most challenging last-mile freight conditions in India.",
-    "image": "PMSM Motor - L5.jpeg",
+    "id": "v-140s-85h-4250w",
+    "name": "PMSM Motor – 140S – 85H – 4250W",
+    "description": "The VoltWorks 140S-85H-4250W PMSM motor is the flagship high-power unit in the L5 lineup, engineered specifically for demanding loader applications. Featuring Hairpin Winding Technology, it delivers peak torque over 80 Nm with 4250W continuous power across 48V, 60V, and 72V platforms. Rated IP66 and supporting a GVW of up to 1500 kg with 20% gradability, it is built to handle the most challenging last-mile freight conditions in India.",
+    "image": "PMSM Motor 140S 85H 4250W.jpg",
+    "gallery": [
+      "PMSM Motor 140S 85H 4250W.jpg"
+    ],
     "tag": "L5 SERIES",
     "category": "Motor",
     "applications": [
@@ -248,7 +329,7 @@
       },
       {
         "label": "Continuous Power",
-        "value": "4000 W"
+        "value": "4250 W"
       },
       {
         "label": "Nominal Torque",
@@ -346,124 +427,14 @@
     ]
   },
   {
-    "id": "v-10s-30h-1200w",
-    "name": "PMSM Motor – 10\"S – 30H – 1200W",
-    "description": "The VoltWorks 10-inch 30H Motor is an upgraded oil-cooled PMSM unit delivering 1200W output and a best-in-class peak torque of 85 Nm for L2 electric scooters. Equipped with dual Hall sensors and a 2.3 mm thick magnet for enhanced flux and efficiency (up to 88.6%), it integrates seamlessly with 48V/60V drivetrains and supports OEM customization with both disc and drum brake compatibility.",
-    "image": "PMSM Motor - L2.jpeg",
-    "tag": "L2 SERIES",
-    "category": "Motor",
-    "applications": [
-      "E-Scooter"
+    "id": "v-ctrl-24mos-60a-1250w",
+    "name": "PMSM Controller – 24 MOS – 60A – 1250W",
+    "description": "The VoltWorks 24 MOS 60A controller is a compact FOC drive built for 1250W L3 e-rickshaw drivetrains. Operating at 48V/60V with a 60A peak DC current, 150A peak phase current, and peak efficiency above 95%, it combines precise Field-Oriented Control with Hall sensor feedback and overload protection via an integrated temperature sensor. IP54-rated and air cooled, it is the matched controller for the 120S-60H-1250W PMSM motor.",
+    "image": "PMSM Controller 24 MOS 60A 1250W - 2.jpg",
+    "gallery": [
+      "PMSM Controller 24 MOS 60A 1250W - 2.jpg",
+      "PMSM Controller 24 MOS 60A 1250W - 4.jpg"
     ],
-    "specs": [
-      {
-        "label": "Rated Voltage",
-        "value": "48 V | 60 V"
-      },
-      {
-        "label": "Continuous Power",
-        "value": "1200 W"
-      },
-      {
-        "label": "Peak Torque",
-        "value": "85 Nm"
-      },
-      {
-        "label": "Peak Efficiency",
-        "value": "88.6%"
-      },
-      {
-        "label": "Stack Length",
-        "value": "30 mm"
-      },
-      {
-        "label": "Magnet Thickness",
-        "value": "2.3 mm"
-      },
-      {
-        "label": "Peak Current",
-        "value": "35 A"
-      },
-      {
-        "label": "Wheel Diameter",
-        "value": "10 inch"
-      },
-      {
-        "label": "Brake Type",
-        "value": "Disc / Drum"
-      },
-      {
-        "label": "Sensor",
-        "value": "Dual Hall Sensor"
-      },
-      {
-        "label": "Cooling",
-        "value": "Oil Cooled"
-      }
-    ]
-  },
-  {
-    "id": "v-12s-27h-1200w",
-    "name": "PMSM Motor – 12\"S – 27H – 1200W",
-    "description": "The VoltWorks 12-inch 27H Motor offers high-torque performance in a larger wheel format, ideal for L2 electric scooters requiring superior traction and stability. Delivering a peak torque of 98 Nm at 1200W, it combines oil cooling, dual Hall sensors, and a thick 2.3 mm magnet for maximum efficiency (up to 87.7%) and long-term reliability. Its 12-inch form factor suits performance-oriented two-wheeler OEMs targeting premium urban segments.",
-    "image": "PMSM Motor - L2.jpeg",
-    "tag": "L2 SERIES",
-    "category": "Motor",
-    "applications": [
-      "E-Scooter"
-    ],
-    "specs": [
-      {
-        "label": "Rated Voltage",
-        "value": "48 V | 60 V"
-      },
-      {
-        "label": "Continuous Power",
-        "value": "1200 W"
-      },
-      {
-        "label": "Peak Torque",
-        "value": "98 Nm"
-      },
-      {
-        "label": "Peak Efficiency",
-        "value": "87.7%"
-      },
-      {
-        "label": "Stack Length",
-        "value": "27 mm"
-      },
-      {
-        "label": "Magnet Thickness",
-        "value": "2.3 mm"
-      },
-      {
-        "label": "Peak Current",
-        "value": "35 A"
-      },
-      {
-        "label": "Wheel Diameter",
-        "value": "12 inch"
-      },
-      {
-        "label": "Brake Type",
-        "value": "Disc / Drum"
-      },
-      {
-        "label": "Sensor",
-        "value": "Dual Hall Sensor"
-      },
-      {
-        "label": "Cooling",
-        "value": "Oil Cooled"
-      }
-    ]
-  },
-  {
-    "id": "v-ctrl-l3",
-    "name": "PMSM Controller – L3 Series",
-    "description": "The VoltWorks L3 FOC Motor Controller is a compact, high-efficiency drive system engineered for L3 e-rickshaw passenger and loader vehicles. Supporting 48V/60V operation with power ratings up to 1500W and peak efficiency above 95%, it features precise Field-Oriented Control (FOC), anti-slip logic, and fully customizable software parameters. With IP54 protection and Hall sensor compatibility, it is the ideal smart controller for three-wheeler OEM drivetrains.",
-    "image": "PMSM Controller - L3.jpeg",
     "tag": "L3 SERIES",
     "category": "Controller",
     "applications": [
@@ -477,19 +448,19 @@
       },
       {
         "label": "Power Rating",
-        "value": "1200 W | 1500 W"
+        "value": "1250 W"
       },
       {
         "label": "Peak DC Current",
-        "value": "60 A | 70 A"
+        "value": "60 A"
       },
       {
         "label": "Continuous Arms",
-        "value": "40 A | 50 A"
+        "value": "40 A"
       },
       {
         "label": "Peak Arms",
-        "value": "150 A | 180 A"
+        "value": "150 A"
       },
       {
         "label": "Peak Efficiency",
@@ -518,9 +489,116 @@
     ]
   },
   {
-    "id": "v-ctrl-l5",
-    "name": "PMSM Controller – L5 Series",
-    "description": "The VoltWorks L5 FOC Motor Controller is a high-power, IP67-rated drive solution designed for L5 three-wheeler passenger and loader electric vehicles. With multi-voltage support (48V/60V/72V), power ratings up to 4000W, and peak efficiency exceeding 95%, it delivers precise torque control through advanced Field-Oriented Control (FOC). Featuring Rotary Transformer sensor compatibility and customizable software, it enables optimized drivetrain performance for demanding fleet and commercial EV applications.",
+    "id": "v-ctrl-30mos-60a-1500w",
+    "name": "PMSM Controller – 30 MOS – 60A – 1500W",
+    "description": "The VoltWorks 30 MOS 60A controller delivers 1500W of drive power for L3 e-rickshaw passenger and loader vehicles. Rated for 48V/60V operation with a 70A peak DC current, 180A peak phase current, and peak efficiency above 95%, it pairs precise Field-Oriented Control with Hall sensor compatibility and overload protection through an integrated temperature sensor. Housed in an IP54-rated, air-cooled enclosure, it is the matched controller for the 120S-70H-1500W PMSM motor.",
+    "image": "PMSM Controller 30 MOS 60A 1500W - 2.jpg",
+    "gallery": [
+      "PMSM Controller 30 MOS 60A 1500W - 2.jpg",
+      "PMSM Controller 30 MOS 60A 1500W 3.jpg"
+    ],
+    "tag": "L3 SERIES",
+    "category": "Controller",
+    "applications": [
+      "E-Passenger",
+      "E-Loader"
+    ],
+    "specs": [
+      {
+        "label": "Rated Voltage",
+        "value": "48 V | 60 V"
+      },
+      {
+        "label": "Power Rating",
+        "value": "1500 W"
+      },
+      {
+        "label": "Peak DC Current",
+        "value": "70 A"
+      },
+      {
+        "label": "Continuous Arms",
+        "value": "50 A"
+      },
+      {
+        "label": "Peak Arms",
+        "value": "180 A"
+      },
+      {
+        "label": "Peak Efficiency",
+        "value": "> 95%"
+      },
+      {
+        "label": "IP Protection",
+        "value": "IP54"
+      },
+      {
+        "label": "Cooling",
+        "value": "Air Cooled"
+      },
+      {
+        "label": "Compatible Sensor",
+        "value": "Hall Sensor"
+      },
+      {
+        "label": "Protection",
+        "value": "Overload (Temp Sensor)"
+      },
+      {
+        "label": "Application",
+        "value": "L3 E-Rickshaw"
+      }
+    ]
+  },
+  {
+    "id": "v-ctrl-30mos-60a-2050w",
+    "name": "PMSM Controller – 30 MOS – 60A – 2050W",
+    "description": "The VoltWorks 30 MOS 60A controller in its 2050W rating is the drive unit for the 133S-70H-2050W PMSM motor in higher-payload three-wheeler applications. Built on the same Field-Oriented Control architecture as the rest of the MOS controller family, it operates at 48V/60V with Hall sensor feedback, overload protection via an integrated temperature sensor, and peak efficiency above 95% in an IP54-rated, air-cooled enclosure.",
+    "image": "PMSM Controller 30 MOS 60A 2050W.jpg",
+    "gallery": [
+      "PMSM Controller 30 MOS 60A 2050W.jpg"
+    ],
+    "tag": "L3 SERIES",
+    "category": "Controller",
+    "applications": [
+      "E-Passenger",
+      "E-Loader"
+    ],
+    "specs": [
+      {
+        "label": "Rated Voltage",
+        "value": "48 V | 60 V"
+      },
+      {
+        "label": "Power Rating",
+        "value": "2050 W"
+      },
+      {
+        "label": "Peak Efficiency",
+        "value": "> 95%"
+      },
+      {
+        "label": "IP Protection",
+        "value": "IP54"
+      },
+      {
+        "label": "Cooling",
+        "value": "Air Cooled"
+      },
+      {
+        "label": "Compatible Sensor",
+        "value": "Hall Sensor"
+      },
+      {
+        "label": "Protection",
+        "value": "Overload (Temp Sensor)"
+      }
+    ]
+  },
+  {
+    "id": "v-ctrl-foc-2500w",
+    "name": "PMSM Controller – FOC – 2500W",
+    "description": "The VoltWorks FOC 2500W controller is an IP67-rated, high-current drive solution for L5 three-wheeler drivetrains. Supporting 48V, 60V, and 72V systems with a 120A peak DC current, 100A continuous and 250A peak phase current, it combines Rotary Transformer sensor feedback with anti-slip logic and fully customizable software. Air cooled with overload protection via temperature sensor, it is the matched controller for the 140S-60H-2500W PMSM motor.",
     "image": "PMSM Controller - L5.jpeg",
     "tag": "L5 SERIES",
     "category": "Controller",
@@ -535,19 +613,19 @@
       },
       {
         "label": "Power Rating",
-        "value": "2000 W | 3000 W | 4000 W"
+        "value": "2500 W"
       },
       {
         "label": "Peak DC Current",
-        "value": "80 A | 90 A | 100 A"
+        "value": "120 A"
       },
       {
         "label": "Continuous Arms",
-        "value": "80 A"
+        "value": "100 A"
       },
       {
         "label": "Peak Arms",
-        "value": "200 A"
+        "value": "250 A"
       },
       {
         "label": "Peak Efficiency",
@@ -568,6 +646,134 @@
       {
         "label": "Protection",
         "value": "Overload (Temp Sensor)"
+      },
+      {
+        "label": "Features",
+        "value": "Anti-Slip | SW Customization"
+      },
+      {
+        "label": "Application",
+        "value": "L5 3-Wheeler"
+      }
+    ]
+  },
+  {
+    "id": "v-ctrl-foc-3250w",
+    "name": "PMSM Controller – FOC – 3250W",
+    "description": "The VoltWorks FOC 3250W controller powers high-performance L5 passenger and cargo three-wheelers with precise Field-Oriented Control. Operating across 48V, 60V, and 72V systems, it delivers a 120A peak DC current with 100A continuous and 250A peak phase current at peak efficiency above 95%. IP67-rated and air cooled, with Rotary Transformer sensor feedback, anti-slip logic, and customizable software, it is the matched controller for the 140S-75H-3250W PMSM motor.",
+    "image": "PMSM Controller - L5.jpeg",
+    "tag": "L5 SERIES",
+    "category": "Controller",
+    "applications": [
+      "E-Passenger",
+      "E-Loader"
+    ],
+    "specs": [
+      {
+        "label": "Rated Voltage",
+        "value": "48 V | 60 V | 72 V"
+      },
+      {
+        "label": "Power Rating",
+        "value": "3250 W"
+      },
+      {
+        "label": "Peak DC Current",
+        "value": "120 A"
+      },
+      {
+        "label": "Continuous Arms",
+        "value": "100 A"
+      },
+      {
+        "label": "Peak Arms",
+        "value": "250 A"
+      },
+      {
+        "label": "Peak Efficiency",
+        "value": "> 95%"
+      },
+      {
+        "label": "IP Protection",
+        "value": "IP67"
+      },
+      {
+        "label": "Cooling",
+        "value": "Air Cooled"
+      },
+      {
+        "label": "Compatible Sensor",
+        "value": "Rotary Transformer"
+      },
+      {
+        "label": "Protection",
+        "value": "Overload (Temp Sensor)"
+      },
+      {
+        "label": "Features",
+        "value": "Anti-Slip | SW Customization"
+      },
+      {
+        "label": "Application",
+        "value": "L5 3-Wheeler"
+      }
+    ]
+  },
+  {
+    "id": "v-ctrl-foc-4250w",
+    "name": "PMSM Controller – FOC – 4250W",
+    "description": "The VoltWorks FOC 4250W controller is the flagship drive unit for the L5 lineup, engineered for demanding loader duty cycles. Supporting 48V, 60V, and 72V platforms with a 120A peak DC current, 100A continuous and 250A peak phase current, it maintains peak efficiency above 95% with IP67 protection and air cooling. Rotary Transformer sensor feedback, anti-slip logic, and fully customizable software make it the matched controller for the 140S-85H-4250W PMSM motor.",
+    "image": "PMSM Controller - L5.jpeg",
+    "tag": "L5 SERIES",
+    "category": "Controller",
+    "applications": [
+      "E-Passenger",
+      "E-Loader"
+    ],
+    "specs": [
+      {
+        "label": "Rated Voltage",
+        "value": "48 V | 60 V | 72 V"
+      },
+      {
+        "label": "Power Rating",
+        "value": "4250 W"
+      },
+      {
+        "label": "Peak DC Current",
+        "value": "120 A"
+      },
+      {
+        "label": "Continuous Arms",
+        "value": "100 A"
+      },
+      {
+        "label": "Peak Arms",
+        "value": "250 A"
+      },
+      {
+        "label": "Peak Efficiency",
+        "value": "> 95%"
+      },
+      {
+        "label": "IP Protection",
+        "value": "IP67"
+      },
+      {
+        "label": "Cooling",
+        "value": "Air Cooled"
+      },
+      {
+        "label": "Compatible Sensor",
+        "value": "Rotary Transformer"
+      },
+      {
+        "label": "Protection",
+        "value": "Overload (Temp Sensor)"
+      },
+      {
+        "label": "Features",
+        "value": "Anti-Slip | SW Customization"
       },
       {
         "label": "Application",

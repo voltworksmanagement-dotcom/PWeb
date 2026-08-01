@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { ChevronRight, ZoomIn, Box } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
@@ -8,6 +9,11 @@ const products = productsData as any[];
 
 export default function ProductDetail() {
   const { id } = useParams();
+  const [activeImage, setActiveImage] = useState(0);
+
+  useEffect(() => {
+    setActiveImage(0);
+  }, [id]);
 
   const productData = products.find(p => p.id === id);
 
@@ -21,18 +27,17 @@ export default function ProductDetail() {
     );
   }
 
+  const galleryImages: string[] = (productData.gallery?.length ? productData.gallery : [productData.image])
+    .map((img: string) => resolveProductImage(img))
+    .filter(Boolean);
+
   const product = {
     name: productData.name,
     series: productData.tag || productData.category || 'VoltWorks Product',
     description: productData.description,
     tags: [productData.category, ...(productData.applications || [])].filter(Boolean),
-    mainImage: resolveProductImage(productData.image) || 'https://placehold.co/800x800/eeeeee/999999?text=VoltWorks',
-    gallery: [
-      resolveProductImage(productData.image) || 'https://placehold.co/400x400/eeeeee/999999?text=VoltWorks',
-      'https://placehold.co/400x400/dddddd/999999?text=Detail+1',
-      'https://placehold.co/400x400/cccccc/999999?text=Detail+2',
-      'https://placehold.co/400x400/bbbbbb/999999?text=Detail+3',
-    ],
+    mainImage: galleryImages[activeImage] || galleryImages[0] || 'https://placehold.co/800x800/eeeeee/999999?text=VoltWorks',
+    gallery: galleryImages,
     specs: productData.specs || [],
     features: [
       'Advanced thermal management with integrated sensors.',
@@ -72,18 +77,21 @@ export default function ProductDetail() {
             </div>
           </div>
           {/* Technical Gallery */}
-          <div className="grid grid-cols-4 gap-4 mt-6">
-            {product.gallery.map((img, idx) => (
-              <div
-                key={idx}
-                className={`aspect-square bg-white border ${
-                  idx === 0 ? 'border-primary' : 'border-slate-100 opacity-60'
-                } p-2 hover:opacity-100 transition-all cursor-pointer`}
-              >
-                <img className="w-full h-full object-cover" src={img} alt={`Detail ${idx + 1}`} />
-              </div>
-            ))}
-          </div>
+          {product.gallery.length > 1 && (
+            <div className="grid grid-cols-4 gap-4 mt-6">
+              {product.gallery.map((img, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => setActiveImage(idx)}
+                  className={`aspect-square bg-white border ${
+                    idx === activeImage ? 'border-primary' : 'border-slate-100 opacity-60'
+                  } p-2 hover:opacity-100 transition-all cursor-pointer`}
+                >
+                  <img className="w-full h-full object-cover" src={img} alt={`${product.name} view ${idx + 1}`} />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Product Info & Specs */}
