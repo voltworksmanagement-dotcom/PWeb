@@ -129,7 +129,7 @@
               "description": "Increasing torque reduces speed; higher speeds reduce available torque"
             }
           },
-          "practical_capability": "Carry seven passengers up any standard flyover without strain or performance degradation at 1200W configuration"
+          "practical_capability": "Carry seven passengers up any standard flyover without strain or performance degradation at 1250W configuration"
         },
         {
           "id": 7,
