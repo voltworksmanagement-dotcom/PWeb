@@ -126,6 +126,37 @@
     ]
   },
   {
+    "id": "v-133s-60h-1650w",
+    "name": "PMSM Motor – 133S – 60H – 1650W",
+    "description": "The VoltWorks 133S-60H-1650W PMSM motor brings the 133S frame to the mid-power three-wheeler segment, slotting between the 1500W and 2050W offerings. Operating at 48V/60V with 1650W of continuous power, it uses the same Hairpin Winding construction and forced fan air cooling as the rest of the 133S family, and pairs with the 24 MOS 60A 1650W controller for passenger and loader applications.",
+    "image": "PMSM Motor 133S 60H 2050W - 1.jpg",
+    "gallery": [
+      "PMSM Motor 133S 60H 2050W - 1.jpg",
+      "PMSM Motor 133S 60H 2050W - 2.jpg",
+      "PMSM Motor 133S 60H 2050W - 3.jpg"
+    ],
+    "tag": "L3 SERIES",
+    "category": "Motor",
+    "applications": [
+      "E-Passenger",
+      "E-Loader"
+    ],
+    "specs": [
+      {
+        "label": "Rated Voltage",
+        "value": "48 V | 60 V"
+      },
+      {
+        "label": "Continuous Power",
+        "value": "1650 W"
+      },
+      {
+        "label": "Cooling",
+        "value": "Forced Fan Air Cooling"
+      }
+    ]
+  },
+  {
     "id": "v-133s-70h-2050w",
     "name": "PMSM Motor – 133S – 70H – 2050W",
     "description": "The VoltWorks 133S-70H-2050W PMSM motor leverages advanced Hairpin Winding Technology to deliver peak torques exceeding 68 Nm across L5 passenger, loader, and cargo three-wheelers. Compatible with 48V, 60V, and 72V systems, it provides 2050W of continuous power with 20% gradability and IP66 protection. Its multi-voltage architecture and wide RPM range (up to 6000 RPM at 72V) make it ideal for versatile three-wheeler applications.",
@@ -547,6 +578,55 @@
       {
         "label": "Application",
         "value": "L3 E-Rickshaw"
+      }
+    ]
+  },
+  {
+    "id": "v-ctrl-24mos-60a-1650w",
+    "name": "PMSM Controller – 24 MOS – 60A – 1650W",
+    "description": "The VoltWorks 24 MOS 60A controller in its 1650W rating is the matched drive unit for the 133S-60H-1650W PMSM motor. Built on the same compact Field-Oriented Control architecture as the 24 MOS family, it operates at 48V/60V with Hall sensor feedback, overload protection via an integrated temperature sensor, and peak efficiency above 95% in an IP54-rated, air-cooled enclosure.",
+    "image": "PMSM Controller 30 MOS 60A 2050W.jpg",
+    "gallery": [
+      "PMSM Controller 30 MOS 60A 2050W.jpg"
+    ],
+    "tag": "L3 SERIES",
+    "category": "Controller",
+    "applications": [
+      "E-Passenger",
+      "E-Loader"
+    ],
+    "specs": [
+      {
+        "label": "Rated Voltage",
+        "value": "48 V | 60 V"
+      },
+      {
+        "label": "Power Rating",
+        "value": "1650 W"
+      },
+      {
+        "label": "Peak DC Current",
+        "value": "60 A"
+      },
+      {
+        "label": "Peak Efficiency",
+        "value": "> 95%"
+      },
+      {
+        "label": "IP Protection",
+        "value": "IP54"
+      },
+      {
+        "label": "Cooling",
+        "value": "Air Cooled"
+      },
+      {
+        "label": "Compatible Sensor",
+        "value": "Hall Sensor"
+      },
+      {
+        "label": "Protection",
+        "value": "Overload (Temp Sensor)"
       }
     ]
   },
