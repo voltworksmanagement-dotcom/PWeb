@@ -278,9 +278,9 @@
     ]
   },
   {
-    "id": "v-140s-75h-3250w",
-    "name": "PMSM Motor – 140S – 75H – 3250W",
-    "description": "The VoltWorks 140S-75H-3250W PMSM motor is designed for high-performance L5 passenger, loader, and cargo three-wheelers demanding sustained power and exceptional torque. With Hairpin Winding Technology and peak torques above 75 Nm, it delivers 3250W continuous output across 48V, 60V, and 72V systems. It supports a GVW of 1200 kg, achieves up to 6200 RPM, and maintains IP66 waterproofing for all-weather durability.",
+    "id": "v-140s-75h-3500w",
+    "name": "PMSM Motor – 140S – 75H – 3500W",
+    "description": "The VoltWorks 140S-75H-3500W PMSM motor is designed for high-performance L5 passenger, loader, and cargo three-wheelers demanding sustained power and exceptional torque. With Hairpin Winding Technology and peak torques above 75 Nm, it delivers 3500W continuous output across 48V, 60V, and 72V systems. It supports a GVW of 1200 kg, achieves up to 6200 RPM, and maintains IP66 waterproofing for all-weather durability.",
     "image": "PMSM Motor 140S 85H 3250W.jpg",
     "gallery": [
       "PMSM Motor 140S 85H 3250W.jpg",
@@ -300,7 +300,7 @@
       },
       {
         "label": "Continuous Power",
-        "value": "3250 W"
+        "value": "3500 W"
       },
       {
         "label": "Nominal Torque",
@@ -738,9 +738,9 @@
     ]
   },
   {
-    "id": "v-ctrl-foc-3250w",
-    "name": "PMSM Controller – FOC – 3250W",
-    "description": "The VoltWorks FOC 3250W controller powers high-performance L5 passenger and cargo three-wheelers with precise Field-Oriented Control. Operating across 48V, 60V, and 72V systems, it delivers a 120A peak DC current with 100A continuous and 250A peak phase current at peak efficiency above 95%. IP67-rated and air cooled, with Rotary Transformer sensor feedback, anti-slip logic, and customizable software, it is the matched controller for the 140S-75H-3250W PMSM motor.",
+    "id": "v-ctrl-foc-3500w",
+    "name": "PMSM Controller – FOC – 3500W",
+    "description": "The VoltWorks FOC 3500W controller powers high-performance L5 passenger and cargo three-wheelers with precise Field-Oriented Control. Operating across 48V, 60V, and 72V systems, it delivers a 120A peak DC current with 100A continuous and 250A peak phase current at peak efficiency above 95%. IP67-rated and air cooled, with Rotary Transformer sensor feedback, anti-slip logic, and customizable software, it is the matched controller for the 140S-75H-3500W PMSM motor.",
     "image": "PMSM Controller - L5.jpeg",
     "tag": "L5 SERIES",
     "category": "Controller",
@@ -755,7 +755,7 @@
       },
       {
         "label": "Power Rating",
-        "value": "3250 W"
+        "value": "3500 W"
       },
       {
         "label": "Peak DC Current",
