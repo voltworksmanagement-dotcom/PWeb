@@ -39,6 +39,26 @@
   background-size: 32px 32px;
 }
 
+/* Travelling brand gradient. Used as the fill of a padded wrapper to fake a
+   gradient border (the child paints its own background over the middle), and
+   directly as a button fill. Sized at 200% so the loop has somewhere to move. */
+.shine-gradient {
+  background-image: linear-gradient(110deg, #004fa8, #1d67cd, #38bdf8, #1d67cd, #004fa8);
+  background-size: 200% 100%;
+  animation: shine-sweep 6s linear infinite;
+}
+
+@keyframes shine-sweep {
+  from { background-position: 0% 50%; }
+  to { background-position: 200% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shine-gradient {
+    animation: none;
+  }
+}
+
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;

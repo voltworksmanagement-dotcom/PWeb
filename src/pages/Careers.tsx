@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
+import { ChevronLeft, ChevronRight, FileText, MapPin } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 import life1 from '../public/life1.jpg';
@@ -10,6 +10,11 @@ import ayushPhoto from '../public/Drivetrain Engineer - Ayush Singh.jpg';
 import awanishPhoto from '../public/Embedded Engineer - Awanish Yadav.jpg';
 import pradeepPhoto from '../public/Data and Finance Manager - Pradeep Sahu.jpeg';
 import ariselliPhoto from '../public/Validation Engineer - Ariselli Chandreshekhar.jpg';
+// Job descriptions ship as build assets, so each URL stays hashed and valid.
+import jdPowertrain from '../public/Careers_JD/JD - Electro-Mechanical Powertrain Engineer.pdf';
+import jdSalesLead from '../public/Careers_JD/JD - Sales Team Lead.pdf';
+import jdSalesDirector from '../public/Careers_JD/JD - Sales Director.pdf';
+import jdFoundersOffice from '../public/Careers_JD/JD - Founder’s Office.pdf';
 import { VIEWPORT, fadeUp, slideFrom, stagger, staggerSlow } from '../lib/motion';
 
 const values = [
@@ -32,17 +37,17 @@ const values = [
 ];
 
 const team = [
-  { photo: ayushPhoto, name: 'Ayush Singh', designation: 'Drivetrain Engineer' },
-  { photo: awanishPhoto, name: 'Awanish Yadav', designation: 'Embedded Engineer' },
+  { photo: ariselliPhoto, name: 'Ariselli Chandreshekhar', designation: 'Validation Engineer' },
   { photo: pradeepPhoto, name: 'Pradeep Sahu', designation: 'Data and Finance Manager' },
-  { photo: ariselliPhoto, name: 'Ariselli Chandreshekhar', designation: 'Validation Engineer' }
+  { photo: awanishPhoto, name: 'Awanish Yadav', designation: 'Embedded Engineer' },
+  { photo: ayushPhoto, name: 'Ayush Singh', designation: 'Drivetrain Engineer' }
 ];
 
 const openings = [
-  { title: 'Electro-Mechanical Powertrain Engineer', team: 'Engineering', location: 'Greater Noida, India' },
-  { title: 'Sales Team Lead', team: 'Sales', location: 'Greater Noida, India' },
-  { title: 'Sales Director', team: 'Sales', location: 'Greater Noida, India' },
-  { title: "Founder's Office", team: 'Strategy', location: 'Greater Noida, India' }
+  { title: 'Electro-Mechanical Powertrain Engineer', team: 'Engineering', location: 'Greater Noida, India', jd: jdPowertrain },
+  { title: 'Sales Team Lead', team: 'Sales', location: 'Greater Noida, India', jd: jdSalesLead },
+  { title: 'Sales Director', team: 'Sales', location: 'Greater Noida, India', jd: jdSalesDirector },
+  { title: "Founder's Office", team: 'Strategy', location: 'Greater Noida, India', jd: jdFoundersOffice }
 ];
 
 /**
@@ -53,22 +58,10 @@ const HR_EMAIL = 'hr@voltworks.in';
 const applyHref = (role?: string) =>
   `mailto:${HR_EMAIL}?subject=${encodeURIComponent(role ? `ME — ${role}` : 'ME — VoltWorks')}`;
 
-const applySteps = [
-  {
-    step: '01',
-    title: 'Write your ME',
-    body: 'One page, one topic: you. Not a cover letter — tell us what you have built, what broke while you were learning to build it, and what you want to build next.'
-  },
-  {
-    step: '02',
-    title: 'Attach your resume',
-    body: 'A PDF is plenty. No portfolio site required, no fifteen-field form, no account to create.'
-  },
-  {
-    step: '03',
-    title: 'Send it across',
-    body: `Email both to ${HR_EMAIL} with the role in the subject line. A person reads every single one, and you will hear back either way.`
-  }
+const applyExamples = [
+  'Tune the motor which will use 20% less energy vs now.',
+  'Do ₹10 Cr in sales.',
+  'Make VoltWorks a brand with 1M followers.'
 ];
 
 export default function Careers() {
@@ -103,7 +96,7 @@ export default function Careers() {
       transition={{ duration: 0.4 }}
       className="bg-white text-slate-900"
     >
-      <section className="py-24 bg-slate-50">
+      <section className="py-10 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] items-start">
             <motion.div
@@ -267,85 +260,129 @@ export default function Careers() {
             whileInView="show"
             viewport={VIEWPORT}
             variants={staggerSlow}
-            className="mt-14 grid gap-5 sm:grid-cols-2"
+            className="mt-14 border-t border-slate-200"
           >
+            {/* A plain ruled list, not cards: four roles read faster as rows, and
+                each row carries two separate links so neither can nest. */}
             {openings.map((role) => (
-              <motion.a
+              <motion.div
                 key={role.title}
                 variants={fadeUp}
-                href={applyHref(role.title)}
-                className="group flex flex-col justify-between gap-6 rounded-card border border-slate-200 bg-white p-7 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl"
+                className="group flex flex-col gap-4 border-b border-slate-200 py-7 transition-colors duration-300 hover:border-primary/40 md:flex-row md:items-center md:justify-between md:gap-8"
               >
-                <div>
-                  <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">
-                    {role.team}
-                  </span>
-                  <h3 className="mt-4 text-2xl font-headline font-semibold text-navy-deep transition-colors group-hover:text-primary">
+                <div className="min-w-0">
+                  <h3 className="text-xl md:text-2xl font-headline font-semibold text-navy-deep">
                     {role.title}
                   </h3>
+                  <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-500">
+                    <span>{role.team}</span>
+                    <span className="text-slate-300">·</span>
+                    <span className="flex items-center gap-1.5">
+                      <MapPin className="h-4 w-4" />
+                      {role.location}
+                    </span>
+                  </div>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center gap-2 text-sm text-slate-500">
-                    <MapPin className="h-4 w-4" />
-                    {role.location}
-                  </span>
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-slate-300 text-primary transition-colors group-hover:border-primary group-hover:bg-primary group-hover:text-white">
-                    <ChevronRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5" />
-                  </span>
+
+                <div className="flex shrink-0 items-center gap-6">
+                  <a
+                    href={role.jd}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 underline-offset-4 transition-colors hover:text-primary hover:underline"
+                  >
+                    <FileText className="h-4 w-4" />
+                    View JD
+                  </a>
+                  <a
+                    href={applyHref(role.title)}
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary-light"
+                  >
+                    Apply
+                    <ChevronRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                  </a>
                 </div>
-              </motion.a>
+              </motion.div>
             ))}
           </motion.div>
 
-          {/* The application itself is the differentiator, so it gets the loudest
-              panel on the page rather than a footnote under the role list. */}
+          {/* The gradient border is a padded wrapper — the white child paints over
+              the middle, leaving only the travelling gradient showing as an edge. */}
           <motion.div
             initial="hidden"
             whileInView="show"
             viewport={VIEWPORT}
             variants={stagger}
-            className="mt-8 overflow-hidden rounded-panel bg-navy-deep p-8 md:p-12 text-white"
+            className="shine-gradient mt-14 rounded-panel p-[2px] shadow-lg shadow-primary/10"
           >
-            <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
-              <motion.div variants={fadeUp} className="flex flex-col">
-                <p className="text-sm uppercase tracking-[0.35em] text-primary-light mb-6">How to apply</p>
-                <div className="relative flex flex-1 min-h-[190px] items-center justify-center rounded-card border border-white/15 bg-white/5">
-                  <span className="font-headline font-bold tracking-tight text-7xl md:text-8xl">ME</span>
-                  <span className="absolute bottom-5 text-[10px] uppercase tracking-[0.35em] text-white/50">
-                    One page · one topic
-                  </span>
-                </div>
-                <p className="mt-6 text-white/70 leading-relaxed">
-                  No portals. No screening rounds. Write one page on the only subject you are
-                  already an expert in, and send it.
+            <div className="rounded-panel bg-white p-8 md:p-12">
+              <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+                <motion.div variants={fadeUp} className="flex flex-col">
+                  <p className="text-sm uppercase tracking-[0.35em] text-primary mb-6">How to apply</p>
+                  <div className="relative flex flex-1 min-h-[190px] items-center justify-center rounded-card border border-slate-200 bg-slate-50">
+                    <span className="font-headline font-bold tracking-tight text-7xl md:text-8xl text-navy-deep">ME</span>
+                    <span className="absolute bottom-5 text-[10px] uppercase tracking-[0.35em] text-slate-400">
+                      One page · one topic
+                    </span>
+                  </div>
+                  <p className="mt-6 text-slate-600 leading-relaxed">
+                    No portals or long form fill ups. Just write one page on the only subject you are
+                    already an expert in, and send it.
+                  </p>
+                </motion.div>
+
+                <motion.div variants={stagger} className="space-y-5">
+                  <motion.h3 variants={fadeUp} className="font-headline text-2xl md:text-3xl font-semibold text-navy-deep">
+                    One email. One subject: you.
+                  </motion.h3>
+
+                  <motion.p variants={fadeUp} className="text-slate-600 leading-relaxed">
+                    We're not looking for a cover letter. We're looking for intent.
+                  </motion.p>
+
+                  <motion.p variants={fadeUp} className="text-slate-600 leading-relaxed">
+                    Tell us what capability you want to develop with us, and what you want to put your
+                    name on while you're here. Be specific. &ldquo;Learn a lot&rdquo; and &ldquo;contribute to growth&rdquo;
+                    tell us nothing. Tell us something we can hold you to:
+                  </motion.p>
+
+                  <motion.ul variants={stagger} className="space-y-3">
+                    {applyExamples.map((example) => (
+                      <motion.li key={example} variants={fadeUp} className="flex gap-3 text-navy-deep">
+                        <span className="text-primary shrink-0">—</span>
+                        <span className="leading-relaxed">&ldquo;{example}&rdquo;</span>
+                      </motion.li>
+                    ))}
+                  </motion.ul>
+
+                  <motion.p variants={fadeUp} className="text-slate-600 leading-relaxed">
+                    Or something else. People who do well at VoltWorks arrive knowing what they're chasing.
+                  </motion.p>
+
+                  <motion.p variants={fadeUp} className="text-slate-600 leading-relaxed">
+                    Mail you ME to{' '}
+                    <a href={applyHref()} className="font-semibold text-primary hover:underline">
+                      {HR_EMAIL}
+                    </a>{' '}
+                    with your CV attached and the role in the subject line. A person reads every single
+                    one, and you will hear back either way.
+                  </motion.p>
+                </motion.div>
+              </div>
+
+              <motion.div variants={fadeUp} className="mt-10 flex flex-col items-start gap-4 border-t border-slate-200 pt-8 sm:flex-row sm:items-center sm:justify-between">
+                <p className="text-slate-600">
+                  None of the four fit? Just describe Who you are and what you'd like to build — we do hire people before we write job descriptions.
                 </p>
+                <a
+                  href={applyHref()}
+                  className="shine-gradient group inline-flex shrink-0 items-center gap-3 rounded-card px-7 py-4 font-semibold text-white shadow-lg shadow-primary/25 transition duration-300 hover:shadow-xl hover:shadow-primary/30"
+                >
+                  Email your ME
+                  <ChevronRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
+                </a>
               </motion.div>
-
-              <motion.ol variants={stagger} className="space-y-8">
-                {applySteps.map((item) => (
-                  <motion.li key={item.step} variants={fadeUp} className="flex gap-5">
-                    <span className="font-headline text-lg font-bold text-primary-light shrink-0 pt-0.5">{item.step}</span>
-                    <div>
-                      <h3 className="font-headline text-xl font-semibold mb-2">{item.title}</h3>
-                      <p className="text-white/70 leading-relaxed">{item.body}</p>
-                    </div>
-                  </motion.li>
-                ))}
-              </motion.ol>
             </div>
-
-            <motion.div variants={fadeUp} className="mt-10 flex flex-col items-start gap-4 border-t border-white/15 pt-8 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-white/70">
-                None of the four fit? Send a ME anyway — we hire people before we write job descriptions.
-              </p>
-              <a
-                href={applyHref()}
-                className="group inline-flex shrink-0 items-center gap-3 rounded-card bg-primary px-7 py-4 font-semibold text-white transition duration-300 hover:bg-primary-light"
-              >
-                Email your ME
-                <ChevronRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
-              </a>
-            </motion.div>
           </motion.div>
         </div>
       </section>
