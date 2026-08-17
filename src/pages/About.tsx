@@ -183,7 +183,7 @@ export default function About() {
       </section>
 
       {/* Gallery / Projects Grid */}
-      <section className="py-12 md:py-24 bg-surface-container-high overflow-hidden">
+      {/* <section className="py-12 md:py-24 bg-surface-container-high overflow-hidden">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 md:px-16">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="col-span-1 md:col-span-4 flex flex-col justify-center">
@@ -220,7 +220,7 @@ export default function About() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </motion.main>
   );
 }
