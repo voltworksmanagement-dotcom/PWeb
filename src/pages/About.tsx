@@ -148,11 +148,11 @@ export default function About() {
             <div className="h-px w-full bg-outline-variant" />
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 md:gap-12">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-12 items-start">
             <div className="group flex justify-center text-center">
               <div>
-                <div className="aspect-[4/5] w-32 md:w-48 lg:w-52 overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500 mb-4 md:mb-6 mx-auto">
-                  <img className="w-full h-full object-cover scale-100 group-hover:scale-100 transition-transform duration-700" src={CEO} alt="CEO" />
+                <div className="aspect-[4/5] w-32 md:w-48 lg:w-52 overflow-hidden bg-white grayscale group-hover:grayscale-0 transition-all duration-500 mb-4 md:mb-6 mx-auto">
+                  <img className="w-full h-full object-cover object-top" src={CEO} alt="CEO" />
                 </div>
                 <span className="font-label-caps text-label-caps text-primary mb-2 block">CHIEF EXECUTIVE OFFICER</span>
                 <h4 className="font-headline-md text-headline-md">Himanshu Sahu</h4>
@@ -161,8 +161,8 @@ export default function About() {
 
             <div className="group flex justify-center text-center">
               <div>
-                <div className="aspect-[4/5] w-28 md:w-44 lg:w-48 overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500 mb-4 md:mb-6 mx-auto">
-                  <img className="w-full h-full object-cover scale-100 group-hover:scale-100 transition-transform duration-700" src={CBO} alt="CBO" />
+                <div className="aspect-[4/5] w-32 md:w-48 lg:w-52 overflow-hidden bg-white grayscale group-hover:grayscale-0 transition-all duration-500 mb-4 md:mb-6 mx-auto">
+                  <img className="w-full h-full object-cover object-top origin-top translate-y-[4%]" src={CBO} alt="CBO" />
                 </div>
                 <span className="font-label-caps text-label-caps text-primary mb-2 block">CHIEF BUSINESS OFFICER</span>
                 <h4 className="font-headline-md text-headline-md">Devendra Chaudhary</h4>
@@ -171,8 +171,8 @@ export default function About() {
 
             <div className="group flex justify-center text-center">
               <div>
-                <div className="aspect-[4/5] w-28 md:w-44 lg:w-48 overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500 mb-4 md:mb-6 mx-auto">
-                  <img className="w-full h-full object-cover scale-100 group-hover:scale-100 transition-transform duration-700" src={CTO} alt="CTO" />
+                <div className="aspect-[4/5] w-32 md:w-48 lg:w-52 overflow-hidden bg-white grayscale group-hover:grayscale-0 transition-all duration-500 mb-4 md:mb-6 mx-auto">
+                  <img className="w-full h-full object-cover object-top scale-[1.06] origin-top -translate-y-[4%]" src={CTO} alt="CTO" />
                 </div>
                 <span className="font-label-caps text-label-caps text-primary mb-2 block">CHIEF TECHNOLOGY OFFICER</span>
                 <h4 className="font-headline-md text-headline-md">Rishabh Singh</h4>
