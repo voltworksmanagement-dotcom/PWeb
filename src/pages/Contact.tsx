@@ -88,7 +88,7 @@ export default function Contact() {
               <div className="h-1.5 w-16 bg-[#0066cc]"></div>
             </div>
 
-            <form action="https://formsubmit.co/toufiq.hussain@voltworks.in" method="POST" className="space-y-6 pt-2 font-sans text-[15px]">
+            <form action="https://formsubmit.co/info@voltworks.in" method="POST" className="space-y-6 pt-2 font-sans text-[15px]">
               <input type="hidden" name="_subject" value="VoltWorks contact form submission" />
               <input type="hidden" name="_captcha" value="false" />
               <input type="hidden" name="_template" value="table" />
